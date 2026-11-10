@@ -21,6 +21,7 @@ from .hackernews.tool import search_hackernews
 from .wikipedia.tool import wikipedia_summary
 from .openalex.tool import search_openalex
 from .top_papers.tool import get_top_papers
+from .paper_references.tool import get_paper_references
 
 
 # NOTE (starter_v0): tool names here are intentionally vague. These keys are the
@@ -44,6 +45,9 @@ TOOL_FUNCTIONS = {
     "wikipedia": wikipedia_summary,
     "openalex": search_openalex,
     "top_papers": get_top_papers,
+    "paper_references": get_paper_references,
+    # TODO CP3 (student): register your new tool here, e.g. "my_tool": my_tool_function,
+    # then declare it in artifacts/tools.yaml and run `pytest tests/test_tool_contract.py`.
 }
 
 
