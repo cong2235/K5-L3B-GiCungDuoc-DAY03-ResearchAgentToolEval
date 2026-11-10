@@ -10,8 +10,13 @@ venv/
 .env
 .env.*
 !.env.example
+/report/team/slides.html
 
 # Local-only files (not part of the lab)
+# per-machine Streamlit config (port/address)
+starter_v0/.streamlit/
+# stray copy of .env.example
+starter_v0/.en
 INTERNAL-DEMO-SCRIPT.md
 starter/
 
