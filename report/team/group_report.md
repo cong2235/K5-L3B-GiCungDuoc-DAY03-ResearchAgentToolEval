@@ -25,12 +25,16 @@ cd starter_v0
 pip install -r requirements.txt      # đã có streamlit
 # điền starter_v0/.env (OPENROUTER_API_KEY, TAVILY_API_KEY, FIRECRAWL_API_KEY, RAPIDAPI_KEY, ...)
 streamlit run app.py                  # http://localhost:8501
-cloudflared tunnel --url http://localhost:8501   # tạo link công khai cho team khác
+tailscale funnel --bg 8501            # link công khai cố định (Tailscale Funnel)
+# cách tạm thay thế: cloudflared tunnel --url http://localhost:8501  (link trycloudflare đổi mỗi lần chạy)
 ```
 
 **Link dùng thử (deploy):**
 
-> URL: <!-- TODO: dán https://<random>.trycloudflare.com khi mở tunnel lúc showdown (link tạm, chỉ sống khi cloudflared đang chạy) -->
+> URL: **https://phuong-ideapad-slim-5-16imh9.tail65ddfe.ts.net/**
+>
+> - Trang chat: `/` · Trang so sánh v0 → v4 (metric, case thay đổi, diff prompt/tools): `/So_sánh_v0–v4` (menu bên trái).
+> - Deploy bằng Tailscale Funnel trỏ tới Streamlit trên máy thành viên: link cố định, nhưng chỉ hoạt động khi máy đó bật và `streamlit run app.py` đang chạy.
 
 ### A2. Tool agent có
 
