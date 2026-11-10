@@ -12,6 +12,7 @@
   ],
   "cases": [
     {
+<<<<<<< HEAD
     "id": "G01_social_search_top",
     "phase": "B",
     "suite": "group",
@@ -312,5 +313,49 @@
       "what_it_tests": "Phân biệt bài báo đã xuất bản với preprint arXiv và chọn đúng công cụ theo loại công bố, thời gian và tiêu chí trích dẫn."
     }
   }
+=======
+      "id": "G01_top_papers_routing",
+      "phase": "B",
+      "query": "Cho mình 10 bài báo được trích dẫn nhiều nhất về AI agents đăng trên tạp chí và hội nghị trong 9 tháng qua",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "top_papers",
+            "args": {
+              "months": 9
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_top_cited_published_papers",
+        "difficulty": "medium",
+        "what_it_tests": "Hỏi bài báo được trích dẫn nhiều nhất trên tạp chí/hội nghị trong 9 tháng → phải route tới tool mới top_papers (không phải papers/arXiv hay lookup) với months=9."
+      }
+    },
+    {
+      "id": "G02_paper_references_range",
+      "phase": "B",
+      "query": "Liệt kê giúp mình tài liệu tham khảo từ số 5 tới số 10 của paper arXiv 1706.03762",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_references",
+            "args": {
+              "start": 5,
+              "end": 10
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_paper_references_range",
+        "difficulty": "medium",
+        "what_it_tests": "Hỏi references của một paper cụ thể theo khoảng [5]-[10] → route tới tool mới paper_references (không phải paper_text/papers) và map 'từ số 5 tới số 10' thành start=5, end=10."
+      }
+    }
+>>>>>>> 20ae41794fc7bfb588b6a851ab238fd8be49be68
   ]
 }

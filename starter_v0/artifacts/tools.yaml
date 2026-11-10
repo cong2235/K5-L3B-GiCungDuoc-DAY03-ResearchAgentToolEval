@@ -232,3 +232,20 @@ tools:
         sort_by: {type: string, enum: [citations, relevance, newest], default: "citations", description: "'citations' = trích dẫn nhiều nhất / top / có ảnh hưởng (mặc định); 'relevance' = liên quan nhất tới chủ đề (cần query); 'newest' = mới đăng gần đây nhất."}
         source: {type: string, enum: [openalex, semantic_scholar], default: "openalex", description: "Nguồn dữ liệu. Mặc định 'openalex'; chỉ dùng 'semantic_scholar' khi user yêu cầu rõ Semantic Scholar."}
       required: [query]
+
+  - name: paper_references
+    description: >-
+      Liệt kê TÀI LIỆU THAM KHẢO (references / bibliography) của MỘT bài báo, từ tài liệu số [start]
+      tới [end], kèm vị trí trang + dòng của từng tài liệu trong PDF.
+      DÙNG khi user hỏi "bài này trích dẫn những gì / tài liệu tham khảo / references / reference số mấy
+      tới số mấy" của một paper cụ thể.
+      KHÔNG DÙNG để tìm paper mới (dùng `papers` hoặc `top_papers`) hay đọc nội dung bài (dùng `paper_text`).
+      Nếu user không nói rõ là paper nào thì hỏi lại bằng `clarify`.
+    parameters:
+      type: object
+      properties:
+        paper: {type: string, default: "", description: "arXiv ID hoặc URL (ví dụ '1706.03762'), DOI, OpenAlex ID, hoặc tiêu đề bài báo."}
+        start: {type: integer, default: 1, description: "Số thứ tự tài liệu đầu tiên cần lấy (>= 1). 'từ [5]' -> 5. Không nói -> 1."}
+        end: {type: integer, default: 20, description: "Số thứ tự tài liệu cuối cùng (tối đa start+49). 'tới [10]' -> 10, '5 tài liệu đầu' -> 5. Không nói -> 20."}
+        source: {type: string, enum: [arxiv_pdf, openalex], default: "arxiv_pdf", description: "'arxiv_pdf' khi có arXiv ID/URL (giữ đúng số [1],[2] và có trang/dòng); 'openalex' khi chỉ có DOI hoặc tiêu đề."}
+      required: [paper]
