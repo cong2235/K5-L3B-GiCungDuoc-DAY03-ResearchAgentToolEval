@@ -1,0 +1,1181 @@
+{
+  "transcript_id": "v3_openrouter_20261110T194257143756",
+  "version": "v3",
+  "artifact_version": "v3+pef90408b98e0+t6c8acaab4a58",
+  "prompt_hash": "ef90408b98e0362f7c7690057677f3eed41c6b25592716db73175b696ac212b4",
+  "tools_hash": "6c8acaab4a586e9e5c60ddeb92f9846e49f9bccd141571af17d11f9e766fcd79",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "/home/phuong/Documents/Vin20K/Lab3/K5-L3-GiCungDuoc-DAY03-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/home/phuong/Documents/Vin20K/Lab3/K5-L3-GiCungDuoc-DAY03-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-10T19:42:57",
+  "updated_at": "2026-11-10T19:44:12",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T19:43:15",
+      "user": "Top 5 bài báo được trích dẫn nhiều nhất về AI agents trong 6 tháng qua",
+      "status": "answered",
+      "assistant_text": "Dưới đây là 5 bài báo được trích dẫn nhiều nhất về AI agents trong 6 tháng qua:\n\n1. **[Accelerating scientific discovery with Co-Scientist](https://doi.org/10.1038/s41586-026-10644-y)**\n   - **Tác giả:** Juraj Gottweis, Wei‐Hung Weng, Alexander Daryin, Tao Tu, Petar Sirkovic\n   - **Tạp chí:** Nature\n   - **Ngày xuất bản:** 19/05/2026\n   - **Số lần trích dẫn:** 953\n\n2. **[An open vision-language model for diverse medical applications](https://doi.org/10.1038/s41591-026-04626-w)**\n   - **Tác giả:** Andrew Sellergren, Sahar Kazemzadeh, Fereshteh Mahvar, Atilla P. Kiraly, Madeleine Traverse\n   - **Tạp chí:** Nature Medicine\n   - **Ngày xuất bản:** 01/10/2026\n   - **Số lần trích dẫn:** 951\n\n3. **[Can ChatGPT forecast stock price movements? Return predictability and large language models](https://doi.org/10.1016/j.jfineco.2026.104335)**\n   - **Tác giả:** Alejandro Lopez-Lira, Yuehua Tang\n   - **Tạp chí:** Journal of Financial Economics\n   - **Ngày xuất bản:** 24/07/2026\n   - **Số lần trích dẫn:** 709\n\n4. **[Towards reasoning era: a survey of long chain-of-thought for reasoning large language models](https://doi.org/10.1007/s11432-025-4665-8)**\n   - **Tác giả:** Qiguang Chen, Libo Qin, Jinhao Liu, Dengyun Peng, Jiannan Guan\n   - **Tạp chí:** Science China Information Sciences\n   - **Ngày xuất bản:** 12/05/2026\n   - **Số lần trích dẫn:** 543\n\n5. **[Causal World Modeling for Robot Control](https://doi.org/10.15607/rss.2026.xxii.016)**\n   - **Tác giả:** Lin Li, Qihang Zhang, Yiming Luo, Shuai Yang, Ruilin Wang\n   - **Tạp chí:** Robotics: Science and Systems\n   - **Ngày xuất bản:** 13/07/2026\n   - **Số lần trích dẫn:** 428\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ bài báo nào, hãy cho tôi biết!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "top_papers",
+              "args": {
+                "query": "AI agents",
+                "months": 6,
+                "limit": 5,
+                "sort_by": "citations"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "top_papers",
+              "args": {
+                "query": "AI agents",
+                "months": 6,
+                "limit": 5,
+                "sort_by": "citations"
+              },
+              "result": {
+                "tool": "top_papers",
+                "query": "AI agents",
+                "months": 6,
+                "venue_type": "all",
+                "limit": 5,
+                "sort_by": "citations",
+                "source": "openalex",
+                "from_date": "2026-05-10",
+                "to_date": "2026-11-10",
+                "total_matches": 110877,
+                "items": [
+                  {
+                    "title": "Accelerating scientific discovery with Co-Scientist",
+                    "authors": [
+                      "Juraj Gottweis",
+                      "Wei‐Hung Weng",
+                      "Alexander Daryin",
+                      "Tao Tu",
+                      "Petar Sirkovic"
+                    ],
+                    "venue": "Nature",
+                    "venue_type": "journal",
+                    "publication_date": "2026-05-19",
+                    "cited_by_count": 953,
+                    "doi": "https://doi.org/10.1038/s41586-026-10644-y",
+                    "url": "https://doi.org/10.1038/s41586-026-10644-y",
+                    "source": "openalex.org",
+                    "summary": "Accelerating scientific discovery with Co-Scientist (Nature, 2026-05-19) - 953 citations"
+                  },
+                  {
+                    "title": "An open vision-language model for diverse medical applications",
+                    "authors": [
+                      "Andrew Sellergren",
+                      "Sahar Kazemzadeh",
+                      "Fereshteh Mahvar",
+                      "Atilla P. Kiraly",
+                      "Madeleine Traverse"
+                    ],
+                    "venue": "Nature Medicine",
+                    "venue_type": "journal",
+                    "publication_date": "2026-10-01",
+                    "cited_by_count": 951,
+                    "doi": "https://doi.org/10.1038/s41591-026-04626-w",
+                    "url": "https://doi.org/10.1038/s41591-026-04626-w",
+                    "source": "openalex.org",
+                    "summary": "An open vision-language model for diverse medical applications (Nature Medicine, 2026-10-01) - 951 citations"
+                  },
+                  {
+                    "title": "Can ChatGPT forecast stock price movements? Return predictability and large language models",
+                    "authors": [
+                      "Alejandro Lopez-Lira",
+                      "Yuehua Tang"
+                    ],
+                    "venue": "Journal of Financial Economics",
+                    "venue_type": "journal",
+                    "publication_date": "2026-07-24",
+                    "cited_by_count": 709,
+                    "doi": "https://doi.org/10.1016/j.jfineco.2026.104335",
+                    "url": "https://doi.org/10.1016/j.jfineco.2026.104335",
+                    "source": "openalex.org",
+                    "summary": "Can ChatGPT forecast stock price movements? Return predictability and large language models (Journal of Financial Economics, 2026-07-24) - 709 citations"
+                  },
+                  {
+                    "title": "Towards reasoning era: a survey of long chain-of-thought for reasoning large language models",
+                    "authors": [
+                      "Qiguang Chen",
+                      "Libo Qin",
+                      "Jinhao Liu",
+                      "Dengyun Peng",
+                      "Jiannan Guan"
+                    ],
+                    "venue": "Science China Information Sciences",
+                    "venue_type": "journal",
+                    "publication_date": "2026-05-12",
+                    "cited_by_count": 543,
+                    "doi": "https://doi.org/10.1007/s11432-025-4665-8",
+                    "url": "https://doi.org/10.1007/s11432-025-4665-8",
+                    "source": "openalex.org",
+                    "summary": "Towards reasoning era: a survey of long chain-of-thought for reasoning large language models (Science China Information Sciences, 2026-05-12) - 543 citations"
+                  },
+                  {
+                    "title": "Causal World Modeling for Robot Control",
+                    "authors": [
+                      "Lin Li",
+                      "Qihang Zhang",
+                      "Yiming Luo",
+                      "Shuai Yang",
+                      "Ruilin Wang"
+                    ],
+                    "venue": "Robotics: Science and Systems",
+                    "venue_type": "conference",
+                    "publication_date": "2026-07-13",
+                    "cited_by_count": 428,
+                    "doi": "https://doi.org/10.15607/rss.2026.xxii.016",
+                    "url": "https://doi.org/10.15607/rss.2026.xxii.016",
+                    "source": "openalex.org",
+                    "summary": "Causal World Modeling for Robot Control (Robotics: Science and Systems, 2026-07-13) - 428 citations"
+                  }
+                ],
+                "note": "Recent papers have few citations, so counts are indicative only."
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là 5 bài báo được trích dẫn nhiều nhất về AI agents trong 6 tháng qua:\n\n1. **[Accelerating scientific discovery with Co-Scientist](https://doi.org/10.1038/s41586-026-10644-y)**\n   - **Tác giả:** Juraj Gottweis, Wei‐Hung Weng, Alexander Daryin, Tao Tu, Petar Sirkovic\n   - **Tạp chí:** Nature\n   - **Ngày xuất bản:** 19/05/2026\n   - **Số lần trích dẫn:** 953\n\n2. **[An open vision-language model for diverse medical applications](https://doi.org/10.1038/s41591-026-04626-w)**\n   - **Tác giả:** Andrew Sellergren, Sahar Kazemzadeh, Fereshteh Mahvar, Atilla P. Kiraly, Madeleine Traverse\n   - **Tạp chí:** Nature Medicine\n   - **Ngày xuất bản:** 01/10/2026\n   - **Số lần trích dẫn:** 951\n\n3. **[Can ChatGPT forecast stock price movements? Return predictability and large language models](https://doi.org/10.1016/j.jfineco.2026.104335)**\n   - **Tác giả:** Alejandro Lopez-Lira, Yuehua Tang\n   - **Tạp chí:** Journal of Financial Economics\n   - **Ngày xuất bản:** 24/07/2026\n   - **Số lần trích dẫn:** 709\n\n4. **[Towards reasoning era: a survey of long chain-of-thought for reasoning large language models](https://doi.org/10.1007/s11432-025-4665-8)**\n   - **Tác giả:** Qiguang Chen, Libo Qin, Jinhao Liu, Dengyun Peng, Jiannan Guan\n   - **Tạp chí:** Science China Information Sciences\n   - **Ngày xuất bản:** 12/05/2026\n   - **Số lần trích dẫn:** 543\n\n5. **[Causal World Modeling for Robot Control](https://doi.org/10.15607/rss.2026.xxii.016)**\n   - **Tác giả:** Lin Li, Qihang Zhang, Yiming Luo, Shuai Yang, Ruilin Wang\n   - **Tạp chí:** Robotics: Science and Systems\n   - **Ngày xuất bản:** 13/07/2026\n   - **Số lần trích dẫn:** 428\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ bài báo nào, hãy cho tôi biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "top_papers",
+          "args": {
+            "query": "AI agents",
+            "months": 6,
+            "limit": 5,
+            "sort_by": "citations"
+          },
+          "result": {
+            "tool": "top_papers",
+            "query": "AI agents",
+            "months": 6,
+            "venue_type": "all",
+            "limit": 5,
+            "sort_by": "citations",
+            "source": "openalex",
+            "from_date": "2026-05-10",
+            "to_date": "2026-11-10",
+            "total_matches": 110877,
+            "items": [
+              {
+                "title": "Accelerating scientific discovery with Co-Scientist",
+                "authors": [
+                  "Juraj Gottweis",
+                  "Wei‐Hung Weng",
+                  "Alexander Daryin",
+                  "Tao Tu",
+                  "Petar Sirkovic"
+                ],
+                "venue": "Nature",
+                "venue_type": "journal",
+                "publication_date": "2026-05-19",
+                "cited_by_count": 953,
+                "doi": "https://doi.org/10.1038/s41586-026-10644-y",
+                "url": "https://doi.org/10.1038/s41586-026-10644-y",
+                "source": "openalex.org",
+                "summary": "Accelerating scientific discovery with Co-Scientist (Nature, 2026-05-19) - 953 citations"
+              },
+              {
+                "title": "An open vision-language model for diverse medical applications",
+                "authors": [
+                  "Andrew Sellergren",
+                  "Sahar Kazemzadeh",
+                  "Fereshteh Mahvar",
+                  "Atilla P. Kiraly",
+                  "Madeleine Traverse"
+                ],
+                "venue": "Nature Medicine",
+                "venue_type": "journal",
+                "publication_date": "2026-10-01",
+                "cited_by_count": 951,
+                "doi": "https://doi.org/10.1038/s41591-026-04626-w",
+                "url": "https://doi.org/10.1038/s41591-026-04626-w",
+                "source": "openalex.org",
+                "summary": "An open vision-language model for diverse medical applications (Nature Medicine, 2026-10-01) - 951 citations"
+              },
+              {
+                "title": "Can ChatGPT forecast stock price movements? Return predictability and large language models",
+                "authors": [
+                  "Alejandro Lopez-Lira",
+                  "Yuehua Tang"
+                ],
+                "venue": "Journal of Financial Economics",
+                "venue_type": "journal",
+                "publication_date": "2026-07-24",
+                "cited_by_count": 709,
+                "doi": "https://doi.org/10.1016/j.jfineco.2026.104335",
+                "url": "https://doi.org/10.1016/j.jfineco.2026.104335",
+                "source": "openalex.org",
+                "summary": "Can ChatGPT forecast stock price movements? Return predictability and large language models (Journal of Financial Economics, 2026-07-24) - 709 citations"
+              },
+              {
+                "title": "Towards reasoning era: a survey of long chain-of-thought for reasoning large language models",
+                "authors": [
+                  "Qiguang Chen",
+                  "Libo Qin",
+                  "Jinhao Liu",
+                  "Dengyun Peng",
+                  "Jiannan Guan"
+                ],
+                "venue": "Science China Information Sciences",
+                "venue_type": "journal",
+                "publication_date": "2026-05-12",
+                "cited_by_count": 543,
+                "doi": "https://doi.org/10.1007/s11432-025-4665-8",
+                "url": "https://doi.org/10.1007/s11432-025-4665-8",
+                "source": "openalex.org",
+                "summary": "Towards reasoning era: a survey of long chain-of-thought for reasoning large language models (Science China Information Sciences, 2026-05-12) - 543 citations"
+              },
+              {
+                "title": "Causal World Modeling for Robot Control",
+                "authors": [
+                  "Lin Li",
+                  "Qihang Zhang",
+                  "Yiming Luo",
+                  "Shuai Yang",
+                  "Ruilin Wang"
+                ],
+                "venue": "Robotics: Science and Systems",
+                "venue_type": "conference",
+                "publication_date": "2026-07-13",
+                "cited_by_count": 428,
+                "doi": "https://doi.org/10.15607/rss.2026.xxii.016",
+                "url": "https://doi.org/10.15607/rss.2026.xxii.016",
+                "source": "openalex.org",
+                "summary": "Causal World Modeling for Robot Control (Robotics: Science and Systems, 2026-07-13) - 428 citations"
+              }
+            ],
+            "note": "Recent papers have few citations, so counts are indicative only."
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T19:43:31"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-11-10T19:43:56",
+      "user": "Causal World Modeling for Robot Control bạn tìm cho tôi các tài liệu tham khảo của bài báo này",
+      "status": "answered",
+      "assistant_text": "Dưới đây là các tài liệu tham khảo của bài báo \"Causal World Modeling for Robot Control\":\n\n1. **DensePhysNet: Learning Dense Physical Object Representations Via Multi-Step Dynamic Interactions**\n   - Tác giả: Zhenjia Xu, Jiajun Wu, Andy Zeng, Joshua B. Tenenbaum, Shuran Song\n   - Năm: 2019\n   - Tạp chí: Robotics: Science and Systems\n   - [DOI](https://doi.org/10.15607/rss.2019.xv.046)\n\n2. **Dynamic-Resolution Model Learning for Object Pile Manipulation**\n   - Tác giả: Yixuan Wang, Yunzhu Li, Katherine Driggs-Campbell, Li Fei-Fei, Jiajun Wu\n   - Năm: 2023\n   - Tạp chí: Robotics: Science and Systems\n   - [DOI](https://doi.org/10.15607/rss.2023.xix.047)\n\n3. **RoboDreamer: Learning Compositional World Models for Robot Imagination**\n   - Tác giả: Siyuan Zhou, Yilun Du, Jiaben Chen, Yandong Li, Dit‐Yan Yeung\n   - Năm: 2024\n   - Tạp chí: arXiv (Cornell University)\n   - [DOI](https://doi.org/10.48550/arxiv.2404.12377)\n\n4. **ManiWAV: Learning Robot Manipulation from In-the-Wild Audio-Visual Data**\n   - Tác giả: Zeyi Liu, Cheng Chi, Eric A. Cousineau, Naveen Suresh Kuppuswamy, Benjamin Burchfiel\n   - Năm: 2024\n   - Tạp chí: arXiv (Cornell University)\n   - [DOI](https://doi.org/10.48550/arxiv.2406.19464)\n\n5. **AdaptiGraph: Material-Adaptive Graph-Based Neural Dynamics for Robotic Manipulation**\n   - Tác giả: Kaifeng Zhang, Baoyu Li, Kris K. Hauser, Yunzhu Li\n   - Năm: 2024\n   - Tạp chí: Robotics: Science and Systems\n   - [DOI](https://doi.org/10.15607/rss.2024.xx.010)\n\nNếu bạn cần thêm thông tin về các tài liệu tham khảo khác, hãy cho tôi biết!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "paper_references",
+              "args": {
+                "paper": "10.15607/rss.2026.xxii.016"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "paper_references",
+              "args": {
+                "paper": "10.15607/rss.2026.xxii.016"
+              },
+              "result": {
+                "tool": "paper_references",
+                "error": "ValueError",
+                "message": "source=arxiv_pdf needs an arXiv ID or URL (e.g. 1706.03762); use source=openalex for a DOI or title"
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "paper_references",
+              "args": {
+                "paper": "Causal World Modeling for Robot Control",
+                "source": "openalex"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "paper_references",
+              "args": {
+                "paper": "Causal World Modeling for Robot Control",
+                "source": "openalex"
+              },
+              "result": {
+                "tool": "paper_references",
+                "paper": "Causal World Modeling for Robot Control",
+                "source": "openalex",
+                "start": 1,
+                "end": 20,
+                "paper_id": "https://openalex.org/W7126180855",
+                "matched_title": "Causal World Modeling for Robot Control",
+                "matched_year": 2026,
+                "citation_style": null,
+                "references_heading": null,
+                "total_references": 39,
+                "items": [
+                  {
+                    "number": 1,
+                    "text": "DensePhysNet: Learning Dense Physical Object Representations Via Multi-Step Dynamic Interactions",
+                    "authors": [
+                      "Zhenjia Xu",
+                      "Jiajun Wu",
+                      "Andy Zeng",
+                      "Joshua B. Tenenbaum",
+                      "Shuran Song"
+                    ],
+                    "year": 2019,
+                    "venue": "Robotics: Science and Systems",
+                    "doi": "https://doi.org/10.15607/rss.2019.xv.046",
+                    "url": "https://doi.org/10.15607/rss.2019.xv.046",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 2,
+                    "text": "Dynamic-Resolution Model Learning for Object Pile Manipulation",
+                    "authors": [
+                      "Yixuan Wang",
+                      "Yunzhu Li",
+                      "Katherine Driggs-Campbell",
+                      "Li Fei-Fei",
+                      "Jiajun Wu"
+                    ],
+                    "year": 2023,
+                    "venue": "Robotics: Science and Systems",
+                    "doi": "https://doi.org/10.15607/rss.2023.xix.047",
+                    "url": "https://doi.org/10.15607/rss.2023.xix.047",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 3,
+                    "text": "RoboDreamer: Learning Compositional World Models for Robot Imagination",
+                    "authors": [
+                      "Siyuan Zhou",
+                      "Yilun Du",
+                      "Jiaben Chen",
+                      "Yandong Li",
+                      "Dit‐Yan Yeung"
+                    ],
+                    "year": 2024,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2404.12377",
+                    "url": "https://doi.org/10.48550/arxiv.2404.12377",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 4,
+                    "text": "ManiWAV: Learning Robot Manipulation from In-the-Wild Audio-Visual Data",
+                    "authors": [
+                      "Zeyi Liu",
+                      "Cheng Chi",
+                      "Eric A. Cousineau",
+                      "Naveen Suresh Kuppuswamy",
+                      "Benjamin Burchfiel"
+                    ],
+                    "year": 2024,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2406.19464",
+                    "url": "https://doi.org/10.48550/arxiv.2406.19464",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 5,
+                    "text": "AdaptiGraph: Material-Adaptive Graph-Based Neural Dynamics for Robotic Manipulation",
+                    "authors": [
+                      "Kaifeng Zhang",
+                      "Baoyu Li",
+                      "Kris K. Hauser",
+                      "Yunzhu Li"
+                    ],
+                    "year": 2024,
+                    "venue": "Robotics: Science and Systems",
+                    "doi": "https://doi.org/10.15607/rss.2024.xx.010",
+                    "url": "https://doi.org/10.15607/rss.2024.xx.010",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 6,
+                    "text": "FastUMI: A Scalable and Hardware-Independent Universal Manipulation Interface with Dataset",
+                    "authors": [
+                      "Zhaxizhuoma",
+                      "Liu, Kehui",
+                      "Guan, Chuyue",
+                      "Zhongjie Jia",
+                      "Wu, Ziniu"
+                    ],
+                    "year": 2024,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2409.19499",
+                    "url": "https://doi.org/10.48550/arxiv.2409.19499",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 7,
+                    "text": "TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies",
+                    "authors": [
+                      "Ruijie Zheng",
+                      "Yongyuan Liang",
+                      "Shuaiyi Huang",
+                      "Jianfeng Gao",
+                      "Hal Daumé"
+                    ],
+                    "year": 2024,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2412.10345",
+                    "url": "https://doi.org/10.48550/arxiv.2412.10345",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 8,
+                    "text": "Wan: Open and Advanced Large-Scale Video Generative Models",
+                    "authors": [
+                      "WanTeam",
+                      "Ang Wang",
+                      "Baole Ai",
+                      "Wen, Bin",
+                      "Chaojie Mao"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2503.20314",
+                    "url": "https://doi.org/10.48550/arxiv.2503.20314",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 9,
+                    "text": "Particle-Grid Neural Dynamics for Learning Deformable Object Models from RGB-D Videos",
+                    "authors": [
+                      "Kaifeng Zhang",
+                      "Baoyu Li",
+                      "Kris K. Hauser",
+                      "Yunzhu Li"
+                    ],
+                    "year": 2025,
+                    "venue": "Robotics: Science and Systems",
+                    "doi": "https://doi.org/10.15607/rss.2025.xxi.036",
+                    "url": "https://doi.org/10.15607/rss.2025.xxi.036",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 10,
+                    "text": "CronusVLA: Towards Efficient and Robust Manipulation via Multi-Frame Vision-Language-Action Modeling",
+                    "authors": [
+                      "Hao Li",
+                      "Yang, Shuai",
+                      "Yilun Chen",
+                      "Xinyi Chen",
+                      "Yang, Xiaoda"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2506.19816",
+                    "url": "https://doi.org/10.48550/arxiv.2506.19816",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 11,
+                    "text": "Unified Vision-Language-Action Model",
+                    "authors": [
+                      "Yuqi Wang",
+                      "Xinghang Li",
+                      "Wenxuan Wang",
+                      "Junbo Zhang",
+                      "Yingyan Li"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2506.19850",
+                    "url": "https://doi.org/10.48550/arxiv.2506.19850",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 12,
+                    "text": "InstructVLA: Vision-Language-Action Instruction Tuning from Understanding to Manipulation",
+                    "authors": [
+                      "Yang, Shuai",
+                      "Li, Hao",
+                      "Bin Wang",
+                      "Yilun Chen",
+                      "Yang Tian"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2507.17520",
+                    "url": "https://doi.org/10.48550/arxiv.2507.17520",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 13,
+                    "text": "SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics",
+                    "authors": [
+                      "Mustafa Shukor",
+                      "Dana Aubakirova",
+                      "Capuano, Francesco",
+                      "Kooijmans, Pepijn",
+                      "Palma, Steven"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2506.01844",
+                    "url": "https://doi.org/10.48550/arxiv.2506.01844",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 14,
+                    "text": "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots",
+                    "authors": [
+                      "Nvidia Nvidia",
+                      ":",
+                      "Johan Björck",
+                      "Castañeda, Fernando",
+                      "Nikita Chernyadev"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2503.14734",
+                    "url": "https://doi.org/10.48550/arxiv.2503.14734",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 15,
+                    "text": "Vidar: Embodied Video Diffusion Model for Generalist Manipulation",
+                    "authors": [
+                      "Feng, Yao",
+                      "Tan, Hengkai",
+                      "Mao, Xinyi",
+                      "Chendong Xiang",
+                      "Guodong Liu"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2507.12898",
+                    "url": "https://doi.org/10.48550/arxiv.2507.12898",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 16,
+                    "text": "MV-UMI: A Scalable Multi-View Interface for Cross-Embodiment Learning",
+                    "authors": [
+                      "Omar Rayyan",
+                      "John Abanes",
+                      "Mahmoud Hafez",
+                      "Anthony P. Tzes",
+                      "Fares J. Abu‐Dakka"
+                    ],
+                    "year": 2026,
+                    "venue": "IEEE Access",
+                    "doi": "https://doi.org/10.1109/access.2026.3709982",
+                    "url": "https://doi.org/10.1109/access.2026.3709982",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 17,
+                    "text": "ViTaMIn: Learning Contact-Rich Tasks Through Robot-Free Visuo-Tactile Manipulation Interface",
+                    "authors": [
+                      "Fangchen Liu",
+                      "Chuanyu Li",
+                      "Qin, Yihua",
+                      "Zoe Xu",
+                      "Pieter Abbeel"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2504.06156",
+                    "url": "https://doi.org/10.48550/arxiv.2504.06156",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 18,
+                    "text": "InternData-A1: Pioneering High-Fidelity Synthetic Data for Pre-training Generalist Policy",
+                    "authors": [
+                      "Yang Tian",
+                      "Yuyin Yang",
+                      "Xie, Yiman",
+                      "Zetao Cai",
+                      "Shi, Xu"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2511.16651",
+                    "url": "https://doi.org/10.48550/arxiv.2511.16651",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 19,
+                    "text": "VLASH: Real-Time VLAs via Future-State-Aware Asynchronous Inference",
+                    "authors": [
+                      "Jiaming Tang",
+                      "Yufei Sun",
+                      "Yilong Zhao",
+                      "Yang, Shang",
+                      "Yujun Lin"
+                    ],
+                    "year": 2025,
+                    "venue": "arXiv (Cornell University)",
+                    "doi": "https://doi.org/10.48550/arxiv.2512.01031",
+                    "url": "https://doi.org/10.48550/arxiv.2512.01031",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  },
+                  {
+                    "number": 20,
+                    "text": "Real-Time Execution of Action Chunking Flow Policies",
+                    "authors": [
+                      "Kevin Black",
+                      "Manuel Y. Galliker",
+                      "Sergey Levine"
+                    ],
+                    "year": 2025,
+                    "venue": "neural information processing systems",
+                    "doi": "https://doi.org/10.52202/085713-1122",
+                    "url": "https://doi.org/10.52202/085713-1122",
+                    "page_start": null,
+                    "line_start": null,
+                    "page_end": null,
+                    "line_end": null,
+                    "source": "openalex.org"
+                  }
+                ],
+                "note": "OpenAlex order is NOT the paper's [1],[2] order and has no page/line positions; references OpenAlex could not match are missing. Use source=arxiv_pdf for exact numbering."
+              }
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "assistant_text": "Dưới đây là các tài liệu tham khảo của bài báo \"Causal World Modeling for Robot Control\":\n\n1. **DensePhysNet: Learning Dense Physical Object Representations Via Multi-Step Dynamic Interactions**\n   - Tác giả: Zhenjia Xu, Jiajun Wu, Andy Zeng, Joshua B. Tenenbaum, Shuran Song\n   - Năm: 2019\n   - Tạp chí: Robotics: Science and Systems\n   - [DOI](https://doi.org/10.15607/rss.2019.xv.046)\n\n2. **Dynamic-Resolution Model Learning for Object Pile Manipulation**\n   - Tác giả: Yixuan Wang, Yunzhu Li, Katherine Driggs-Campbell, Li Fei-Fei, Jiajun Wu\n   - Năm: 2023\n   - Tạp chí: Robotics: Science and Systems\n   - [DOI](https://doi.org/10.15607/rss.2023.xix.047)\n\n3. **RoboDreamer: Learning Compositional World Models for Robot Imagination**\n   - Tác giả: Siyuan Zhou, Yilun Du, Jiaben Chen, Yandong Li, Dit‐Yan Yeung\n   - Năm: 2024\n   - Tạp chí: arXiv (Cornell University)\n   - [DOI](https://doi.org/10.48550/arxiv.2404.12377)\n\n4. **ManiWAV: Learning Robot Manipulation from In-the-Wild Audio-Visual Data**\n   - Tác giả: Zeyi Liu, Cheng Chi, Eric A. Cousineau, Naveen Suresh Kuppuswamy, Benjamin Burchfiel\n   - Năm: 2024\n   - Tạp chí: arXiv (Cornell University)\n   - [DOI](https://doi.org/10.48550/arxiv.2406.19464)\n\n5. **AdaptiGraph: Material-Adaptive Graph-Based Neural Dynamics for Robotic Manipulation**\n   - Tác giả: Kaifeng Zhang, Baoyu Li, Kris K. Hauser, Yunzhu Li\n   - Năm: 2024\n   - Tạp chí: Robotics: Science and Systems\n   - [DOI](https://doi.org/10.15607/rss.2024.xx.010)\n\nNếu bạn cần thêm thông tin về các tài liệu tham khảo khác, hãy cho tôi biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "paper_references",
+          "args": {
+            "paper": "10.15607/rss.2026.xxii.016"
+          },
+          "result": {
+            "tool": "paper_references",
+            "error": "ValueError",
+            "message": "source=arxiv_pdf needs an arXiv ID or URL (e.g. 1706.03762); use source=openalex for a DOI or title"
+          }
+        },
+        {
+          "tool": "paper_references",
+          "args": {
+            "paper": "Causal World Modeling for Robot Control",
+            "source": "openalex"
+          },
+          "result": {
+            "tool": "paper_references",
+            "paper": "Causal World Modeling for Robot Control",
+            "source": "openalex",
+            "start": 1,
+            "end": 20,
+            "paper_id": "https://openalex.org/W7126180855",
+            "matched_title": "Causal World Modeling for Robot Control",
+            "matched_year": 2026,
+            "citation_style": null,
+            "references_heading": null,
+            "total_references": 39,
+            "items": [
+              {
+                "number": 1,
+                "text": "DensePhysNet: Learning Dense Physical Object Representations Via Multi-Step Dynamic Interactions",
+                "authors": [
+                  "Zhenjia Xu",
+                  "Jiajun Wu",
+                  "Andy Zeng",
+                  "Joshua B. Tenenbaum",
+                  "Shuran Song"
+                ],
+                "year": 2019,
+                "venue": "Robotics: Science and Systems",
+                "doi": "https://doi.org/10.15607/rss.2019.xv.046",
+                "url": "https://doi.org/10.15607/rss.2019.xv.046",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 2,
+                "text": "Dynamic-Resolution Model Learning for Object Pile Manipulation",
+                "authors": [
+                  "Yixuan Wang",
+                  "Yunzhu Li",
+                  "Katherine Driggs-Campbell",
+                  "Li Fei-Fei",
+                  "Jiajun Wu"
+                ],
+                "year": 2023,
+                "venue": "Robotics: Science and Systems",
+                "doi": "https://doi.org/10.15607/rss.2023.xix.047",
+                "url": "https://doi.org/10.15607/rss.2023.xix.047",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 3,
+                "text": "RoboDreamer: Learning Compositional World Models for Robot Imagination",
+                "authors": [
+                  "Siyuan Zhou",
+                  "Yilun Du",
+                  "Jiaben Chen",
+                  "Yandong Li",
+                  "Dit‐Yan Yeung"
+                ],
+                "year": 2024,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2404.12377",
+                "url": "https://doi.org/10.48550/arxiv.2404.12377",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 4,
+                "text": "ManiWAV: Learning Robot Manipulation from In-the-Wild Audio-Visual Data",
+                "authors": [
+                  "Zeyi Liu",
+                  "Cheng Chi",
+                  "Eric A. Cousineau",
+                  "Naveen Suresh Kuppuswamy",
+                  "Benjamin Burchfiel"
+                ],
+                "year": 2024,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2406.19464",
+                "url": "https://doi.org/10.48550/arxiv.2406.19464",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 5,
+                "text": "AdaptiGraph: Material-Adaptive Graph-Based Neural Dynamics for Robotic Manipulation",
+                "authors": [
+                  "Kaifeng Zhang",
+                  "Baoyu Li",
+                  "Kris K. Hauser",
+                  "Yunzhu Li"
+                ],
+                "year": 2024,
+                "venue": "Robotics: Science and Systems",
+                "doi": "https://doi.org/10.15607/rss.2024.xx.010",
+                "url": "https://doi.org/10.15607/rss.2024.xx.010",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 6,
+                "text": "FastUMI: A Scalable and Hardware-Independent Universal Manipulation Interface with Dataset",
+                "authors": [
+                  "Zhaxizhuoma",
+                  "Liu, Kehui",
+                  "Guan, Chuyue",
+                  "Zhongjie Jia",
+                  "Wu, Ziniu"
+                ],
+                "year": 2024,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2409.19499",
+                "url": "https://doi.org/10.48550/arxiv.2409.19499",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 7,
+                "text": "TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies",
+                "authors": [
+                  "Ruijie Zheng",
+                  "Yongyuan Liang",
+                  "Shuaiyi Huang",
+                  "Jianfeng Gao",
+                  "Hal Daumé"
+                ],
+                "year": 2024,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2412.10345",
+                "url": "https://doi.org/10.48550/arxiv.2412.10345",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 8,
+                "text": "Wan: Open and Advanced Large-Scale Video Generative Models",
+                "authors": [
+                  "WanTeam",
+                  "Ang Wang",
+                  "Baole Ai",
+                  "Wen, Bin",
+                  "Chaojie Mao"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2503.20314",
+                "url": "https://doi.org/10.48550/arxiv.2503.20314",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 9,
+                "text": "Particle-Grid Neural Dynamics for Learning Deformable Object Models from RGB-D Videos",
+                "authors": [
+                  "Kaifeng Zhang",
+                  "Baoyu Li",
+                  "Kris K. Hauser",
+                  "Yunzhu Li"
+                ],
+                "year": 2025,
+                "venue": "Robotics: Science and Systems",
+                "doi": "https://doi.org/10.15607/rss.2025.xxi.036",
+                "url": "https://doi.org/10.15607/rss.2025.xxi.036",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 10,
+                "text": "CronusVLA: Towards Efficient and Robust Manipulation via Multi-Frame Vision-Language-Action Modeling",
+                "authors": [
+                  "Hao Li",
+                  "Yang, Shuai",
+                  "Yilun Chen",
+                  "Xinyi Chen",
+                  "Yang, Xiaoda"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2506.19816",
+                "url": "https://doi.org/10.48550/arxiv.2506.19816",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 11,
+                "text": "Unified Vision-Language-Action Model",
+                "authors": [
+                  "Yuqi Wang",
+                  "Xinghang Li",
+                  "Wenxuan Wang",
+                  "Junbo Zhang",
+                  "Yingyan Li"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2506.19850",
+                "url": "https://doi.org/10.48550/arxiv.2506.19850",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 12,
+                "text": "InstructVLA: Vision-Language-Action Instruction Tuning from Understanding to Manipulation",
+                "authors": [
+                  "Yang, Shuai",
+                  "Li, Hao",
+                  "Bin Wang",
+                  "Yilun Chen",
+                  "Yang Tian"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2507.17520",
+                "url": "https://doi.org/10.48550/arxiv.2507.17520",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 13,
+                "text": "SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics",
+                "authors": [
+                  "Mustafa Shukor",
+                  "Dana Aubakirova",
+                  "Capuano, Francesco",
+                  "Kooijmans, Pepijn",
+                  "Palma, Steven"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2506.01844",
+                "url": "https://doi.org/10.48550/arxiv.2506.01844",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 14,
+                "text": "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots",
+                "authors": [
+                  "Nvidia Nvidia",
+                  ":",
+                  "Johan Björck",
+                  "Castañeda, Fernando",
+                  "Nikita Chernyadev"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2503.14734",
+                "url": "https://doi.org/10.48550/arxiv.2503.14734",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 15,
+                "text": "Vidar: Embodied Video Diffusion Model for Generalist Manipulation",
+                "authors": [
+                  "Feng, Yao",
+                  "Tan, Hengkai",
+                  "Mao, Xinyi",
+                  "Chendong Xiang",
+                  "Guodong Liu"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2507.12898",
+                "url": "https://doi.org/10.48550/arxiv.2507.12898",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 16,
+                "text": "MV-UMI: A Scalable Multi-View Interface for Cross-Embodiment Learning",
+                "authors": [
+                  "Omar Rayyan",
+                  "John Abanes",
+                  "Mahmoud Hafez",
+                  "Anthony P. Tzes",
+                  "Fares J. Abu‐Dakka"
+                ],
+                "year": 2026,
+                "venue": "IEEE Access",
+                "doi": "https://doi.org/10.1109/access.2026.3709982",
+                "url": "https://doi.org/10.1109/access.2026.3709982",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 17,
+                "text": "ViTaMIn: Learning Contact-Rich Tasks Through Robot-Free Visuo-Tactile Manipulation Interface",
+                "authors": [
+                  "Fangchen Liu",
+                  "Chuanyu Li",
+                  "Qin, Yihua",
+                  "Zoe Xu",
+                  "Pieter Abbeel"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2504.06156",
+                "url": "https://doi.org/10.48550/arxiv.2504.06156",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 18,
+                "text": "InternData-A1: Pioneering High-Fidelity Synthetic Data for Pre-training Generalist Policy",
+                "authors": [
+                  "Yang Tian",
+                  "Yuyin Yang",
+                  "Xie, Yiman",
+                  "Zetao Cai",
+                  "Shi, Xu"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2511.16651",
+                "url": "https://doi.org/10.48550/arxiv.2511.16651",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 19,
+                "text": "VLASH: Real-Time VLAs via Future-State-Aware Asynchronous Inference",
+                "authors": [
+                  "Jiaming Tang",
+                  "Yufei Sun",
+                  "Yilong Zhao",
+                  "Yang, Shang",
+                  "Yujun Lin"
+                ],
+                "year": 2025,
+                "venue": "arXiv (Cornell University)",
+                "doi": "https://doi.org/10.48550/arxiv.2512.01031",
+                "url": "https://doi.org/10.48550/arxiv.2512.01031",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              },
+              {
+                "number": 20,
+                "text": "Real-Time Execution of Action Chunking Flow Policies",
+                "authors": [
+                  "Kevin Black",
+                  "Manuel Y. Galliker",
+                  "Sergey Levine"
+                ],
+                "year": 2025,
+                "venue": "neural information processing systems",
+                "doi": "https://doi.org/10.52202/085713-1122",
+                "url": "https://doi.org/10.52202/085713-1122",
+                "page_start": null,
+                "line_start": null,
+                "page_end": null,
+                "line_end": null,
+                "source": "openalex.org"
+              }
+            ],
+            "note": "OpenAlex order is NOT the paper's [1],[2] order and has no page/line positions; references OpenAlex could not match are missing. Use source=arxiv_pdf for exact numbering."
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T19:44:12"
+    }
+  ]
+}
