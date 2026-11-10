@@ -544,3 +544,119 @@ def test_top_papers_semantic_scholar_rate_limit_returns_error_dict(fake_http) ->
 def test_months_ago_clamps_to_end_of_month() -> None:
     assert _months_ago(date(2026, 11, 30), 9) == date(2026, 2, 28)
     assert _months_ago(date(2026, 3, 15), 9) == date(2025, 6, 15)
+
+
+# ---------------- paper_references (team tool #2) ----------------
+
+from tools.paper_references import tool as refs_tool  # noqa: E402
+
+BRACKET_PAGES = [
+    "Intro text\nConclusion.",
+    "Acknowledgements.\nReferences\n[1] A. Author and B. Author. First paper. In NeurIPS,\n2017.\n"
+    "[2] C. Author. Second paper. arXiv\npreprint arXiv:1234.56789, 2016.\n10",
+    "[3] D. Author. Third paper con-\ntinued here. 2015.\n[4] E. Author. Fourth. 2014.",
+    "Attention Visualizations\nFigure 3: some caption text that is not a reference.",
+]
+
+AUTHOR_YEAR_PAGES = [
+    "References\nAlan Akbik, Duncan Blythe, and Roland Vollgraf.\n2018. Contextual string embeddings. In COLING.\n"
+    "Z. Chen, H. Zhang, and L. Zhao. 2018. Quora question pairs.\n"
+    "Wilson L Taylor. 1953. Cloze procedure. Journalism Bulletin.\n"
+    "A Additional Details for BERT\nAppendix text.",
+]
+
+
+def test_paper_references_parse_bracket_keeps_numbers_and_page_line_positions() -> None:
+    parsed = refs_tool.parse_references(BRACKET_PAGES)
+
+    assert parsed["style"] == "bracket"
+    assert (parsed["heading_page"], parsed["heading_line"]) == (2, 2)
+    assert [e["number"] for e in parsed["entries"]] == [1, 2, 3, 4]  # stops before the figure page
+    first, third = parsed["entries"][0], parsed["entries"][2]
+    assert first["text"] == "A. Author and B. Author. First paper. In NeurIPS, 2017."
+    assert (first["page_start"], first["line_start"], first["page_end"], first["line_end"]) == (2, 3, 2, 4)
+    assert third["text"] == "D. Author. Third paper continued here. 2015."  # hyphenation re-joined
+    assert (third["page_start"], third["line_start"]) == (3, 1)
+
+
+def test_paper_references_parse_author_year_splits_initials_and_single_author() -> None:
+    parsed = refs_tool.parse_references(AUTHOR_YEAR_PAGES)
+
+    assert parsed["style"] == "author_year"
+    texts = [e["text"] for e in parsed["entries"]]
+    assert len(texts) == 3  # stops at "A Additional Details" appendix heading
+    assert texts[0].startswith("Alan Akbik") and texts[0].endswith("In COLING.")
+    assert texts[1].startswith("Z. Chen")
+    assert texts[2].startswith("Wilson L Taylor. 1953.")
+
+
+def test_paper_references_parse_without_heading_returns_no_entries() -> None:
+    parsed = refs_tool.parse_references(["Just a page.", "No bibliography here."])
+    assert parsed["entries"] == [] and parsed["style"] is None
+
+
+def test_paper_references_arxiv_pdf_returns_requested_range(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(refs_tool, "_arxiv_pdf_path", lambda arxiv_id: (tmp_path / "x.pdf", f"https://arxiv.org/pdf/{arxiv_id}.pdf"))
+    monkeypatch.setattr(refs_tool, "_pdf_pages", lambda path: BRACKET_PAGES)
+
+    result = TOOL_FUNCTIONS["paper_references"](paper="https://arxiv.org/abs/1706.03762v7", start=2, end=3)
+
+    assert result["paper_id"] == "1706.03762v7"
+    assert result["total_references"] == 4
+    assert [item["number"] for item in result["items"]] == [2, 3]
+    assert result["items"][0]["line_start"] == 5
+
+
+def test_paper_references_bad_input_from_model_is_normalised(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(refs_tool, "_arxiv_pdf_path", lambda arxiv_id: (tmp_path / "x.pdf", ""))
+    monkeypatch.setattr(refs_tool, "_pdf_pages", lambda path: BRACKET_PAGES)
+
+    result = TOOL_FUNCTIONS["paper_references"](paper="1706.03762", start="zero", end=-5, source="scholar")
+    assert (result["start"], result["end"], result["source"]) == (1, 1, "arxiv_pdf")
+    assert [item["number"] for item in result["items"]] == [1]
+
+    wide = TOOL_FUNCTIONS["paper_references"](paper="1706.03762", start=3, end=999)
+    assert wide["end"] == 52  # span capped at 50
+
+
+def test_paper_references_empty_or_non_arxiv_paper_returns_error_without_network(fake_http) -> None:
+    calls = fake_http(FakeResponse({}))
+
+    empty = TOOL_FUNCTIONS["paper_references"](paper="  ")
+    not_arxiv = TOOL_FUNCTIONS["paper_references"](paper="Attention is all you need", source="arxiv_pdf")
+
+    assert empty["error"] == "ValueError" and "paper is required" in empty["message"]
+    assert not_arxiv["error"] == "ValueError" and "openalex" in not_arxiv["message"]
+    assert calls == []
+
+
+def test_paper_references_openalex_resolves_arxiv_doi_and_keeps_slice_order(monkeypatch) -> None:
+    calls: list[dict] = []
+    work = {"id": "https://openalex.org/W1", "title": "Attention Is All You Need", "publication_year": 2017,
+            "referenced_works": [f"https://openalex.org/W{n}" for n in range(100, 105)]}
+    details = {"results": [  # API returns them in arbitrary order
+        {"id": "https://openalex.org/W102", "title": "Ref C", "doi": "https://doi.org/10.1/c", "publication_year": 2015,
+         "authorships": [{"author": {"display_name": "Cara"}}], "primary_location": {"source": {"display_name": "ICML"}}},
+        {"id": "https://openalex.org/W101", "title": "Ref B", "doi": None, "publication_year": 2014,
+         "authorships": [], "primary_location": None},
+    ]}
+
+    def fake_get(url, **kwargs):
+        calls.append({"url": url, **kwargs})
+        return FakeResponse(work if len(calls) == 1 else details)
+
+    monkeypatch.setattr(requests, "get", fake_get)
+    result = TOOL_FUNCTIONS["paper_references"](paper="arXiv:1706.03762", source="openalex", start=2, end=3)
+
+    assert calls[0]["url"] == "https://api.openalex.org/works/doi:10.48550/arXiv.1706.03762"
+    assert calls[1]["params"]["filter"] == "openalex_id:W101|W102"
+    assert result["total_references"] == 5
+    assert [(i["number"], i["text"]) for i in result["items"]] == [(2, "Ref B"), (3, "Ref C")]
+    assert result["items"][1]["venue"] == "ICML" and result["items"][1]["line_start"] is None
+
+
+def test_paper_references_openalex_http_error_returns_error_dict(fake_http) -> None:
+    fake_http(FakeResponse(status_code=404))
+    result = TOOL_FUNCTIONS["paper_references"](paper="10.1000/missing", source="openalex")
+    assert result["tool"] == "paper_references"
+    assert result["error"] == "HTTPError" and "404" in result["message"]

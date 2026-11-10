@@ -122,6 +122,29 @@
       }
     },
     {
+      "id": "G06_paper_references_range",
+      "phase": "B",
+      "suite": "group",
+      "query": "Liệt kê giúp mình tài liệu tham khảo từ số 5 tới số 10 của paper arXiv 1706.03762",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_references",
+            "args": {
+              "start": 5,
+              "end": 10
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_paper_references_range",
+        "difficulty": "medium",
+        "what_it_tests": "Hỏi references của một paper cụ thể theo khoảng [5]-[10] → route tới tool mới paper_references (không phải paper_text/papers) và map 'từ số 5 tới số 10' thành start=5, end=10."
+      }
+    },
+    {
       "id": "GM01_send_after_confirmation",
       "phase": "B",
       "suite": "group",
