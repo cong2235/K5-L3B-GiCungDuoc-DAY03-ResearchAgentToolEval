@@ -1,0 +1,10 @@
+{
+  "note": "Snapshots of the artifacts used by each base-eval run (v0-v4). 'exact' = sha256 (after CRLF normalisation, runs were made on Windows) matches prompt_hash/tools_hash in runs/*.json. v1-v3 prompt: closest commit 41e97de (17:43), committed 2 minutes after the v1 run and differs slightly. v2 tools.yaml was never committed.",
+  "versions": {
+    "v0": {"system_prompt": {"file": "v0_system_prompt.md", "commit": "ff7427d", "exact": true},  "tools": {"file": "v0_tools.yaml", "commit": "fbab62d", "exact": true}},
+    "v1": {"system_prompt": {"file": "v1_system_prompt.md", "commit": "41e97de", "exact": false}, "tools": {"file": "v0_tools.yaml", "commit": "fbab62d", "exact": true}},
+    "v2": {"system_prompt": {"file": "v1_system_prompt.md", "commit": "41e97de", "exact": false}, "tools": null},
+    "v3": {"system_prompt": {"file": "v1_system_prompt.md", "commit": "41e97de", "exact": false}, "tools": {"file": "v3_tools.yaml", "commit": "24d058f", "exact": true}},
+    "v4": {"system_prompt": {"file": "v4_system_prompt.md", "commit": "cc57598", "exact": true},  "tools": {"file": "v3_tools.yaml", "commit": "24d058f", "exact": true}}
+  }
+}
