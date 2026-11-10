@@ -59,7 +59,7 @@ def _split_trusted_facts(section_text: str) -> tuple[str, list[str]]:
 
 def search_company_policy(query: str = "", policy_area: str = "all", top_k: int = 3) -> dict[str, Any]:
     try:
-        query_terms = terms(query)
+        query_terms = terms(query if isinstance(query, str) else "")
         if not query_terms:
             return {"tool": "search_company_policy", "query": query, "policy_area": policy_area, "results": []}
 

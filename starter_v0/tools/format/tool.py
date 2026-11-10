@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from tools._shared import domain
+from tools._shared import domain, err
 
 
 def _src(item: dict[str, Any]) -> str:
@@ -19,7 +19,9 @@ def _bullet(item: dict[str, Any]) -> str:
 
 
 def render_digest(items: list[dict[str, Any]] | None = None, template: str = "sections", headline: str = "") -> dict[str, Any]:
-    items = items or []
+    if items is not None and not isinstance(items, list):
+        return err("render_digest", TypeError("items must be a list of objects"))
+    items = [item for item in (items or []) if isinstance(item, dict)]
     if template == "brief":
         markdown = (f"**{headline}**\n\n" if headline else "") + "\n".join(_bullet(item) for item in items[:5])
     elif template == "bullets":

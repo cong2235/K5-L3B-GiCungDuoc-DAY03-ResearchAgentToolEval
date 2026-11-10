@@ -61,6 +61,9 @@ def _entry_text(entry: ET.Element, path: str, namespaces: dict[str, str]) -> str
 
 def arxiv_search(query: str = "", max_results: int = 5, sort_by: str = "relevance") -> dict[str, Any]:
     try:
+        query = query.strip() if isinstance(query, str) else ""
+        if not query:
+            raise ValueError("query must not be empty")
         max_results = max(1, min(int(max_results or 5), 10))
         sort_by = sort_by if sort_by in {"relevance", "lastUpdatedDate", "submittedDate"} else "relevance"
         params = {

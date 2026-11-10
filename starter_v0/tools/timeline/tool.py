@@ -5,6 +5,7 @@ from typing import Any
 
 import requests
 
+from tools._limits import clamp_int
 from tools._shared import TIMEOUT, err
 
 
@@ -45,6 +46,10 @@ def _tweets_from(data: dict[str, Any], limit: int) -> list[dict[str, Any]]:
 
 def get_user_tweets(screenname: str = "", limit: int = 5) -> dict[str, Any]:
     try:
+        screenname = screenname.strip().lstrip("@").strip() if isinstance(screenname, str) else ""
+        if not screenname:
+            raise ValueError("screenname must not be empty")
+        limit = clamp_int(limit, 5)
         data = _twitter_get("/timeline.php", {"screenname": screenname})
         return {"tool": "get_user_tweets", "screenname": screenname, "items": _tweets_from(data, limit)}
     except Exception as exc:

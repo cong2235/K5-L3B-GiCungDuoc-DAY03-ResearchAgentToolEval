@@ -5,15 +5,22 @@ from typing import Any
 
 import requests
 
+from tools._limits import clamp_int, pick
 from tools._shared import TIMEOUT, domain, err
 
 
 def web_search(query: str = "", topic: str = "general", timeframe: str | None = "week", max_results: int = 5) -> dict[str, Any]:
     try:
+        query = query.strip() if isinstance(query, str) else ""
+        if not query:
+            raise ValueError("query must not be empty")
+        topic = pick(topic, ("general", "news"), "general")
+        timeframe = pick(timeframe, ("day", "week", "month", "year"), "week") if timeframe else None
+        max_results = clamp_int(max_results, 5)
         key = os.getenv("TAVILY_API_KEY")
         if not key:
             raise RuntimeError("Missing TAVILY_API_KEY env var")
-        body: dict[str, Any] = {"query": query, "topic": topic, "max_results": int(max_results or 5), "search_depth": "basic"}
+        body: dict[str, Any] = {"query": query, "topic": topic, "max_results": max_results, "search_depth": "basic"}
         if timeframe:
             body["time_range"] = timeframe
         response = requests.post(
