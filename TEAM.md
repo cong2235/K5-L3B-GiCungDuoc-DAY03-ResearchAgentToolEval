@@ -13,29 +13,9 @@
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 |       Võ Trần Công   | 2A202604026     |      congvotran2003@gmail.com |        cong2235|     Trưởng nhóm    |
 |   2 |Nguyễn Công Tú        |2A202604008      |       nguyencongtu5050@gmail.com|        nguyencongtu4800| Thành viên        |
+|   3 |Từ Huy Bảo     |2A202604021      |       thbao552003@gmail.com|        thbao4545| Thành viên        |
+|   4 |Nguyễn Minh Phương        |2A202603997      |       phuongnm150505@gmail.com|        nguyenminhphuong0505| Thành viên        |
 
 ## Cá nhân
 
-Mỗi thành viên đồng thời tạo một báo cáo riêng trong `report/` theo dạng:
-
-```text
-report/team/MSSV_HoTen.md
-```
-
-Ví dụ: `report/team/20241234_NguyenVanAn.md`.
-
-Sao chép mục dưới đây cho từng thành viên.
-
-## HoVaTen-MSSV
-
-### Phần việc phụ trách
-
--
-
-### Đóng góp cụ thể
-
--
-
-### Bằng chứng
-
--
+Mỗi thành viên có một báo cáo riêng trong `report/team/` theo dạng `MSSV_HoTen.md`.
