@@ -6,7 +6,9 @@ Public link:  cloudflared tunnel --url http://localhost:8501
 from __future__ import annotations
 
 import json
+import os
 import time
+import urllib.request
 from datetime import datetime
 
 import streamlit as st
@@ -26,7 +28,14 @@ from versioning import artifact_version_dict, build_artifact_version
 
 TRANSCRIPTS_DIR = ROOT / "transcripts"
 
-# Replace / extend with the sample questions from section A3 of the group report.
+# label -> (provider, model, short description). "Tùy chỉnh" lets you type anything.
+MODEL_PRESETS = {
+    "GPT-4o mini · OpenRouter": ("openrouter", "openai/gpt-4o-mini", "Cloud · nhanh, gọi tool ổn định"),
+    "Gemma 4 E2B · Ollama local": ("ollama", "gemma4:e2b", "Model local qua Ollama (OLLAMA_BASE_URL)"),
+}
+CUSTOM_LABEL = "Tùy chỉnh…"
+PROVIDERS = ["openrouter", "openai", "anthropic", "gemini", "ollama"]
+
 EXAMPLES = {
     "🐦 Mạng xã hội": [
         "Tweet mới nhất của Sam Altman là gì?",
@@ -40,7 +49,7 @@ EXAMPLES = {
     ],
     "🎓 Nghiên cứu": [
         "Top 5 bài báo được trích dẫn nhiều nhất về AI agents trong 6 tháng qua",
-        "Bài báo của Geoffrey Hinton viết gì về deep learning?",
+        "Liệt kê tài liệu tham khảo từ số 5 tới 10 của paper arXiv 1706.03762",
         "Tìm preprint arXiv mới nhất về diffusion models",
     ],
     "✅ Hành vi đúng": [
@@ -53,8 +62,8 @@ EXAMPLES = {
 TOOL_ICONS = {
     "timeline": "🐦", "social_search": "🔍", "lookup": "🌐", "fetch": "📄",
     "hackernews": "🟧", "wikipedia": "📚", "openalex": "🎓", "top_papers": "🏆",
-    "papers": "📑", "paper_text": "📖", "send": "📤", "clarify": "❓",
-    "format": "🧾", "policy": "🛡️",
+    "papers": "📑", "paper_text": "📖", "paper_references": "🔗", "send": "📤",
+    "clarify": "❓", "format": "🧾", "policy": "🛡️",
 }
 
 RESET_KEYS = ("messages", "history", "transcript", "transcript_path", "pending", "queued")
@@ -63,11 +72,24 @@ st.set_page_config(page_title="Research Agent", page_icon="🔎", layout="center
 st.markdown(
     """
     <style>
-      .block-container {padding-top: 2rem; max-width: 860px;}
+      .block-container {padding-top: 2.2rem; max-width: 900px;}
+      .hero {padding: 1.4rem 1.6rem; border-radius: 18px; margin-bottom: 1.2rem;
+             background: linear-gradient(135deg, rgba(79,70,229,.16), rgba(14,165,233,.12));
+             border: 1px solid rgba(99,102,241,.25);}
+      .hero h1 {font-size: 1.9rem; margin: 0 0 .25rem 0; padding: 0;}
+      .hero p {margin: 0; opacity: .8;}
+      .chip {display:inline-block; padding:3px 11px; border-radius:999px; font-size:.78rem;
+             margin:.5rem .35rem 0 0; background: rgba(99,102,241,.14);
+             border: 1px solid rgba(99,102,241,.25);}
+      .group-title {font-weight: 600; font-size: .95rem; margin: .2rem 0 .4rem 0;}
       .tool-badge {display:inline-block; padding:2px 10px; border-radius:12px;
                    background: rgba(120,120,120,.15); font-size:.85rem; margin-right:6px;}
       .item-title {font-weight:600;}
       .muted {opacity:.65; font-size:.85rem;}
+      .status {font-size:.82rem; padding:.45rem .7rem; border-radius:10px; margin-top:.3rem;}
+      .status.ok {background: rgba(34,197,94,.13); border:1px solid rgba(34,197,94,.3);}
+      .status.bad {background: rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.3);}
+      div[data-testid="stButton"] button {text-align: left; border-radius: 12px;}
     </style>
     """,
     unsafe_allow_html=True,
@@ -84,18 +106,43 @@ def reset_chat() -> None:
         st.session_state.pop(k, None)
 
 
+@st.cache_data(ttl=15, show_spinner=False)
+def ollama_status(model_name: str) -> tuple[bool, str]:
+    """Ping the Ollama server behind OLLAMA_BASE_URL and check the model is pulled."""
+    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1").rstrip("/")
+    root = base[:-3] if base.endswith("/v1") else base
+    try:
+        with urllib.request.urlopen(f"{root}/api/tags", timeout=3) as r:
+            names = [m["name"] for m in json.load(r).get("models", [])]
+    except Exception:
+        return False, f"Không kết nối được Ollama tại {root}"
+    if model_name in names or f"{model_name}:latest" in names:
+        return True, f"Ollama sẵn sàng · {model_name}"
+    return False, f"Ollama chạy tại {root} nhưng chưa có model {model_name} (ollama pull {model_name})"
+
+
 # ---------------- sidebar: settings ----------------
 with st.sidebar:
-    st.header("🔎 Research Agent")
+    st.markdown("### 🔎 Research Agent")
     st.button("➕ Cuộc trò chuyện mới", on_click=reset_chat, use_container_width=True, type="primary")
-    with st.expander("⚙️ Cấu hình", expanded=False):
-        provider_name = st.selectbox(
-            "Provider", ["openrouter", "openai", "anthropic", "gemini", "ollama"]
-        )
-        model = st.text_input("Model (để trống = mặc định)", value="") or None
+
+    choice = st.selectbox("🧠 Model", [*MODEL_PRESETS, CUSTOM_LABEL], on_change=reset_chat)
+    if choice == CUSTOM_LABEL:
+        provider_name = st.selectbox("Provider", PROVIDERS, on_change=reset_chat)
+        model = st.text_input("Model (để trống = mặc định)", value="", on_change=reset_chat) or None
+    else:
+        provider_name, model, desc = MODEL_PRESETS[choice]
+        st.caption(desc)
+
+    if provider_name == "ollama":
+        ok, msg = ollama_status(model or os.getenv("OLLAMA_MODEL", "qwen2.5:7b"))
+        st.markdown(f'<div class="status {"ok" if ok else "bad"}">{"🟢" if ok else "🔴"} {msg}</div>',
+                    unsafe_allow_html=True)
+
+    with st.expander("⚙️ Nâng cao", expanded=False):
         version = st.text_input("Version label", value="v3")
         window = st.number_input("History window", 1, 10, 5)
-        st.caption("Đổi cấu hình xong, bấm 'Cuộc trò chuyện mới' để áp dụng cho transcript mới.")
+        st.caption("Đổi model sẽ tự mở cuộc trò chuyện mới.")
 
 
 @st.cache_resource
@@ -238,7 +285,7 @@ def render_event(ev: dict) -> None:
 
 # ---------------- main flow ----------------
 init_session()
-prompt = st.chat_input("Nhập yêu cầu…")
+prompt = st.chat_input("Hỏi về tweet, tin tức, Hacker News, Wikipedia hay bài báo khoa học…")
 queued = st.session_state.pop("queued", None) or prompt
 if queued:
     with st.spinner("Agent đang xử lý…"):
@@ -248,7 +295,8 @@ ss = st.session_state
 
 # ---------------- sidebar: examples + session info ----------------
 with st.sidebar:
-    st.subheader("Câu hỏi mẫu")
+    st.divider()
+    st.markdown("**💡 Câu hỏi mẫu**")
     for gi, (group, qs) in enumerate(EXAMPLES.items()):
         with st.expander(group):
             for qi, q in enumerate(qs):
@@ -260,7 +308,6 @@ with st.sidebar:
     c1.metric("Lượt", len(ss.transcript["turns"]))
     c2.metric("Tool calls", n_calls)
     st.caption(f"{provider_name} · {model or 'model mặc định'} · {version}")
-    st.caption(f"Transcript: {ss.transcript_path}")
     st.download_button(
         "⬇️ Tải transcript",
         data=json.dumps(ss.transcript, ensure_ascii=False, indent=2, default=str),
@@ -271,22 +318,39 @@ with st.sidebar:
 
 # ---------------- chat area ----------------
 if not ss.messages:
-    st.title("Research Agent")
-    st.caption("Trợ lý nghiên cứu AI/tech: tweet, tin tức, Hacker News, Wikipedia, bài báo khoa học.")
-    cols = st.columns(len(EXAMPLES))
-    for gi, (col, (group, qs)) in enumerate(zip(cols, EXAMPLES.items())):
-        with col:
-            st.markdown(f"**{group}**")
-            st.button(qs[0], key=f"empty_{gi}", on_click=queue, args=(qs[0],),
-                      use_container_width=True)
+    chips = "".join(
+        f'<span class="chip">{t}</span>'
+        for t in ["🐦 X/Twitter", "🟧 Hacker News", "📚 Wikipedia", "🎓 OpenAlex",
+                  "📑 arXiv", "🔗 Tài liệu tham khảo", "📤 Telegram"]
+    )
+    st.markdown(
+        f"""<div class="hero"><h1>🔎 Research Agent</h1>
+        <p>Trợ lý nghiên cứu AI/tech — tự chọn tool phù hợp và trích nguồn rõ ràng.</p>
+        {chips}<p class="muted" style="margin-top:.7rem">Đang dùng: <b>{provider_name}</b> ·
+        <code>{model or 'model mặc định'}</code></p></div>""",
+        unsafe_allow_html=True,
+    )
+    st.markdown("##### Bắt đầu nhanh")
+    groups = list(EXAMPLES.items())
+    for row in (groups[:2], groups[2:]):
+        cols = st.columns(2)
+        for col, (group, qs) in zip(cols, row):
+            gi = list(EXAMPLES).index(group)
+            with col.container(border=True):
+                st.markdown(f'<div class="group-title">{group}</div>', unsafe_allow_html=True)
+                for qi, q in enumerate(qs[:2]):
+                    st.button(q, key=f"empty_{gi}_{qi}", on_click=queue, args=(q,),
+                              use_container_width=True)
 else:
     for m in ss.messages:
-        with st.chat_message("user" if m["role"] == "user" else "assistant"):
+        is_user = m["role"] == "user"
+        with st.chat_message("user" if is_user else "assistant", avatar="🧑" if is_user else "🔎"):
             st.write(m["content"])
             for ev in m["events"]:
                 render_event(ev)
             if m["elapsed"] is not None:
-                st.caption(f"⏱ {m['elapsed']:.1f}s")
+                n = len(m["events"])
+                st.caption(f"⏱ {m['elapsed']:.1f}s" + (f" · {n} tool call" if n else ""))
 
     if ss.pending:
         with st.container(border=True):
