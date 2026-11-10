@@ -11,6 +11,306 @@
     "missing_info"
   ],
   "cases": [
-    
+    {
+    "id": "G01_social_search_top",
+    "phase": "B",
+    "suite": "group",
+    "query": "Tìm 5 bài đăng nổi bật nhất trên X về AI Agents.",
+    "failure_type": "wrong_arg_value",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "social_search",
+          "args": {
+            "query": "AI Agents",
+            "search_type": "Top",
+            "limit": 5
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "social_search",
+      "difficulty": "easy",
+      "what_it_tests": "Phân biệt yêu cầu bài đăng nổi bật với bài đăng mới nhất và truyền đúng search_type."
+    }
+  },
+  {
+    "id": "G02_lookup_news",
+    "phase": "B",
+    "suite": "group",
+    "query": "Tìm tin tức về các mô hình AI mới ra mắt trong tuần qua, tối đa 5 kết quả.",
+    "failure_type": "wrong_boundary",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "query": "AI models",
+            "topic": "news",
+            "timeframe": "week",
+            "max_results": 5
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "lookup",
+      "difficulty": "medium",
+      "what_it_tests": "Sử dụng lookup cho tin tức trên web, không nhầm lẫn với tìm bài đăng trên X hoặc thảo luận Hacker News."
+    }
+  },
+  {
+    "id": "G03_hackernews_discussion",
+    "phase": "B",
+    "suite": "group",
+    "query": "Tìm 10 thảo luận có liên quan nhất trên Hacker News về LangGraph.",
+    "failure_type": "wrong_tool",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "hackernews",
+          "args": {
+            "query": "LangGraph",
+            "sort": "relevance",
+            "limit": 10
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "hackernews",
+      "difficulty": "easy",
+      "what_it_tests": "Nhận diện nguồn Hacker News được chỉ định và chọn đúng công cụ chuyên biệt thay vì tìm kiếm web tổng quát."
+    }
+  },
+  {
+    "id": "G04_wikipedia_definition",
+    "phase": "B",
+    "suite": "group",
+    "query": "Tra cứu khái niệm Transformer trên Wikipedia tiếng Việt.",
+    "failure_type": "unnecessary_tool",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "wikipedia",
+          "args": {
+            "query": "Transformer",
+            "lang": "vi"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "wikipedia",
+      "difficulty": "easy",
+      "what_it_tests": "Chỉ sử dụng Wikipedia khi người dùng yêu cầu nguồn này, đồng thời chọn đúng ngôn ngữ."
+    }
+  },
+  {
+    "id": "G05_openalex_author",
+    "phase": "B",
+    "suite": "group",
+    "query": "Tìm 5 nghiên cứu gần đây của Yoshua Bengio về deep learning.",
+    "failure_type": "wrong_arg_value",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "openalex",
+          "args": {
+            "author": "Yoshua Bengio",
+            "query": "deep learning",
+            "sort": "recent",
+            "limit": 5
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "openalex",
+      "difficulty": "medium",
+      "what_it_tests": "Truyền đúng tên tác giả, chủ đề nghiên cứu, thứ tự sắp xếp và số lượng kết quả."
+    }
+  },
+  {
+    "id": "G06_clarify_missing_url",
+    "phase": "B",
+    "suite": "group",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Đọc bài viết này và tóm tắt giúp tôi."
+      },
+      {
+        "role": "assistant",
+        "content": "Bạn vui lòng gửi đường link bài viết cần đọc."
+      },
+      {
+        "role": "user",
+        "content": "Tôi chỉ cần bản tóm tắt ngắn, tập trung vào ý chính."
+      }
+    ],
+    "failure_type": "missing_info",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "response_type": "text"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "clarify",
+      "difficulty": "easy",
+      "what_it_tests": "Nhận diện URL còn thiếu và hỏi người dùng bổ sung thay vì tự suy đoán hoặc gọi fetch."
+    }
+  },
+  {
+    "id": "G07_timeline_account_mapping",
+    "phase": "B",
+    "suite": "group",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Cho tôi xem bài đăng mới nhất của Sam Altman trên X."
+      },
+      {
+        "role": "assistant",
+        "content": "Bạn muốn lấy bao nhiêu bài đăng?"
+      },
+      {
+        "role": "user",
+        "content": "Lấy 3 bài gần nhất."
+      }
+    ],
+    "failure_type": "wrong_arg_value",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "timeline",
+          "args": {
+            "screenname": "sama",
+            "limit": 3
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "timeline",
+      "difficulty": "medium",
+      "what_it_tests": "Ánh xạ tên Sam Altman sang username sama và cập nhật limit theo thông tin ở lượt hội thoại sau."
+    }
+  },
+  {
+    "id": "G08_fetch_url_boundary",
+    "phase": "B",
+    "suite": "group",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Tôi muốn đọc một bài viết trên web."
+      },
+      {
+        "role": "assistant",
+        "content": "Bạn gửi đường link bài viết nhé."
+      },
+      {
+        "role": "user",
+        "content": "Đây là link https://example.com/ai-agents. Hãy đọc nội dung và tóm tắt, không cần tìm thêm nguồn khác."
+      }
+    ],
+    "failure_type": "wrong_boundary",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "fetch",
+          "args": {
+            "url": "https://example.com/ai-agents"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "fetch",
+      "difficulty": "medium",
+      "what_it_tests": "Giới hạn thao tác fetch vào URL người dùng cung cấp, không tự ý gọi lookup hoặc tìm thêm nguồn ngoài yêu cầu."
+    }
+  },
+  {
+    "id": "G09_format_existing_content",
+    "phase": "B",
+    "suite": "group",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Tôi có nội dung tổng hợp về AI Agents và muốn trình bày lại."
+      },
+      {
+        "role": "assistant",
+        "content": "Bạn muốn định dạng nội dung như thế nào?"
+      },
+      {
+        "role": "user",
+        "content": "Chia thành các phần riêng biệt, mỗi phần có tiêu đề rõ ràng. Không cần tìm thêm thông tin."
+      }
+    ],
+    "failure_type": "unnecessary_tool",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "format",
+          "args": {
+            "template": "sections"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "format",
+      "difficulty": "easy",
+      "what_it_tests": "Chỉ định dạng dữ liệu đã có, không gọi thêm công cụ tìm kiếm hoặc truy xuất thông tin không cần thiết."
+    }
+  },
+  {
+    "id": "G10_top_papers_published",
+    "phase": "B",
+    "suite": "group",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Tìm các nghiên cứu về Multimodal AI trong 12 tháng gần đây."
+      },
+      {
+        "role": "assistant",
+        "content": "Bạn muốn tìm preprint trên arXiv hay bài đã được công bố tại hội nghị và tạp chí?"
+      },
+      {
+        "role": "user",
+        "content": "Chỉ lấy bài đã công bố tại hội nghị, chọn 5 bài có số lượt trích dẫn cao nhất."
+      }
+    ],
+    "failure_type": "wrong_tool",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "top_papers",
+          "args": {
+            "query": "Multimodal AI",
+            "months": 12,
+            "limit": 5,
+            "venue_type": "conference",
+            "sort_by": "citations"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "skill": "top_papers",
+      "difficulty": "medium",
+      "what_it_tests": "Phân biệt bài báo đã xuất bản với preprint arXiv và chọn đúng công cụ theo loại công bố, thời gian và tiêu chí trích dẫn."
+    }
+  }
   ]
 }

@@ -1,0 +1,1069 @@
+{
+  "run_id": "v3_B_group_openrouter_20261110T185506710798",
+  "version": "v3",
+  "artifact_version": "v3+p3e71a3386c32+t11847243314d",
+  "prompt_hash": "3e71a3386c32afda6fb9cbd1ac2fa58c0e5e0b7a76666777f09731a100d06333",
+  "tools_hash": "11847243314d572470b953898a9da10a981a69660b700fdd5d053506b91286e2",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\K5-L3B-GiCungDuoc-DAY03-ResearchAgentToolEval\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\K5-L3B-GiCungDuoc-DAY03-ResearchAgentToolEval\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day03_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-11-10T18:55:06",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 8,
+    "case_accuracy": 0.8,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 0.8,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {
+      "wrong_boundary": 1,
+      "wrong_tool": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 2
+    }
+  },
+  "results": [
+    {
+      "id": "G01_social_search_top",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "social_search",
+        "difficulty": "easy",
+        "what_it_tests": "Phân biệt yêu cầu bài đăng nổi bật với bài đăng mới nhất và truyền đúng search_type."
+      },
+      "input": "Tìm 5 bài đăng nổi bật nhất trên X về AI Agents.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI Agents",
+              "search_type": "Top",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI Agents",
+              "search_type": "Top",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "AI Agents",
+            "search_type": "Top",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "AI Agents",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "holy f*ck, NO HUMAN WEB DESIGNER WANTS TO COMPETE WITH THIS IN 2027.",
+                "summary": "holy f*ck, NO HUMAN WEB DESIGNER WANTS TO COMPETE WITH THIS IN 2027.\n\nyou’re watching AI agents build websites at a speed most humans can’t match.\n\nand the scary part? these tools are available to almost anyone.\n\n7 GitHub repos you NEED to learn before your clients find someone who already has:\n\n1. https://t.co/OcWodjCPRC - BUILD ENTIRE WEBSITES WITH AI\n\ngenerate, edit and run full-stack web apps with AI.\n\nhttps://t.co/6E5RFmXNbx\n\n2. shadcn/ui - PROFESSIONAL UI IN MINUTES\n\nbeautiful, customizable components for modern websites.\n\nhttps://t.co/Nv962pO6YB\n\n3. Magic MCP - YOUR AI FRONTEND DESIGNER\n\ngenerate polished React components directly from your AI coding workflow.\n\nhttps://t.co/rjcCfq7MF6\n\n4. Playwright MCP - AI THAT TESTS ITS OWN WORK\n\nlet AI agents open websites, click buttons and catch UI bugs.\n\nhttps://t.co/nHfHGUYApo\n\n5. Chrome DevTools MCP - FIX BROKEN WEBSITES FASTER\n\ngive AI access to browser debugging, performance and network diagnostics.\n\nhttps://t.co/cMUhFhsGtP\n\n6. Vercel Agent Skills - MAKE AI CODE PRODUCTION-READY\n\nReact optimization, frontend best practices and web design reviews.\n\nhttps://t.co/RFXx0fcydT\n\n7. Webstudio - BUILD VISUALLY, KEEP CONTROL\n\nan open-source visual website builder with reusable components and styling.\n\nhttps://t.co/Viy5LTsdKm\n\nthe real threat isn’t AI replacing every designer.\n\nit’s ONE person using AI to deliver what used to take an entire team.\n\n2027 is getting closer.\n\nlearn these tools before your competitors do.\n\nLIKE + BOOKMARK + REPOST this so your designer friends see it.\n\nand be honest in the comments:\n\ndo you know anyone who’s already LOST THEIR JOB because of AI?",
+                "url": "https://x.com/thegreatest_sv/status/2118770137646162218",
+                "source": "@thegreatest_sv",
+                "date": "Fri Nov 06 18:19:00 +0000 2026",
+                "metrics": {
+                  "favorites": 899,
+                  "retweets": 128,
+                  "views": "90919"
+                }
+              },
+              {
+                "title": "THIS IS INSANE",
+                "summary": "THIS IS INSANE\n\nSpaceXAI just dropped the ultimate AI cheat code. 600+ ready-made bots worth $26,128, all FREE on GitHub\n\npaid marketplaces sell an agent for $39 and a skill for $19. these 20 repos ship 630 bots and 82 skills for $0\n\ncopy one, paste it into Grok Bot, and it starts working\n\nmost people still run one bot that does everything and finishes nothing\n\n20 GitHub repos you should open first:\n\n01 awesome-grok-bot → 182 ready bots for sales, marketing, ops and your personal life\nhttps://t.co/qsS0sU3Tto\n\n02 awesome-grok-bot → 268 live shared bots. add any of them in one click\nhttps://t.co/otq4w8PdR7\n\n03 awesome-grokbot → 56 copy-paste bot profiles and 3 starter teams\nhttps://t.co/g9Mdxscwfz\n\n04 grok-bot-templates → 49 bots, 10 teams, 47 skills. every stable one scores 100/100 on Bot Ready\nhttps://t.co/oiBoqwlXhZ\n\n05 agent-org-chart → 11 ready org charts with 58 roles: founders, sales, support, even a game studio\nhttps://t.co/46vp7ARa7J\n\n06 grokbot-outreach-agent-team → 5 bots that find leads, qualify them, write the message and book the call\nhttps://t.co/qiiK1xA64J\n\n07 hypergrok-trading-desk → a 7-bot trading desk. you approve every trade by ticket\nhttps://t.co/OZJLmccAL5\n\n08 grok-bot-second-brain → 5 bots that capture, sort and remember everything in one vault\nhttps://t.co/mJp1IROrzE\n\n09 unlist → your bot pulls you off Spokeo, Whitepages and 6 more people-search sites\nhttps://t.co/Mv03bsjTyT\n\n10 PhoneZero → books a restaurant table by phone when there's no online booking\nhttps://t.co/eDRxDAk2fr\n\n11 grok-bot-shopping → tests discount codes on a Shopify cart before you pay\nhttps://t.co/Mvo8XI6IIs\n\n12 grokbot-imessage-skill → triages your iMessages and drafts replies. nothing sends without your click\nhttps://t.co/SdAJI1gPIY\n\n13 grok-bot-super → 8 skills: email triage, follow-ups, standups, weekly reviews, X threads\nhttps://t.co/LKrZ9RIqN8\n\n14 grokbot-x → finds posts with 20x more views than followers, drafts yours and learns every night\nhttps://t.co/Bv3jgyYEE9\n\n15 permission-slip Gmail → your bot reads mail freely. every send waits for your ok\nhttps://t.co/hELB1sDwiY\n\n16 grok-bot-skills → 18 skills: short answers, claim checks, root-cause debugging\nhttps://t.co/PuCVBXCdeI\n\n17 foreman → a board for your bot crew. flags stalled work and checks every \"done\"\nhttps://t.co/XMDbWWY5fE\n\n18 grok-bot-gateway → Claude Code and Codex send tasks to your Grok Bots through one webhook\nhttps://t.co/9pXF52d8D3\n\n19 grokbot-queue → run tasks on 4-8 bots at once from your terminal\nhttps://t.co/ctOmcInz7M\n\n20 OpenGrokBot → a self-hosted Grok Bot. any model, every bot gets its own browser\nhttps://t.co/Y2B4Nxssrb\n\nstart with 2, not 20: one team template and one bot that saves you an hour today\n\ngive each bot one real task this week. keep the ones that finish it, delete the rest\n\nevery extra bot spends the same weekly limit. hire for jobs, not for fun\n\nsave this, then read how to run 200+ cloud agents with 6 bots ↓\n\nand repost it for the friend still running one bot for everything ↓",
+                "url": "https://x.com/choopyplug1/status/2118458785261854932",
+                "source": "@choopyplug1",
+                "date": "Thu Nov 05 21:41:48 +0000 2026",
+                "metrics": {
+                  "favorites": 343,
+                  "retweets": 47,
+                  "views": "31828"
+                }
+              },
+              {
+                "title": "this is f*cking insane... Boris Cherny's team at Anthropic just shared 94 Claude plugins and skills for free. ALL OF THE",
+                "summary": "this is f*cking insane... Boris Cherny's team at Anthropic just shared 94 Claude plugins and skills for free. ALL OF THEM\n\none answers your emails. one chases clients who didn't pay. one finds the trap in your contract. one fixes your code while you sleep\n\n55 plugins for Claude Code\n20 plugins for real jobs: sales, legal, finance, marketing\n19 skills: Excel, PowerPoint, PDF, Word and more\n\n269,000 GitHub stars between them. agencies charge $300-1,500 to build just one of these. here all 94 cost $0\n\nhow to grab one:\n\n1. open Claude Code and type /plugin\n2. pick the one for the job you hate most\n3. hit install\n4. give it the first task in chat\n\nplugins: https://t.co/Rx8gGKjui4\nwork plugins: https://t.co/KQWmMlhXuy\nskills: https://t.co/Xv9APhlSU2\n\nstart small: one plugin today for the task you repeat every week\n\nplugins are the start. how to build your own AI agents is in the article below ↓",
+                "url": "https://x.com/mika_systems/status/2119152475949441028",
+                "source": "@mika_systems",
+                "date": "Sat Nov 07 19:38:16 +0000 2026",
+                "metrics": {
+                  "favorites": 762,
+                  "retweets": 89,
+                  "views": "54550"
+                }
+              },
+              {
+                "title": "THIS IS F*CKING INSANE...",
+                "summary": "THIS IS F*CKING INSANE...\n\nPEOPLE ARE SPENDING WEEKS BUILDING AI AGENT TEAMS FROM SCRATCH WHILE GITHUB ALREADY HAS READY-MADE GROK BOT TEAMS FOR CODING, RESEARCH, MARKETING, TRADING AND EVEN RUNNING YOUR PERSONAL LIFE.\n\nHere are 15 GitHub projects you should open first:\n\n01 / Agent Org Chart → Ready-made teams for engineering, marketing, support and sales\nhttps://t.co/hQfvetDRdr\n\n02 / Grok Factory → One coordinator delegates coding, research and other work to specialist agents.\nhttps://t.co/btk1agM1iG\n\n03 / multiBot → Creates specialized teammates that delegate heavy tasks to coding CLIs.\nhttps://t.co/vkECfhuJHX\n\n04 / Grok Bot Second Brain → Five agents handling coordination, memory, research and operations.\nhttps://t.co/RkBrQjRIhg\n\n05 / Foreman → Monitors agent teams, detects stalled tasks and verifies completed work.\nhttps://t.co/uzqJcEQrun\n\n06 / grokbot-x → Automates X research, content drafts, publishing and writing improvements.\nhttps://t.co/24BUuudcDj\n\n07 / PhoneZero → Gives Grok Bot a phone workflow for calls and restaurant bookings with approval gates.\nhttps://t.co/Tc8gI6QOfr\n\n08 / BOTROSTER → Self-hosted AI teammates with shared files, browser access and scheduled tasks.\nhttps://t.co/Mtbw1RPMow\n\n09 / Grok Bot Profiles → Four specialist roles: Spec Writer, Bug Reproducer, PR Producer and PR Verifier.\nhttps://t.co/qfgP688XAZ\n\n10 / HyperGrok Trading Desk → Seven agents covering market data, research, strategy, risk and execution.\nhttps://t.co/EEzYRffcdv\n\n11 / Cryptofeed → Streams live crypto trades, prices and order book updates.\nhttps://t.co/6GQeNeqnc6\n\n12 / CCXT → One API to connect your trading system to multiple crypto exchanges.\nhttps://t.co/8e0N11cDKD\n\n13 / Freqtrade → Backtests and runs trading strategies with dry-run mode and position tracking.\nhttps://t.co/3KVSi71Yws\n\n14 / VectorBT → Tests thousands of trading strategy combinations against historical data.\nhttps://t.co/xW7EkglgbG\n\n15 / QuantStats → Generates reports covering returns, drawdowns, volatility and trading performance.\nhttps://t.co/VDtebcMVJx\n\nStart with one team and give it a clear job.\n\nConnect specialists through APIs, MCP or scripts. Give each agent defined responsibilities and approval boundaries.\n\nStop building everything from zero.",
+                "url": "https://x.com/s4yonnara/status/2118814330695073907",
+                "source": "@s4yonnara",
+                "date": "Fri Nov 06 21:14:36 +0000 2026",
+                "metrics": {
+                  "favorites": 776,
+                  "retweets": 116,
+                  "views": "74641"
+                }
+              },
+              {
+                "title": "HOLY SH*T, YOUR JOB ISN’T SAFE IN 2027. LEARN THIS BEFORE IT’S TOO LATE.",
+                "summary": "HOLY SH*T, YOUR JOB ISN’T SAFE IN 2027. LEARN THIS BEFORE IT’S TOO LATE.\n\n7 GitHub repos that could help you stay ahead of AI instead of getting replaced by it:\n\n1. GPT Researcher\n\nan AI research agent that searches the web, investigates complex topics and writes detailed reports with sources.\n\nhttps://t.co/Tmq4344MK5\n\n2. OpenHands\n\nan AI software engineer that can write code, fix bugs and work on development tasks.\n\nhttps://t.co/XDeSQHh6it\n\n3. Activepieces\n\nautomates repetitive work across apps and lets AI agents execute real workflows.\n\nhttps://t.co/EzpsgWXeuF\n\n4. CrewAI\n\nbuild teams of AI agents that divide tasks, collaborate and work toward a shared goal.\n\nhttps://t.co/YaSm8mKDY0\n\n5. Flowise\n\nbuild AI agents and automated workflows visually, without writing everything from scratch.\n\nhttps://t.co/JOtPvPVx9s\n\n6. Crawl4AI\n\nturn websites into structured data for AI research, analysis and automation.\n\nhttps://t.co/4pJrQS8NCm\n\n7. Open Interpreter\n\nlets AI run code on your computer to analyze files, process data and automate tasks.\n\nhttps://t.co/Zvb9A7Jwgo\n\nthe scary part?\n\nyour next competitor might not have a bigger team.\n\njust better AI tools.\n\nlearn them now, or compete with someone who already has.\n\nwant more videos like this?\n\nlike it, bookmark it, share it with a friend.\n\nand tell me in the comments which AI agent you want me to visualize next.",
+                "url": "https://x.com/thegreatest_sv/status/2118325722850697573",
+                "source": "@thegreatest_sv",
+                "date": "Thu Nov 05 12:53:03 +0000 2026",
+                "metrics": {
+                  "favorites": 196,
+                  "retweets": 29,
+                  "views": "13300"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_lookup_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "lookup",
+        "difficulty": "medium",
+        "what_it_tests": "Sử dụng lookup cho tin tức trên web, không nhầm lẫn với tìm bài đăng trên X hoặc thảo luận Hacker News."
+      },
+      "input": "Tìm tin tức về các mô hình AI mới ra mắt trong tuần qua, tối đa 5 kết quả.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI models",
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "mô hình AI",
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "query: expected 'AI models', got 'mô hình AI'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "mô hình AI",
+            "topic": "news",
+            "timeframe": "week",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "mô hình AI",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Các mô hình AI trên thế giới đến từ những nền kinh tế nào? - VnEconomy",
+                "url": "https://vneconomy.vn/cac-mo-hinh-ai-tren-the-gioi-den-tu-nhung-nen-kinh-te-nao.htm",
+                "source": "vneconomy.vn",
+                "summary": "Mỹ không chỉ dẫn đầu về phát triển mô hình, mà còn vận hành một số chatbot AI được sử dụng rộng rãi nhất thế giới.\n\nTỷ trọng 24% của Trung Quốc thấp hơn nhiều so với Mỹ. Tuy nhiên, số lượng mô hình chưa chắc phản ánh đúng năng lực công nghệ, bởi các nhà phát triển như DeepSeek và Alibaba đã thu hẹp khoảng cách về hiệu năng với các hệ thống hàng đầu của Mỹ, nhất là nhờ các mô hình chi phí thấp và mô hình trọng số mở (open-weight). [...] Nếu tụt lại trong phát triển mô hình, chu u có thể phụ thuộc nhiều hơn vào các nhà cung cấp Mỹ và Trung Quốc. Điều này có thể hạn chế quyền kiểm soát của khu vực đối với hạ tầng AI và các đổi mới trong tương lai.\n\nTuy nhiên, WB nhấn mạnh các nền kinh tế vẫn có thể thu về lợi ích đáng kể bằng cách điều chỉnh các hệ thống AI hiện có, thay vì tự phát triển những mô hình tiên phong tốn kém. [...] Báo cáo dựa trên bộ dữ liệu về các mô hình AI của tổ chức nghiên cứu phi lợi nhuận Epoch AI tính đến tháng 5/2026.\n\n VnEconomy \n\nTheo phn tích của WB, Mỹ dẫn đầu với 50% số mô hình, tiếp theo là Trung Quốc với 24%. Anh đứng thứ ba với 5,2%, cách biệt khá xa, còn Canada xếp thứ tư với 3,1%. Không nền kinh tế nào khác trong danh sách vượt quá tỷ lệ 2,3%.",
+                "score": 0.6021201
+              },
+              {
+                "title": "Mô hình AI mở của Trung Quốc có thể kém hơn ước tính - Báo VnExpress",
+                "url": "https://vnexpress.net/mo-hinh-ai-mo-cua-trung-quoc-co-the-kem-hon-uoc-tinh-5141367.html",
+                "source": "vnexpress.net",
+                "summary": "Kết quả đánh giá mới có sự khác biệt lớn, cho thấy các công ty Mỹ dẫn trước xa hơn so với ước tính cũ, đặc biệt là với nhiệm vụ khoa học phức tạp. Mô hình trọng số mở tốt nhất kém mô hình dẫn đầu 12 điểm, tăng mạnh so với khoảng cách 3 điểm theo hệ thống cũ. Cụ thể, trong khi mô hình đứng đầu Claude Opus 5.5 của Anthropic (Mỹ) đạt 58 điểm, Kimi K3.1 Pro của startup Moonshot AI (Trung Quốc) đạt 46 điểm. [...] Theo Lambert, mô hình trọng số mở vẫn có tính cạnh tranh cao trong những nhiệm vụ như phát triển phần mềm, đồng thời mang lại cho doanh nghiệp khả năng kiểm soát tốt hơn với chi phí thấp. Tuy nhiên, bằng chứng mới thách thức quan điểm cho rằng các công ty AI Trung Quốc đang nhanh chóng bắt kịp những phòng thí nghiệm hàng đầu của Mỹ và đe dọa mô hình kinh doanh của họ.\n\nThu Thảo tổng hợp\n\nTrở lại Khoa học công nghệTrở lại Khoa học công nghệ [...] VnExpress - Bao tieng Viet nhieu nguoi xem nhat    Thứ sáu, 6/11/2026  \n\nMới nhất \n\nTin theo khu vực \n\n Hà Nội\n TP HCM\n\nInternational\n \n\n Trở lại Khoa học công nghệ\n\n Khoa học công nghệ\n Chuyển đổi số\n Nhịp sống số\n\nThứ sáu, 6/11/2026, 14:00 (GMT+7)\n\n## Mô hình AI mở của Trung Quốc có thể kém hơn ước tính\n\n# Mô hình AI mở của Trung Quốc có thể kém hơn ước tính\n\nKết quả kiểm thử mới của công ty Artificial Analysis cho thấy mô hình AI trọng số mở của Trung Quốc vẫn tụt hậu so với đối thủ Mỹ.",
+                "score": 0.5629575
+              },
+              {
+                "title": "CEO Anthropic 'chê' video AI | Znews.vn",
+                "url": "https://znews.vn/ceo-anthropic-che-video-ai-post1694931.html",
+                "source": "znews.vn",
+                "summary": "Lý do xuất phát từ chi phí phát triển AI ngày càng lớn. Việc huấn luyện và vận hành các mô hình tiên tiến đòi hỏi lượng lớn chip xử lý, điện năng và hạ tầng trung tm dữ liệu. Nếu tham gia thêm cuộc đua tạo ảnh và video, Anthropic sẽ phải phn bổ nguồn lực cho nhiều mục tiêu khác nhau.\n\n|  |\n\n| AI ảnh 2 |\n| Anthropic định hướng Claude là mô hình AI dành cho khách hàng doanh nghiệp. Ảnh: Bloomberg. |",
+                "score": 0.4660861
+              },
+              {
+                "title": "Hàn Quốc xây dựng mô hình 'AI chống AI' để đối phó tấn công mạng",
+                "url": "https://baotintuc.vn/han-quoc-xay-dung-mo-hinh-ai-chong-ai-de-doi-pho-tan-cong-mang-post1400458.html",
+                "source": "baotintuc.vn",
+                "summary": "Lực lượng đặc nhiệm sẽ quy tụ đại diện các cơ quan liên quan của chính phủ như Bộ Khoa học và công nghệ thông tin - truyền thông, Cơ quan tình báo quốc gia, các chuyên gia khu vực tư nhn và lãnh đạo phụ trách công nghệ của các tổ chức tài chính. Theo kế hoạch, các tổ chức tài chính có năng lực nổi bật về AI và bảo mật sẽ được xem xét áp dụng trước các biện pháp nới lỏng, đi kèm yêu cầu xy dựng các lớp bảo vệ thay thế để bảo đảm an toàn hệ thống. [...] Quang cảnh bên ngoài một trung tm dữ liệu. Ảnh minh họa: Wikimedia Commons  \n\n## Làn sóng đầu tư AI tại Mỹ có sắp chững lại?\n\nSinh viên góp sức xy dựng không gian mạng an toàn  \n\n## Sinh viên góp sức xy dựng không gian mạng an toàn\n\nTrí tuệ nhn tạo: Cảnh báo AI tự hành gy rủi ro cho doanh nghiệp  \n\n## Trí tuệ nhn tạo: Cảnh báo AI tự hành gy rủi ro cho doanh nghiệp\n\nAI giúp đẩy nhanh tốc độ phát triển các mô hình của Anthropic  \n\n## AI giúp đẩy nhanh tốc độ phát triển các mô hình của Anthropic [...] Theo phóng viên TTXVN tại Seoul, Mỹ đang mở rộng các biện pháp kiểm soát nhằm ngăn Trung Quốc tiếp cận chip trí tuệ nhn tạo (AI) tiên tiến, không chỉ thông qua xuất khẩu trực tiếp mà còn cả hình thức thuê năng lực tính toán từ các trung tm dữ liệu đặt ở nước thứ ba. Động thái này có thể làm gia tăng sức ép đối với chuỗi cung ứng điện toán đám my và bán dẫn toàn cầu.\n\nChiến lược phát triển ngành robot của Trung Quốc trong kỷ nguyên AI",
+                "score": 0.39396778
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_hackernews_discussion",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "hackernews",
+        "difficulty": "easy",
+        "what_it_tests": "Nhận diện nguồn Hacker News được chỉ định và chọn đúng công cụ chuyên biệt thay vì tìm kiếm web tổng quát."
+      },
+      "input": "Tìm 10 thảo luận có liên quan nhất trên Hacker News về LangGraph.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "LangGraph",
+              "sort": "relevance",
+              "limit": 10
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "LangGraph",
+              "limit": 10
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "sort: expected 'relevance', got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "hackernews",
+          "args": {
+            "query": "LangGraph",
+            "limit": 10
+          },
+          "result": {
+            "tool": "search_hackernews",
+            "query": "LangGraph",
+            "sort": "relevance",
+            "items": [
+              {
+                "title": "LangManus: An Open-Source Manus Agent with LangChain + LangGraph",
+                "url": "https://github.com/langmanus/langmanus",
+                "source": "github.com",
+                "summary": "127 points, 14 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=43434171",
+                "date": "2025-03-21T11:01:00Z"
+              },
+              {
+                "title": "We chose LangGraph to build our coding agent",
+                "url": "https://www.qodo.ai/blog/why-we-chose-langgraph-to-build-our-coding-agent/",
+                "source": "qodo.ai",
+                "summary": "83 points, 20 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=43468435",
+                "date": "2025-03-25T05:50:36Z"
+              },
+              {
+                "title": "LangGraph Engineer",
+                "url": "https://github.com/hwchase17/langgraph-engineer",
+                "source": "github.com",
+                "summary": "63 points, 38 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=41203307",
+                "date": "2024-08-09T16:28:43Z"
+              },
+              {
+                "title": "Comparing Fable and 10 other LLMs on refactoring a LangGraph god node",
+                "url": "https://wtf.korridzy.com/twilight-of-the-gods/",
+                "source": "wtf.korridzy.com",
+                "summary": "47 points, 20 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=48761132",
+                "date": "2026-07-02T13:19:56Z"
+              },
+              {
+                "title": "Basic ReAct webapp using FastHTML and LangGraph",
+                "url": "https://github.com/jank/curiosity",
+                "source": "github.com",
+                "summary": "29 points, 6 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=41181057",
+                "date": "2024-08-07T13:09:54Z"
+              },
+              {
+                "title": "Show HN: I Built LangGraph for Swift",
+                "url": "https://github.com/christopherkarani/Swarm",
+                "source": "github.com",
+                "summary": "25 points, 4 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=48805437",
+                "date": "2026-07-06T14:47:45Z"
+              },
+              {
+                "title": "Should I Use a Framework to Build an Agent? Code vs. LangGraph vs. Workflows",
+                "url": "https://news.ycombinator.com/item?id=41722243",
+                "source": "news.ycombinator.com",
+                "summary": "21 points, 6 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=41722243",
+                "date": "2024-10-02T16:23:36Z"
+              },
+              {
+                "title": "Building Agentic Flows with LangGraph and Model Context Protocol",
+                "url": "https://www.qodo.ai/blog/building-agentic-flows-with-langgraph-model-context-protocol/",
+                "source": "qodo.ai",
+                "summary": "18 points, 1 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=43402416",
+                "date": "2025-03-18T17:49:56Z"
+              },
+              {
+                "title": "Why we chose LangGraph to build our coding agent",
+                "url": "https://www.qodo.ai/blog/why-we-chose-langgraph-to-build-our-coding-agent/",
+                "source": "qodo.ai",
+                "summary": "17 points, 9 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=43459535",
+                "date": "2025-03-24T11:04:27Z"
+              },
+              {
+                "title": "Building a LangGraph pipeline for production data engineering",
+                "url": "https://labyrinthanalyticsconsulting.com/blog/building-first-langgraph-pipeline",
+                "source": "labyrinthanalyticsconsulting.com",
+                "summary": "13 points, 0 comments",
+                "discussion_url": "https://news.ycombinator.com/item?id=48343061",
+                "date": "2026-05-31T04:38:25Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_wikipedia_definition",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "wikipedia",
+        "difficulty": "easy",
+        "what_it_tests": "Chỉ sử dụng Wikipedia khi người dùng yêu cầu nguồn này, đồng thời chọn đúng ngôn ngữ."
+      },
+      "input": "Tra cứu khái niệm Transformer trên Wikipedia tiếng Việt.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Transformer",
+              "lang": "vi"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Transformer",
+              "lang": "vi"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "query": "Transformer",
+            "lang": "vi"
+          },
+          "result": {
+            "tool": "wikipedia_summary",
+            "query": "Transformer",
+            "lang": "vi",
+            "items": [
+              {
+                "title": "Transformer (mô hình học máy)",
+                "url": "https://vi.wikipedia.org/wiki/Transformer_(m%C3%B4_h%C3%ACnh_h%E1%BB%8Dc_m%C3%A1y)",
+                "source": "vi.wikipedia.org",
+                "summary": "Transformer là một mô hình học sâu được giới thiệu năm 2017, được dùng chủ yếu ở lĩnh vực xử lý ngôn ngữ tự nhiên (NLP) và thị giác máy tính (CV).\nGiống như các mạng thần kinh hồi quy (recurrent neural network - RNN), các Transformer được thiết kế để xử lý dữ liệu tuần tự, chẳng hạn như ngôn ngữ tự nhiên, cho các tác vụ như dịch máy thống kê hay tóm tắt tự động. Tuy nhiên, khác với RNN, các Transformer không yêu cầu dữ liệu tuần tự được xử lý theo thứ tự. Ví dụ, nếu dữ liệu đầu vào là một câu ngôn ngữ tự nhiên, Transformer không cần phải xử lý phần đầu câu trước phần cuối câu. Do tính năng này, Transformer cho phép nhiều phép tính toán song song và vì vậy giảm thời gian huấn luyện.\nTransformer được ra mắt vào năm 2017 bởi một nhóm tác giả tại Google Brain và càng ngày nó là mô hình được nhiều sự lựa chọn cho các vấn đề về NLP để thay thế các mô hình RNN như Bộ nhớ dài-ngắn hạn (LSTM). Transformer có khả năng đào tạo song song (training parallelization) cho phép đào tạo trên các tập dữ lớn hơn. Điều này mở ra thời kỳ phát triển của các mô hình đào tạo trước như BERT (Bidirectional Encoder Representations from Transformers) và GPT (Generative Pre-trained Transformer). Các mô hình này được đào tạo với các bộ dữ liệu ngôn ngữ lớn như Wikipedia Corpus và Common Crawl, và có thể được tinh chỉnh phù hợp cho các nhiệm vụ cụ thể."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_openalex_author",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "openalex",
+        "difficulty": "medium",
+        "what_it_tests": "Truyền đúng tên tác giả, chủ đề nghiên cứu, thứ tự sắp xếp và số lượng kết quả."
+      },
+      "input": "Tìm 5 nghiên cứu gần đây của Yoshua Bengio về deep learning.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "openalex",
+            "args": {
+              "author": "Yoshua Bengio",
+              "query": "deep learning",
+              "sort": "recent",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "openalex",
+            "args": {
+              "query": "deep learning",
+              "author": "Yoshua Bengio",
+              "sort": "recent",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "openalex",
+          "args": {
+            "query": "deep learning",
+            "author": "Yoshua Bengio",
+            "sort": "recent",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_openalex",
+            "query": "deep learning",
+            "author": "Yoshua Bengio",
+            "sort": "recent",
+            "items": [
+              {
+                "title": "Understanding AI from the Inside: The State of Mechanistic Interpretability for AI Safety",
+                "url": "https://doi.org/10.48550/arxiv.2611.08438",
+                "source": "arXiv (Cornell University)",
+                "summary": "2026, 0 citations, authors: Fazl Barez, Tung-Yu Wu, Hunar Batra",
+                "year": 2026,
+                "cited_by": 0
+              },
+              {
+                "title": "Extended generalization and improved safety with the System‐2 features of the Scientist AI",
+                "url": "https://doi.org/10.1002/aaai.70117",
+                "source": "AI Magazine",
+                "summary": "2026, 0 citations, authors: Yoshua Bengio",
+                "year": 2026,
+                "cited_by": 0
+              },
+              {
+                "title": "Distribution-Based Regularization for Reward Fine-Tuning Diffusion and Flow Models",
+                "url": "https://doi.org/10.48550/arxiv.2610.24897",
+                "source": "arXiv (Cornell University)",
+                "summary": "2026, 0 citations, authors: Romeo Passaro, Jeongjae Lee, Jong Chul Ye",
+                "year": 2026,
+                "cited_by": 0
+              },
+              {
+                "title": "GCAM-Gym: A Benchmark for Agent-Based Climate Policy Search",
+                "url": "https://doi.org/10.48550/arxiv.2610.23569",
+                "source": "arXiv (Cornell University)",
+                "summary": "2026, 0 citations, authors: Tianyu Zhang, Zhenghan Tai, Xinyu Wang",
+                "year": 2026,
+                "cited_by": 0
+              },
+              {
+                "title": "Defining and Generating Compositional Structure",
+                "url": "https://doi.org/10.48550/arxiv.2610.20922",
+                "source": "arXiv (Cornell University)",
+                "summary": "2026, 0 citations, authors: Eric Elmoznino, Tejas Kasetty, Blaise Agüera y Arcas",
+                "year": 2026,
+                "cited_by": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_clarify_missing_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "clarify",
+        "difficulty": "easy",
+        "what_it_tests": "Nhận diện URL còn thiếu và hỏi người dùng bổ sung thay vì tự suy đoán hoặc gọi fetch."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đọc bài viết này và tóm tắt giúp tôi."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn vui lòng gửi đường link bài viết cần đọc."
+        },
+        {
+          "role": "user",
+          "content": "Tôi chỉ cần bản tóm tắt ngắn, tập trung vào ý chính."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cung cấp đường link bài viết mà bạn muốn tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp đường link bài viết mà bạn muốn tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cung cấp đường link bài viết mà bạn muốn tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_timeline_account_mapping",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "timeline",
+        "difficulty": "medium",
+        "what_it_tests": "Ánh xạ tên Sam Altman sang username sama và cập nhật limit theo thông tin ở lượt hội thoại sau."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Cho tôi xem bài đăng mới nhất của Sam Altman trên X."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn lấy bao nhiêu bài đăng?"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 bài gần nhất."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama",
+            "limit": 3
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and bett",
+                "summary": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…",
+                "url": "https://x.com/sama/status/2118471941002842341",
+                "source": "@sama",
+                "date": "Thu Nov 05 22:34:04 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 53,
+                  "views": "47497"
+                }
+              },
+              {
+                "title": "RT @thsottiaux: Day 25/",
+                "summary": "RT @thsottiaux: Day 25/\n\nWe are doubling all usage limits for all Pro 100/200/500 tiers and Business Premium, effective today.\n\nWe heard yo…",
+                "url": "https://x.com/sama/status/2117797818756952416",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:55:21 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2702,
+                  "views": "42016"
+                }
+              },
+              {
+                "title": "People should always be in control of the future.",
+                "summary": "People should always be in control of the future.\n\nOpenAI is against the notion that it would be acceptable for people to be relegated to a role of doing things that “AI systems think makes sense to reward in humans”.\n\nPeople should not cede control of the future to superintelligence, and that requirement should ultimately constrain AI progress.",
+                "url": "https://x.com/sama/status/2117794005165748448",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:40:12 +0000 2026",
+                "metrics": {
+                  "favorites": 20673,
+                  "retweets": 1020,
+                  "views": "10652283"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_fetch_url_boundary",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "fetch",
+        "difficulty": "medium",
+        "what_it_tests": "Giới hạn thao tác fetch vào URL người dùng cung cấp, không tự ý gọi lookup hoặc tìm thêm nguồn ngoài yêu cầu."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi muốn đọc một bài viết trên web."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn gửi đường link bài viết nhé."
+        },
+        {
+          "role": "user",
+          "content": "Đây là link https://example.com/ai-agents. Hãy đọc nội dung và tóm tắt, không cần tìm thêm nguồn khác."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/ai-agents"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/ai-agents"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com/ai-agents"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com/ai-agents",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com/ai-agents",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_format_existing_content",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "format",
+        "difficulty": "easy",
+        "what_it_tests": "Chỉ định dạng dữ liệu đã có, không gọi thêm công cụ tìm kiếm hoặc truy xuất thông tin không cần thiết."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi có nội dung tổng hợp về AI Agents và muốn trình bày lại."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn định dạng nội dung như thế nào?"
+        },
+        {
+          "role": "user",
+          "content": "Chia thành các phần riêng biệt, mỗi phần có tiêu đề rõ ràng. Không cần tìm thêm thông tin."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "format",
+            "args": {
+              "template": "sections"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "format",
+            "args": {
+              "items": [],
+              "template": "sections"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "format",
+          "args": {
+            "items": [],
+            "template": "sections"
+          },
+          "result": {
+            "tool": "render_digest",
+            "template": "sections",
+            "markdown": "",
+            "item_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_top_papers_published",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "top_papers",
+        "difficulty": "medium",
+        "what_it_tests": "Phân biệt bài báo đã xuất bản với preprint arXiv và chọn đúng công cụ theo loại công bố, thời gian và tiêu chí trích dẫn."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm các nghiên cứu về Multimodal AI trong 12 tháng gần đây."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn tìm preprint trên arXiv hay bài đã được công bố tại hội nghị và tạp chí?"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy bài đã công bố tại hội nghị, chọn 5 bài có số lượt trích dẫn cao nhất."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "top_papers",
+            "args": {
+              "query": "Multimodal AI",
+              "months": 12,
+              "limit": 5,
+              "venue_type": "conference",
+              "sort_by": "citations"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "top_papers",
+            "args": {
+              "query": "Multimodal AI",
+              "months": 12,
+              "limit": 5,
+              "venue_type": "conference",
+              "sort_by": "citations"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "top_papers",
+          "args": {
+            "query": "Multimodal AI",
+            "months": 12,
+            "limit": 5,
+            "venue_type": "conference",
+            "sort_by": "citations"
+          },
+          "result": {
+            "tool": "top_papers",
+            "query": "Multimodal AI",
+            "months": 12,
+            "venue_type": "conference",
+            "limit": 5,
+            "sort_by": "citations",
+            "source": "openalex",
+            "from_date": "2025-11-10",
+            "to_date": "2026-11-10",
+            "total_matches": 15213,
+            "items": [
+              {
+                "title": "Causal World Modeling for Robot Control",
+                "authors": [
+                  "Lin Li",
+                  "Qihang Zhang",
+                  "Yiming Luo",
+                  "Shuai Yang",
+                  "Ruilin Wang"
+                ],
+                "venue": "Robotics: Science and Systems",
+                "venue_type": "conference",
+                "publication_date": "2026-07-13",
+                "cited_by_count": 428,
+                "doi": "https://doi.org/10.15607/rss.2026.xxii.016",
+                "url": "https://doi.org/10.15607/rss.2026.xxii.016",
+                "source": "openalex.org",
+                "summary": "Causal World Modeling for Robot Control (Robotics: Science and Systems, 2026-07-13) - 428 citations"
+              },
+              {
+                "title": "A Survey on Evaluation of LLM-based Agents",
+                "authors": [
+                  "Asaf Yehudai",
+                  "Lilach Eden",
+                  "Alan Li",
+                  "Guy Uziel",
+                  "Yilun Zhao"
+                ],
+                "venue": "Findings of the Association for Computational Linguistics: ACL (Findings of ACL)",
+                "venue_type": "conference",
+                "publication_date": "2026-01-01",
+                "cited_by_count": 314,
+                "doi": "https://doi.org/10.18653/v1/2026.findings-acl.1330",
+                "url": "https://doi.org/10.18653/v1/2026.findings-acl.1330",
+                "source": "openalex.org",
+                "summary": "A Survey on Evaluation of LLM-based Agents (Findings of the Association for Computational Linguistics: ACL (Findings of ACL), 2026-01-01) - 314 citations"
+              },
+              {
+                "title": "Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning",
+                "authors": [
+                  "Sikuan Yan",
+                  "Xiufeng Yang",
+                  "Zuchao Huang",
+                  "Ercong Nie",
+                  "Zifeng Ding"
+                ],
+                "venue": "Proceedings of the conference - Association for Computational Linguistics. Meeting",
+                "venue_type": "conference",
+                "publication_date": "2026-01-01",
+                "cited_by_count": 297,
+                "doi": "https://doi.org/10.18653/v1/2026.acl-long.583",
+                "url": "https://doi.org/10.18653/v1/2026.acl-long.583",
+                "source": "openalex.org",
+                "summary": "Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning (Proceedings of the conference - Association for Computational Linguistics. Meeting, 2026-01-01) - 297 citations"
+              },
+              {
+                "title": "O1-Pruner: Length-Harmonizing Fine-Tuning for O1-Like Reasoning Pruning",
+                "authors": [
+                  "Haotian Luo",
+                  "Li Shen",
+                  "Yibo Wang",
+                  "Shiwei Liu",
+                  "Wei Li"
+                ],
+                "venue": "Findings of the Association for Computational Linguistics: ACL (Findings of ACL)",
+                "venue_type": "conference",
+                "publication_date": "2026-01-01",
+                "cited_by_count": 277,
+                "doi": "https://doi.org/10.18653/v1/2026.findings-acl.697",
+                "url": "https://doi.org/10.18653/v1/2026.findings-acl.697",
+                "source": "openalex.org",
+                "summary": "O1-Pruner: Length-Harmonizing Fine-Tuning for O1-Like Reasoning Pruning (Findings of the Association for Computational Linguistics: ACL (Findings of ACL), 2026-01-01) - 277 citations"
+              },
+              {
+                "title": "Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills",
+                "authors": [
+                  "Jingwei Ni",
+                  "Yihao Liu",
+                  "Xinpeng Liu",
+                  "Yutao Sun",
+                  "Mengyu Zhou"
+                ],
+                "venue": "Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+                "venue_type": "conference",
+                "publication_date": "2026-01-01",
+                "cited_by_count": 239,
+                "doi": "https://doi.org/10.18653/2026.emnlp-main.758",
+                "url": "https://doi.org/10.18653/2026.emnlp-main.758",
+                "source": "openalex.org",
+                "summary": "Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills (Conference on Empirical Methods in Natural Language Processing (EMNLP), 2026-01-01) - 239 citations"
+              }
+            ],
+            "note": "Recent papers have few citations, so counts are indicative only."
+          }
+        }
+      ]
+    }
+  ]
+}
