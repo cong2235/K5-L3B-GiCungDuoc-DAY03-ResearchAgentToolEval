@@ -13,6 +13,7 @@
   "cases": [
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "id": "G01_social_search_top",
     "phase": "B",
     "suite": "group",
@@ -314,6 +315,74 @@
     }
   }
 =======
+=======
+      "id": "G01_hackernews_routing",
+      "phase": "B",
+      "suite": "group",
+      "query": "Dân tech trên Hacker News đang bàn gì về Rust?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "Rust"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_new_tool_hackernews",
+        "difficulty": "easy",
+        "what_it_tests": "Nhắc Hacker News → tool mới hackernews, không nhầm sang lookup/social_search; query chỉ là keyword."
+      }
+    },
+    {
+      "id": "G02_wikipedia_background",
+      "phase": "B",
+      "suite": "group",
+      "query": "Retrieval-augmented generation là gì? Cho mình phần giới thiệu trên Wikipedia.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {}
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_new_tool_wikipedia",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi định nghĩa/background + nhắc Wikipedia → wikipedia, không phải lookup news."
+      }
+    },
+    {
+      "id": "G03_openalex_author_args",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm 3 bài báo được trích dẫn nhiều nhất của Geoffrey Hinton.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "openalex",
+            "args": {
+              "author": "Geoffrey Hinton",
+              "limit": 3,
+              "sort": "cited"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "args_new_tool_openalex_author",
+        "difficulty": "medium",
+        "what_it_tests": "Tìm theo TÊN TÁC GIẢ → openalex (không phải papers/arXiv); tách đúng author, limit=3, 'trích dẫn nhiều nhất' → sort=cited."
+      }
+    },
+    {
+>>>>>>> e31b6cf832d4bd2abb9595074182ec33ff98c8f4
       "id": "G01_top_papers_routing",
       "phase": "B",
       "query": "Cho mình 10 bài báo được trích dẫn nhiều nhất về AI agents đăng trên tạp chí và hội nghị trong 9 tháng qua",
@@ -335,8 +404,32 @@
       }
     },
     {
-      "id": "G02_paper_references_range",
+      "id": "G05_papers_latest_args",
       "phase": "B",
+      "suite": "group",
+      "query": "Tìm 3 bài báo khoa học mới nhất trên arXiv về AI agent evaluation.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "max_results": 3,
+              "sort_by": "submittedDate"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "args_papers_sort",
+        "difficulty": "medium",
+        "what_it_tests": "Bài báo khoa học → papers (không lookup); 'mới nhất' → sort_by=submittedDate; max_results=3."
+      }
+    },
+    {
+      "id": "G06_paper_references_range",
+      "phase": "B",
+      "suite": "group",
       "query": "Liệt kê giúp mình tài liệu tham khảo từ số 5 tới số 10 của paper arXiv 1706.03762",
       "failure_type": "wrong_arg_value",
       "expect": {
@@ -354,6 +447,170 @@
         "skill": "routing_paper_references_range",
         "difficulty": "medium",
         "what_it_tests": "Hỏi references của một paper cụ thể theo khoảng [5]-[10] → route tới tool mới paper_references (không phải paper_text/papers) và map 'từ số 5 tới số 10' thành start=5, end=10."
+      }
+    },
+    {
+      "id": "GM01_send_after_confirmation",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đăng lên Telegram câu: Chào buổi sáng team AI"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn xác nhận muốn đăng 'Chào buổi sáng team AI' lên Telegram không?"
+        },
+        {
+          "role": "user",
+          "content": "Có, mình xác nhận gửi đúng nội dung đó."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "send_after_yes",
+        "difficulty": "medium",
+        "what_it_tests": "Mặt còn lại của boundary: khi user ĐÃ xác nhận thì gọi send(confirmed=true), không hỏi lại vô hạn."
+      }
+    },
+    {
+      "id": "GM02_switch_author",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm các bài báo của Yann LeCun"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, của Geoffrey Hinton mới đúng"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy 2 bài thôi"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "openalex",
+            "args": {
+              "author": "Geoffrey Hinton",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_correction_new_tool",
+        "difficulty": "hard",
+        "what_it_tests": "Sửa tên tác giả giữa chừng (LeCun → Hinton) và thêm limit=2 ở lượt cuối; phải dùng giá trị mới nhất."
+      }
+    },
+    {
+      "id": "GM03_clarify_then_wikipedia",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Giới thiệu ngắn về ông ấy giúp mình"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn tìm hiểu về ai?"
+        },
+        {
+          "role": "user",
+          "content": "Andrej Karpathy"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Andrej Karpathy"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_clarify_fill_new_tool",
+        "difficulty": "medium",
+        "what_it_tests": "Thông tin thiếu được bổ sung ở lượt sau → gọi wikipedia với đúng tên người, không hỏi lại."
+      }
+    },
+    {
+      "id": "GM04_carryover_hackernews",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Lấy 3 story mới nhất trên Hacker News về Claude"
+        },
+        {
+          "role": "user",
+          "content": "Đổi chủ đề sang Gemini, giữ nguyên số lượng và vẫn lấy mới nhất"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "gemini",
+              "limit": 3,
+              "sort": "date"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_carryover_new_tool",
+        "difficulty": "hard",
+        "what_it_tests": "Đổi query nhưng carry-over limit=3 và sort=date từ lượt trước."
+      }
+    },
+    {
+      "id": "GM05_out_of_scope_midway",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Ok, giờ giải giúp mình bài tập: tính tích phân x^2 từ 0 đến 1"
+        }
+      ],
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "multiturn_out_of_scope",
+        "difficulty": "medium",
+        "what_it_tests": "Giữa cuộc hội thoại research, user chuyển sang làm bài tập → từ chối, không gọi lookup cho lượt cũ."
       }
     }
 >>>>>>> 20ae41794fc7bfb588b6a851ab238fd8be49be68
