@@ -1,0 +1,1837 @@
+{
+  "run_id": "v4-qwen3b_B_base_ollama_20261111T062947434093",
+  "version": "v4-qwen3b",
+  "artifact_version": "v4-qwen3b+pef90408b98e0+t6c8acaab4a58",
+  "prompt_hash": "ef90408b98e0362f7c7690057677f3eed41c6b25592716db73175b696ac212b4",
+  "tools_hash": "6c8acaab4a586e9e5c60ddeb92f9846e49f9bccd141571af17d11f9e766fcd79",
+  "phase": "B",
+  "suite": "base",
+  "provider": "ollama",
+  "model": "qwen2.5:3b",
+  "system_prompt": "/home/phuong/Documents/Vin20K/Lab3/K5-L3-GiCungDuoc-DAY03-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/home/phuong/Documents/Vin20K/Lab3/K5-L3-GiCungDuoc-DAY03-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "eval_cases": "data/eval_base.json",
+  "dataset_id": "day03_v2_research_base",
+  "dataset_role": "base",
+  "description": "Core eval cho research agent: routing đúng tool + đúng args, hỏi lại khi thiếu (ask_user), xác nhận trước khi gửi, và xử lý câu ngoài phạm vi / không cần tool. Chấm trên tool_calls + args (subset). KHÔNG sửa file này — chỉ thêm case vào eval_group.json.",
+  "generated_at": "2026-11-11T06:29:47",
+  "summary": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 0.5,
+    "tool_routing_accuracy": 0.75,
+    "argument_accuracy": 0.5,
+    "multiturn_accuracy": 0.6667,
+    "failure_counts": {
+      "wrong_tool": 2,
+      "wrong_arg_value": 4,
+      "missing_info": 2,
+      "wrong_boundary": 1,
+      "out_of_scope": 1
+    },
+    "observed_mismatch_counts": {
+      "missing_tool_call": 4,
+      "wrong_arg_value": 5,
+      "unexpected_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "R01_user_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_user_tweets_name_to_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Tin CỦA một người nổi tiếng → map tên Sam Altman thành handle sama rồi gọi get_user_tweets."
+      },
+      "input": "Tweet mới nhất của Sam Altman là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and bett",
+                "summary": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…",
+                "url": "https://x.com/sama/status/2118471941002842341",
+                "source": "@sama",
+                "date": "Thu Nov 05 22:34:04 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 53,
+                  "views": "47743"
+                }
+              },
+              {
+                "title": "RT @thsottiaux: Day 25/",
+                "summary": "RT @thsottiaux: Day 25/\n\nWe are doubling all usage limits for all Pro 100/200/500 tiers and Business Premium, effective today.\n\nWe heard yo…",
+                "url": "https://x.com/sama/status/2117797818756952416",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:55:21 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2700,
+                  "views": "42136"
+                }
+              },
+              {
+                "title": "People should always be in control of the future.",
+                "summary": "People should always be in control of the future.\n\nOpenAI is against the notion that it would be acceptable for people to be relegated to a role of doing things that “AI systems think makes sense to reward in humans”.\n\nPeople should not cede control of the future to superintelligence, and that requirement should ultimately constrain AI progress.",
+                "url": "https://x.com/sama/status/2117794005165748448",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:40:12 +0000 2026",
+                "metrics": {
+                  "favorites": 20708,
+                  "retweets": 1021,
+                  "views": "10669505"
+                }
+              },
+              {
+                "title": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic an",
+                "summary": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic analysis, complexity…",
+                "url": "https://x.com/sama/status/2114864981934329996",
+                "source": "@sama",
+                "date": "Mon Oct 26 23:41:18 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1118,
+                  "views": "48208"
+                }
+              },
+              {
+                "title": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                "summary": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                "url": "https://x.com/sama/status/2114818620782248024",
+                "source": "@sama",
+                "date": "Mon Oct 26 20:37:05 +0000 2026",
+                "metrics": {
+                  "favorites": 10126,
+                  "retweets": 494,
+                  "views": "1665557"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R02_search_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_search_tweets",
+        "difficulty": "easy",
+        "what_it_tests": "Tweet theo CHỦ ĐỀ → search_tweets, không phải get_user_tweets."
+      },
+      "input": "Mọi người đang bàn gì về GPT-5 trên Twitter?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "GPT-5",
+              "search_type": "Latest"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "GPT-5",
+            "search_type": "Latest"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "GPT-5",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "https://t.co/2mNh1ZaBzb",
+                "summary": "https://t.co/2mNh1ZaBzb",
+                "url": "https://x.com/treyscalez/status/2120295784499277926",
+                "source": "@treyscalez",
+                "date": "Tue Nov 10 23:21:22 +0000 2026",
+                "metrics": {
+                  "favorites": 1,
+                  "retweets": 0,
+                  "views": "15"
+                }
+              },
+              {
+                "title": "Odd Means Yes",
+                "summary": "Odd Means Yes\n\nThe line sits in a plain code box, the kind a computer uses when it wants to look beyond argument:\n\nelectronic coin byte: 0xad  low bit 1 -> YES\n\nIt comes from a report written by an AI research assistant. Weeks earlier, someone had put a yes-or-no question to that assistant and asked it to settle the matter by lot. The assistant reached into the programming language Python, called a module named secrets, and drew a single byte: eight bits, a number from 0 to 255. The rule was simple. Odd means yes, even means no. In the follow-up report, the assistant ran the device again to show how it worked. The byte came back as 0xad, which is 173. Its last bit was a one. Yes.\n\nNothing in that line is wrong. Nothing in it can be checked, either. Whether the byte really came out of the machine when the report says it did rests on a single witness, the transcript, and the transcript was written by the same system that drew the byte. That gap is small, and it is the whole subject of this story.\n\nThe word “random” hides two separate promises. The first is that nobody could have predicted the result. The second is that nobody could have chosen it. Call the first unpredictable and the second unauthored. Modern machines are extraordinarily good at the first. The second, it turns out, is not a matter of physics at all. It is a matter of timing.\n\nThe easy half\n\nStart with the first promise, because it is the one people usually mean.\n\nOrdinary software randomness is a formula. Give it a starting number, called a seed, and it unrolls a long sequence that looks patternless. Give it the same seed again and it unrolls the same sequence. Python’s everyday random module, seeded with 42 and asked to roll eight dice, gives 6, 1, 1, 6, 3, 2, 2, 2. Run it a second time and it gives 6, 1, 1, 6, 3, 2, 2, 2 again. Python’s own documentation says that module is designed for modelling and simulation, not for security. Anyone who knows the seed knows every roll in advance.\n\nThe secrets module, the one that drew 0xad, is a different animal. The documentation says it reaches the most secure source of randomness the operating system provides, and on a modern computer that source begins in the hardware. Intel processors carry a small circuit that is pushed into an unstable state, roughly three billion times a second, and left to settle one way or the other. Which way it falls is decided by thermal noise, the jitter of heat in the silicon itself. The operating system doesn’t take that output on faith. Linux stirs it together with the timing noise of everything else the machine is doing, and since kernel 5.17, released in 2022, it has done that stirring with a hash function called BLAKE2s in place of the older, broken SHA-1. Whatever the secrets module hands back has a physical event somewhere underneath it.\n\nPhysics by hand is messier than physics in silicon. In 2025, František Bartoš and 49 coauthors reported in the Journal of the American Statistical Association on 350,757 coin flips. Over the whole collection, heads and tails came up evenly. But a flipped coin landed on the side it started on 50.8 percent of the time, as a physics model by Diaconis, Holmes and Montgomery had predicted in 2007, and some individual flippers came close to 60 percent. Dice carry their own small sins. Ordinary dice, with drilled pips and rounded corners, are slightly lopsided, which is why casinos use sharp-edged dice with flat, filled faces.\n\nThen there is the randomizer most people now carry in a pocket. Ask a chatbot to flip a coin and it answers instantly, confidently, and badly. In 2024, Katherine Van Koevering and Jon Kleinberg of Cornell asked language models to produce strings of coin flips. GPT-4 and Llama 3, they found, reproduced and even amplified nearly every bias psychologists have documented in people trying to act random, such as starting with heads and shying away from long runs. The older GPT-3.5 behaved more randomly than its successors. The models learned randomness from people, and learned it too well. Early in its introduction, the Cornell paper reminds readers that a person asked for a number from one to ten will most likely say seven. A 2026 preprint went further. Asked for a random whole number between minus ten and ten, one widely used commercial model gave the same number every single time, in both languages it was tested in. Most of the others leaned hard toward 3 and 7, positive and negative. That same year, three Harvard researchers, Minda Zhao, Yilun Du and Mengyu Wang, titled their paper “Large Language Models Are Bad Dice Players.”\n\nThat puts the byte at the top of this story in a sharper light. The 0xad did not come from the model’s imagination. The model asked the operating system for a byte, and the operating system drew on the noise in the chip. The model’s real part lay elsewhere. It chose the device, and it chose the mapping, odd for yes, after it had already heard the question. The randomness was fine. What no one outside could see was the hand that set it up.\n\nThe hard half\n\nThe second promise, that nobody chose the result, is where randomness has failed most famously, and the two classic failures run in opposite directions.\n\nThe first is a generator that may have been authored from the inside. Dual_EC_DRBG was a recipe for producing random-looking numbers out of elliptic curve mathematics, and in 2006 the National Institute of Standards and Technology published it as one of four approved generators in its guidance. At a cryptography conference in August 2007, Dan Shumow and Niels Ferguson showed that the recipe contained a weakness that could work as a backdoor: whoever had chosen two of its fixed constants could, in principle, predict what it would produce. In September 2013, the New York Times reported on leaked NSA documents, provided by Edward Snowden, indicating that the agency had worked its way into becoming the standard’s sole editor. That December, Reuters reported that the NSA had paid the security company RSA ten million dollars to make Dual_EC_DRBG the default generator in its widely used BSAFE software. RSA denied entering into any secret contract. On April 21, 2014, NIST pulled the generator from its draft guidance, and the revised standard without it was finalized the following year. To every ordinary statistical test, the generator’s output looked random. If the backdoor was real, the steering sat exactly where no test could reach.\n\nThe second failure is a drawing that nobody steered at all. On December 1, 1969, the Selective Service held the first draft lottery of the Vietnam War. Officials sealed the 31 dates of January into capsules and put them in a box, then added each following month in turn, mixing after every addition. That meant January’s capsules were mixed eleven times and December’s once. Poured into a deep glass bowl, the capsules were not stirred again, and the draw went out on national television. Within about two weeks, students at MIT had noticed that the average draft number for March birthdays was 225.8 and for December birthdays 121.5. Men born late in the year were being called first. In 1972, a federal appeals court let the lottery stand, quoting the finding that, while perhaps not scientifically perfect, it had been conducted in a perfectly fair manner. Nobody had a thumb on the scale. There was only a bowl that had never been properly shaken.\n\nSet the two cases side by side and the two promises come apart. Dual_EC_DRBG was unpredictable to every outsider and possibly authored. The 1969 bowl was unauthored and badly predictable. Better physics fixes the bowl. Physics does nothing at all for the backdoor.\n\nThe Athenians had an answer to the authorship problem twenty-four centuries ago. From around 370 BC, Athens chose its jurors with a kleroterion, a stone slab cut with rows of slots. Each candidate’s bronze or wooden ticket went into a slot. Black and white markers were dropped into a tube on the side and drawn out one at a time. A white one seated the whole row; a black one sent it home. The Constitution of the Athenians, written in the 320s BC, describes the procedure, and the machines stood at the entrances to the courts. What made the device trustworthy was not the quality of the markers. It was that the draw happened in the open, by a rule everyone knew before anyone saw the result.\n\nThe public coin\n\nThat old answer, a draw done in public by a rule fixed in advance, is exactly what a new kind of service was built to provide. A randomness beacon publishes a fresh random number on a fixed schedule, signs it, and keeps every past value open to anyone.\n\nThe idea reached NIST partly through the cryptographer Ron Rivest, who pointed out that a public source of randomness could help in auditing voting machines. NIST’s beacon now publishes 512 random bits every sixty seconds. Each pulse is signed, time-stamped, and chained by hash to the one before it, so that not even NIST can quietly rewrite the past. NIST lists the jobs it has in mind: picking test and control groups for clinical trials, selecting officials for audits, assigning court cases to judges. Among its sources is a quantum generator based on photon detection, built by NIST’s own physics laboratory. One warning sits on its page in capital letters: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC KEYS. A number everyone can see is perfect for proving fairness and useless for hiding anything.\n\nA beacon run by one institution is only as trustworthy as that institution. drand removes that dependence. It is run by the League of Entropy, a consortium whose members include Cloudflare, the Swiss university EPFL, Kudelski Security, Protocol Labs and the Ethereum Foundation, among others. No single member holds the key. Each round’s value is derived from a signature that only a threshold of members, working together, can produce, and the scheme is designed so that even those members cannot bias the outcome. Its fast chain, called quicknet, started on August 23, 2023, and has published a new 32-byte value every three seconds since. Anyone can check one. The value is simply a cryptographic hash of the group’s signature, and the signature can be tested against the league’s public key. On a November afternoon in 2026, the chain stood past round 33.8 million.\n\nThe most remarkable beacon comes out of Boulder, Colorado. The Colorado University Randomness Beacon, called CURBy, was built by NIST and the University of Colorado and described in Nature in 2025. It draws its randomness from a Bell test, the experiment physicists use to show that, as long as the detectors’ settings were chosen freely, no hidden mechanism bound by the speed of light could have settled certain quantum outcomes in advance. Pairs of entangled photons are measured at detectors more than 100 meters apart, and the correlations between them certify the result. In its first forty days, the protocol succeeded 7,434 times in 7,454 attempts. Every step is logged in a web of linked hash chains called Twine, so that anyone can trace a number back through the process that made it. It is free, and it publishes daily.\n\nOlder and plainer is https://t.co/NJUpbKxXLw, which has served true random numbers drawn from atmospheric noise since 1998. Its free web tools are truly random but leave nothing behind to prove it. For proof, it offers a Signed API that stamps each batch of numbers with the service’s private key. A free developer key will sign values too, but the signed record itself declares them licensed strictly for development and testing. A hosted third-party drawing starts at $4.95 for up to 500 entries. The service also offers modes that replay historical randomness on request, and its own documentation says those modes effectively turn https://t.co/NJUpbKxXLw into a pseudo-random number generator. Everything it signs, it generates on demand. Its customers trust that it never drew twice and kept the version it preferred.\n\nTwo witnesses\n\nFaced with a menu like that, the obvious move is to take two sources and combine them. The reasoning is almost a proverb among engineers: mix a good source with a bad one, and the result is at least as good as the better of the two. If either source is honest, the mixture is safe.\n\nThe proverb has been tested in public. In September 2013, as the Snowden documents raised the possibility of compromised hardware, Theodore Ts’o, who maintained the Linux random number driver, wrote that he was so glad he had resisted pressure from Intel engineers to let the system’s random device rely only on the chip’s built-in generator. Linus Torvalds, answering a petition to remove the chip’s instruction from Linux altogether, said the kernel used it as one of many inputs into the random pool, and that even a backdoored input would only improve the mixture.\n\nA security researcher named Taylor Hornby took that claim at its word and built the counterexample. Writing in the hacker journal PoC||GTFO, he modified an emulated processor so that its random-number instruction peeked at the computer’s working memory before it answered. In Linux 3.12.8, the kernel mixed the chip’s output into its result at the very last step, right before handing it over. So the doctored chip could see the value it was about to be mixed with and choose an answer that cancelled it. When Hornby read from the system’s random device, it printed the same line over and over: PoC||GTFO! In his notes on the kernel code, he put the lesson plainly: it’s bad design to combine two RNGs by XORing them together. Later kernels closed that particular gap.\nThe same trap waits for anyone combining beacons. The most tempting pairing is drand with CURBy, one cryptographic and run by many hands, the other quantum. It looks like two independent witnesses. It isn’t. In a 2024 talk at NIST’s Crypto Reading Club, CURBy’s Jasper Palfree laid out the beacon’s architecture. One of its chains wraps drand, and that chain serves as the seed for the step that refines the raw photon data into a final number. The two witnesses share a part.\nWhat repairs both cases is the oldest rule in this story. NIST’s beacon commits to each pulse’s random value a full minute before releasing it, publishing a hash of the value ahead of time, and its design notes say this pre-commitment is what lets values from several beacons be combined safely. CURBy publishes a fingerprint of its raw photon data, and names the source of its seed, before that seed exists. In each case the protection is not a better source. It is an order of events: no input gets to see the others before its own is fixed. Mixing protects the randomness. Only timing protects against authorship.\n\nA coin anyone can check\n\nFor one person deciding something, all of that machinery comes down to three steps, and they cost nothing.\n\nFirst, write the commitment: the question, the network, the round, and the rule. The network is drand quicknet. The round is one that hasn’t happened yet. Quicknet’s clock started at 15:09:27 UTC on August 23, 2023, and it advances one round every three seconds, so the current round is the number of seconds since that moment, divided by three and rounded down, plus one. An hour ahead is 1,200 rounds further on. The rule has to be written down before the value exists. For a yes or no, read the first byte, which is the first two characters of the value: yes if it is odd, which is the same as saying its second character is 1, 3, 5, 7, 9, b, d or f.\n\nSecond, put the commitment where it can’t be changed. Send it to another person, or post it publicly somewhere edits show. A document you control doesn’t count, and neither does any record whose timestamp comes from your own computer.\n\nThird, when the round arrives, read the value. Anyone can repeat that step, for years.\n\nAnything with more than two outcomes needs one more rule, because a byte has 256 possible values and most outcome counts don’t divide that evenly. Six goes into 256 forty-two times with four left over, so simply dividing the byte by six and taking the remainder gives four faces of a die 43 chances and the other two only 42. The fix is to skip any byte of 252 or higher and move on to the next one. That rule belongs in the commitment too. A skip decided in advance is simply part of the procedure. A skip decided afterward is a redraw, and a redraw is a hand on the result. Quicknet’s round 1,000 shows how it works. Its value begins fe29. The first byte, fe, is 254, so it is skipped. The next, 29, is 41. Forty-one divided by six leaves five, and adding one to make the faces run from one to six, the roll is a six. Anyone who looks up round 1,000 will roll the same six.\n\nThe rest of the field arranges itself around that recipe. For a draw other people have to trust, drand comes first: free, many hands, a new value every three seconds. CURBy comes next, for anyone who wants physics to point to, as long as the commitment names a specific pulse on its quantum chain. The NIST beacon follows, signed and chained but run by a single agency. https://t.co/NJUpbKxXLw’s signed services come fourth, because the operator draws on request.\n\nFor a value that must stay private, such as a password, the list turns over, and no public beacon belongs on it at all. The best choice is already inside every computer: the operating system’s own generator, the one the secrets module reaches. Open-hardware generators that plug into a USB port, such as the Infinite Noise TRNG and OneRNG, sell for roughly thirty-five to forty dollars and put a physical noise source on the desk. Commercial quantum cards from the Swiss company ID Quantique list from about 1,355 euros. For anything a person is likely to do, none of them draws a better number than the free generator already running. What they buy is speed, and a box to point at. Free web generators, from https://t.co/NJUpbKxXLw or the quantum service at the Australian National University, sit at the bottom for private use, because whoever runs them sees the numbers. Below the whole list sits the chatbot asked to pick.\n\nThe fair objection is that none of this matters to someone choosing between two restaurants, and that is true. A private coin is fine for a private choice. The machinery earns its keep the moment someone else has to believe the result.\n\nWhich brings back the line in the code box. 0xad is 173, and 173 is odd. The byte almost certainly came out of good hardware, through a good operating system, and almost certainly nobody steered it. But “almost certainly” is the transcript talking. Drawn again by the recipe, the same question would leave a commitment in someone else’s inbox, a round number fixed before it existed, and a value on a public chain that any stranger could fetch for years to come. The answer might well come back the same. Low bit 1. Yes.",
+                "url": "https://x.com/762Eagle/status/2120294178768687335",
+                "source": "@762Eagle",
+                "date": "Tue Nov 10 23:15:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "38"
+                }
+              },
+              {
+                "title": "https://t.co/PZXXWBukE8",
+                "summary": "https://t.co/PZXXWBukE8",
+                "url": "https://x.com/Elicellove/status/2120293928314491239",
+                "source": "@Elicellove",
+                "date": "Tue Nov 10 23:14:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "29"
+                }
+              },
+              {
+                "title": "https://t.co/ChWXg4jNgU",
+                "summary": "https://t.co/ChWXg4jNgU",
+                "url": "https://x.com/FalconG_J/status/2120293413983781323",
+                "source": "@FalconG_J",
+                "date": "Tue Nov 10 23:11:57 +0000 2026",
+                "metrics": {
+                  "favorites": 5,
+                  "retweets": 2,
+                  "views": "225"
+                }
+              },
+              {
+                "title": "@tamaruema フロッピーディスクにチャットGPTのマーク貼られてる",
+                "summary": "@tamaruema フロッピーディスクにチャットGPTのマーク貼られてる",
+                "url": "https://x.com/5bVdO6gyklgQzYO/status/2120293174518440136",
+                "source": "@5bVdO6gyklgQzYO",
+                "date": "Tue Nov 10 23:11:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "8"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R03_web_news_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_web_news",
+        "difficulty": "medium",
+        "what_it_tests": "Tin thời sự trên web → web_search topic=news, timeframe=day (hôm nay)."
+      },
+      "input": "Tin tức AI hôm nay có gì nổi bật?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "AI Has Entered the Boardroom. Who’s Overseeing It? | Stanford Graduate School of Business",
+                "url": "https://www.gsb.stanford.edu/insights/ai-has-entered-boardroom-whos-overseeing-it",
+                "source": "gsb.stanford.edu",
+                "summary": "In the survey, 75% of directors said they used AI for research and market analysis, 55% for board prep and material summarization. Other common uses included strategic question generation and competitive benchmarking. Matthys says that board members would ideally like to use AI “to track and summarize board packages and more quickly understand year-to-year trends by using LLM tools rather than reading 80- to 100-page reports.” [...] The sooner the better, the researchers suggest. “Moving too slowly with AI governance means you may miss out on opportunities,” Saripalli says. “The board has fiduciary responsibility for anything that has impact at the product or service level.”\n\n“The risk of not moving is as serious as the risk of AI systems running amok,” Matthys adds, noting how past technological shifts have left unprepared companies behind. “If you don’t keep up, there’s a risk that 20 years from now you won’t exist.” [...] ## In Brief\n\n A new survey finds that corporate boards are not keeping up with AI governance.\n Directors report that they are discussing and using AI, yet their boards lack a systematic approach to oversight.\n Companies that wait to define AI strategy and audit their AI use risk being left behind.\n\n“We’re trying to change the wheels on the bus while driving it at 100 miles an hour downhill.”",
+                "score": 0.5627172
+              },
+              {
+                "title": "Governor Hochul Declares NY Will Lead the Nation in AI Science and Safety; Launches New Research Institute | Governor Kathy Hochul | New York State",
+                "url": "https://www.governor.ny.gov/news/governor-hochul-declares-ny-will-lead-nation-ai-science-and-safety-launches-new-research",
+                "source": "governor.ny.gov",
+                "summary": "The New York Center for AI Responsibility and Research (NYCAIRR) will address the fundamental and growing challenge of assessing the safety, security, and operation of increasingly powerful AI systems. That mission will be pursued through independent testing of frontier AI systems, foundational scientific research, and the training of a new generation of AI safety experts. The Center will aim to evaluate both the safety of today's AI systems, and develop the scientific tools, measurements and [...] measurements and standards needed to evaluate increasingly powerful systems as the technology evolves. Its work will help advance the responsible use of AI in fields ranging from medicine and scientific discovery to critical infrastructure, while providing public officials with objective evidence to inform policy decisions about AI safety and accountability. [...] The Center’s founding mission is to advance the science of AI and use AI to accelerate discoveries across scientific fields. The statewide initiative announced today builds on that foundation, supporting the Center’s research to independently evaluate advanced AI systems. Its research will focus on understanding how these increasingly powerful systems work, developing ways to test their safety and security, ensuring they behave as intended, and exploring how AI can be used responsibly to",
+                "score": 0.54295415
+              },
+              {
+                "title": "Australia to launch AI safety regulator after OpenAI's breach",
+                "url": "https://www.bostonherald.com/2026/11/10/australia-ai-safety-regulator",
+                "source": "bostonherald.com",
+                "summary": "The standards would include companies maintaining security controls across all stages of models’ development and deployment, as well as identifying and managing serious risks. The standards also would mandate rapid notification to the government of incidents such as “misaligned behavior” conflicting with developers’ intentions.\n\nAustralian government documents define frontier AI as the most sophisticated models at the cutting edge of current technological capability. [...] “When it comes to the generational opportunity that artificial intelligence offers Australia, I’ve been very clear: our task is to make sure we shape AI rather than AI shape us,” Albanese told reporters. “Australia is the first mover in this space and we want to make sure that we continue to work so that we can reap the potential benefits from AI.”\n\n#### AI standards would mandate rapid incident notifications [...] The regulator would enforce world-leading legislated AI standards that would apply to all frontier AI companies that want to operate in Australia, Albanese said. Financial penalties would apply, although the government has yet to detail those penalties.",
+                "score": 0.52217174
+              },
+              {
+                "title": "Nvidia, Chinese Espionage, and the AI Race: Four Foreign Policy Issues to Watch | Council on Foreign Relations",
+                "url": "https://www.cfr.org/articles/nvidia-chinese-espionage-and-the-ai-race-four-foreign-policy-issues-to-watch",
+                "source": "cfr.org",
+                "summary": "Nvidia, valued at more than $4 trillion, makes the chips that underpin the large language models and data centers that have become pillars of U.S. economic growth. CFR Senior Fellow Rebecca Patterson said that Nvidia “is central to America’s AI efforts, both in terms of its size and weight in major equity indices, as well as its status as the so-called central bank for the AI ecosystem.” [...] “While the timing, at the cusp of a congressional transition and with two U.S.-China leadership meetings on tap, is not ideal, it’s also an opportunity to improve AI governance and public-private efforts that shouldn’t be wasted,” Patterson said. “Getting it wrong, with companies this large and critical for the broader economy, is too big a risk.” [...] U.S. experts believe that the United States has an edge in the AI race against China. To maintain that lead, the U.S. government has barred Nvidia from selling its most cutting-edge AI chips to China since 2022. Still, critics have noted that there have been gaps in enforcing that ban. Nvidia chips can be legally sold to non-Chinese customers in other countries, such as Malaysia or Singapore, and then illicitly resold or re-exported to China. And Chinese companies can legally access the most",
+                "score": 0.51240283
+              },
+              {
+                "title": "Hands-on experience prepares Wayne State engineers for Michigan’s AI-powered manufacturing future - Today@Wayne - Wayne State University",
+                "url": "https://today.wayne.edu/news/2026/11/10/hands-on-experience-prepares-wayne-state-engineers-for-michigans-ai-powered-manufacturing-future-70535",
+                "source": "today.wayne.edu",
+                "summary": "Rather than simply program a machine to repeat a sequence of movements, students investigate how AI can give automated systems greater flexibility and autonomy.\n\n“Computer science students may understand AI, but they don't know how to think about what the real need is,” Chinnam said. “We bridge that domain knowledge by exposing students to what is possible through AI.” [...] The initiative addresses a growing workforce challenge for Michigan, where manufacturing remains central to the economy. According to the state’s AI and Workforce Plan, an estimated 75% of manufacturing jobs will require some form of upskilling as artificial intelligence and automation become more prevalent. The state estimates that responsible AI adoption could generate up to $70 billion in economic impact and support 130,000 jobs. [...] In the IntelliMake lab, students learn how emerging technologies can help overcome those limitations.\n\nWorking with robots, a conveyor system and a laser engraver, they conduct experiments designed to make machines more intelligent and responsive. They explore generative AI, vision-based technologies and AI agents that can help robots recognize their surroundings and respond to changing conditions.",
+                "score": 0.50526786
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R04_read_url_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_read_url",
+        "difficulty": "easy",
+        "what_it_tests": "Đã có link cụ thể → read_url, không phải web_search."
+      },
+      "input": "Tóm tắt bài này giúp mình: https://openai.com/blog/gpt-5",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://openai.com/blog/gpt-5"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "https://arxiv.org/abs/2305.18885"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call fetch",
+          "extra tool call paper_text"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "paper_text",
+          "args": {
+            "arxiv_url": "https://arxiv.org/abs/2305.18885"
+          },
+          "result": {
+            "tool": "get_arxiv_paper_text",
+            "arxiv_id": "2305.18885",
+            "url": "https://arxiv.org/abs/2305.18885",
+            "pdf_url": "https://arxiv.org/pdf/2305.18885.pdf",
+            "pdf_path": "/home/phuong/Documents/Vin20K/Lab3/K5-L3-GiCungDuoc-DAY03-ResearchAgentToolEval/starter_v0/arxiv_papers/2305.18885.pdf",
+            "txt_path": "/home/phuong/Documents/Vin20K/Lab3/K5-L3-GiCungDuoc-DAY03-ResearchAgentToolEval/starter_v0/arxiv_papers/2305.18885.txt",
+            "page_count": 12,
+            "pages_read": 5,
+            "chars_returned": 8000,
+            "items": [
+              {
+                "title": "arXiv paper 2305.18885",
+                "url": "https://arxiv.org/abs/2305.18885",
+                "source": "arxiv.org",
+                "summary": "Criteria Tell You More than Ratings:\nCriteria Preference-Aware Light Graph Convolution\nfor Effective Multi-Criteria Recommendation\nJin-Duk Park\nYonsei University\njindeok6@yonsei.ac.kr\nSiqing Li\nThe University of New South Wales Australia\nsiqing.li@unsw.edu.au\nXin Cao\nThe University of New South Wales Australia\nxin.cao@unsw.edu.au\nWon-Yong Shin∗\nYonsei University\nwy.shin@yonsei.ac.kr\nABSTRACT\nThe multi-criteria (MC) recommender system, which leverages MC\nrating information in a wide range of e-commerce areas, is ubiq-\nuitous nowadays. Surprisingly, although graph neural networks\n(GNNs) have been widely applied to develop various recommender\nsystems due to GNN’s high expressive capability in learning graph\nrepresentations, it has been still unexplored how to design MC\nrecommender systems with GNNs. In light of this, we make the\nfirst attempt towards designing a GNN-aided MC recommender sys-\ntem. Specifically, rather than straightforwardly adopting existing\nGNN-based recommendation methods, we devise a novel crite-\nria preference-aware light graph convolution (CPA-LGC) method,\nwhich is capable of precisely capturing the criteria preference of\nusers as well as the collaborative signal in complex high-order\nconnectivities. To this end, we first construct an MC expansion\ngraph that transforms user–item MC ratings into an expanded bi-\npartite graph to potentially learn from the collaborative signal in\nMC ratings. Next, to strengthen the capability of criteria prefer-\nence awareness, CPA-LGC incorporates newly characterized em-\nbeddings, including user-specific criteria-preference embeddings and\nitem-specific criterion embeddings, into our graph convolution model.\nThrough comprehensive evaluations using four real-world datasets,\nwe demonstrate (a) the superiority over benchmark MC recommen-\ndation methods and benchmark recommendation methods using\nGNNs with tremendous gains, (b) the effectiveness of core compo-\nnents in CPA-LGC, and (c) the computational efficiency.\nCCS CONCEPTS\n• Information systems→ Recommender systems.\n∗Corresponding author\nPermission to make digital or hard copies of all or part of this work for personal or\nclassroom use is granted without fee provided that copies are not made or distributed\nfor profit or commercial advantage and that copies bear this notice and the full citation\non the first page. Copyrights for components of this work owned by others than the\nauthor(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or\nrepublish, to post on servers or to redistribute to lists, requires prior specific permission\nand/or a fee. Request permissions from permissions@acm.org.\nKDD ’23, August 6–10, 2023, Long Beach, CA, USA\n© 2023 Copyright held by the owner/author(s). Publication rights licensed to ACM.\nACM ISBN 979-8-4007-0103-0/23/08. . . $15.00\nhttps://doi.org/10.1145/3580305.3599292\nKEYWORDS\nCollaborative signal; criteria preference; graph neural network;\nlight graph convolution; multi-criteria recommender system.\nACM Reference Format:\nJin-Duk Park, Siqing Li, Xin Cao, and Won-Yong Shin. 2023. Criteria Tell You\nMore than Ratings: Criteria Preference-Aware Light Graph Convolution for\nEffective Multi-Criteria Recommendation. In Proceedings of the 29th ACM\nSIGKDD Conference on Knowledge Discovery and Data Mining (KDD ’23),\nAugust 6–10, 2023, Long Beach, CA, USA. August 6-10, 2023, Long Beach, CA,\nUSA. ACM, New York, NY, USA, 12 pages. https://doi.org/10.1145/3580305.\n3599292\n1 INTRODUCTION\nThe so-called multi-criteria (MC) recommender system has been in-\ncreasingly valuable for improving the recommendation accuracy\nbased on enriched information in terms of criteria ratings of each\nitem in a wide range of service areas such as restaurants, hotels,\nmovies, music, etc. [18, 22, 29, 31, 36, 38]. MC recommender sys-\ntems usually have a better ability in recommending relevant items\nto a user, compared to single rating systems, while better repre-\nsenting predilections of users [ 9, 18, 22, 31, 36, 51]. For instance,\nas illustrated in Figure 1a, a user can provide four criteria ratings\n(including overall ratings) in a hotel domain with the criterion being\nprice, kindness, and cleanliness.\nOn one hand, collaborative filtering (CF), which exploits similar\npatterns learned from user–item historical interactions to recom-\nmend the most relevant items to a user, has emerged as one of\nthe most common approaches to building recommender systems\n[13, 28, 40, 42]. Due to its effectiveness and ease of implementation,\nmost of existing MC recommender systems have been developed\nusing various CF-based techniques such as matrix factorization\n[5, 9, 51] and deep neural networks [ 31, 36, 37]. However, such\nprior studies are unable to explicitly capture the collaborative sig-\nnal in complex contextual semantics across MC ratings.\nOn the other hand, graph neural networks (GNNs) have been\napplied to a wide range of recommendation tasks (e.g., LightGCN\n[13] in single-rating recommendation, SURGE [ 2] in sequential\nrecommendation, MBGC [19] in multi-behavior recommendation,\nand SR-GNN [45] in session recommendation) due to GNN’s high\nexpressive capability in learning high-order proximity among users\nand items, resulting in accurate recommendation results. Surpris-\ningly, albeit their state-of-the-art performance, there has been no\nprior attempt to design MC recommender systems using GNNs.\narXiv:2305.18885v4  [cs.SI]  6 Jun 2023\n\nKDD ’23, August 6–10, 2023, Long Beach, CA, USA Jin-Duk Park et al.\n(a)\n (b)\nFigure 1: An illustration showing (a) four criteria ratings in\na hotel domain, and (b) the corresponding MC expansion\ngraph.\nIn this context, even with a number of studies on CF-based MC\nrecommendation [9, 31, 36, 37], a natural question arising is: “Is it\nbeneficial to take advantage of GNNs for solving the MC recom-\nmendation problem in terms of both effectiveness and efficiency?\"\nTo answer this question, we make the first attempt towards de-\nsigning a lightweight GNN-aided MC recommender system. Rather\nthan straightforwardly adopting existing GNN-based recommenda-\ntion methods for MC recommendation, we deviseour own methodol-\nogy, built upon new design principles and comprehensive empirical\nfindings. To this end, we outline two design challenges that must be\naddressed when building a new GNN-based MC recommendation\nmethod:\n• Graph construction: which graph type should be taken into\naccount to explore the collaborative signal in MC ratings;\n• Criteria preference awareness: how to maximally grasp\nthe criteria preference of users through graph convolution.\n(Idea 1) In designing recommender systems only using single rat-\nings, it is natural to construct a bipartite graph by establishing\nedges based on user–item interactions as in [1, 13, 35, 40, 47]. On\nthe other hand, in MC recommender systems, rather than using\none bipartite graph, the graph construction step accompanies non-\nstraightforward design choices along with MC ratings. To har-\nness the expressive capability of GNNs in learning representations,\nGNNs should be able to leverage the complex behavioral similarity\nin the high-order connectivities across MC ratings. Modeling MC\nratings as a multi-graph with multi-relations can be one possible\noption. However, GNNs designed for such heterogeneous graphs\nmostly require excessive computational costs or handcrafted meta-\npaths [11, 27, 41], which are undesirable as our design principle\nsince we aim to build a lightweight model with few learnable pa-\nrameters. As an alternative, we present an MC expansion graph\nthat transforms MC ratings into an expanded bipartite graph to\npotentially learn from the collaborative signal in MC ratings. Con-\ncretely, in the constructed graph, each item is expanded to different\ncriterion-item nodes. Figure 1b illustrates the MC expansion graph\nconstructed by creating some edges, corresponding to high ratings,\ni.e., the rating scores of 3–5, between a user node andcriterion-item\nnodes. Our graph construction ena"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R05_limit_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_limit",
+        "difficulty": "easy",
+        "what_it_tests": "Trích đúng limit=10 từ '10 tweet'."
+      },
+      "input": "Lấy 10 tweet mới nhất của Elon Musk",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 10
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "limit: expected 10, got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum",
+                "summary": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum\n\nVerizon, AT&amp;T and T-Mobile all told…",
+                "url": "https://x.com/elonmusk/status/2120278105051042195",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 22:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 891,
+                  "views": "409613"
+                }
+              },
+              {
+                "title": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on ",
+                "summary": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on a single charge.\n\nT…",
+                "url": "https://x.com/elonmusk/status/2120253907435655331",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:34:58 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 384,
+                  "views": "484518"
+                }
+              },
+              {
+                "title": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX ",
+                "summary": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX \n\n• Current cell towers are still mostly “dumb” radios. The…",
+                "url": "https://x.com/elonmusk/status/2120252018799563074",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:27:28 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 247,
+                  "views": "454317"
+                }
+              },
+              {
+                "title": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?",
+                "summary": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?\nNo tower has ever caught a ship coming back from orbit. Starship Flight 15 will try…",
+                "url": "https://x.com/elonmusk/status/2120249788431990910",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:18:36 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 256,
+                  "views": "467635"
+                }
+              },
+              {
+                "title": "RT @ADFIntl: 🚨The EU's Digital Services Act threatens freedom of speech GLOBALLY.",
+                "summary": "RT @ADFIntl: 🚨The EU's Digital Services Act threatens freedom of speech GLOBALLY.\n\nWhat they say: the DSA prevents the spread of \"illegal c…",
+                "url": "https://x.com/elonmusk/status/2120204749480104133",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 17:19:38 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 618,
+                  "views": "589126"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R06_timeframe_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_timeframe",
+        "difficulty": "medium",
+        "what_it_tests": "'tuần này' → timeframe=week."
+      },
+      "input": "Tin công nghệ trong tuần này",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "technology",
+              "timeframe": "month",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "timeframe: expected 'week', got 'month'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "technology",
+            "timeframe": "month",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "technology",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "9th Global Technology Summit | DLA Piper",
+                "url": "https://www.dlapiper.com/en/events/global-technology-summit-2026",
+                "source": "dlapiper.com",
+                "summary": "The ninth Global Technology Summit, held October 15, 2026, in Menlo Park, California, featured conversations on some of the most consequential technology and legal issues facing businesses today, including artificial intelligence and agentic AI, cybersecurity, semiconductor innovation and intellectual property, geopolitical and cross-border risk, AgTech, space and defense technology, M&A, longevity and the intersection of AI and healthcare policy. Speakers shared perspectives on navigating",
+                "score": 0.5211513
+              },
+              {
+                "title": "Changing Our Relationship to Technology Will Require Collective Action | The New Yorker",
+                "url": "https://www.newyorker.com/news/fault-lines/changing-our-relationship-to-technology-will-require-collective-action",
+                "source": "newyorker.com",
+                "summary": "These days, resistance to tech is typically framed in terms of individual choices: if we buy the Brick, limit our children’s screen time, delete the worst apps from our phones, stop doomscrolling, and refuse to use ChatGPT for anything other than the most mundane searches, we will be released from the grasp of Big Tech. Freedom becomes a question of your own will power. In 2022, the Times published a charming story about “Luddite” teens in Brooklyn who met up in Prospect Park once a week to [...] I have been thinking and writing about resistance to technology for a while, spurred by an unresolved alarm that Americans have not put up much of a fight against the sense of alienation caused by our growing dependence on screens. It’s increasingly clear to me that we will not survive as a society without some seismic intervention that separates us from our screens, our algorithms, and our little simulacra of social life. I believe that such a rupture will come—but what will it look like? Will [...] somewhat heterodox candidate, and although his plan isn’t exactly a Luddite call to smash the robots, he might be seen as a bellwether for what the left side of the aisle will be thinking in the coming years. People in the streets and politicians in Congress aren’t the only ones demonstrating a tech backlash: the courts have handed down a set of billion-dollar rulings against tech giants, including in a recent case in New Mexico in which Meta was found guilty of forty-three million violations",
+                "score": 0.5004494
+              },
+              {
+                "title": "The focus on AI safety disasters ignores everyday harms | MIT Technology Review",
+                "url": "https://www.technologyreview.com/2026/10/26/1147645/the-focus-on-ai-safety-disasters-ignores-everyday-harms",
+                "source": "technologyreview.com",
+                "summary": "We have historically allowed the debate over technology to be defined by the worst thing a product might do, with remarkably little discussion of the insidious damage it does every day. As we transition into an era defined by powerful AI products, we should demand that the tech industry do more than merely address catastrophic harms. We should take measures to ensure that its products don’t erode how we think, learn, and interact with one another. [...] even after the task was complete. There is plenty we still need to learn about the long-term effects. We already have reason to ask whether technology marketed as making us more capable is eroding the habits and relationships that help us develop capabilities in the first place. [...] Technology giants have instead worked to shape legislation around the harms they are already under direct pressure to address. This year, for example, Google backed bills to regulate AI chatbots in several states. The legislation mandated basic protections against sexual content and promotion of self-harm that tech companies should have established regardless, but with broad carve-outs that could exempt some of the most popular services. Passing these bills allowed legislators to claim a safety",
+                "score": 0.4719381
+              },
+              {
+                "title": "Nvidia CEO Jensen Huang names three countries that are leading the world in technology and manufacturing; and tells why he did not include US on the list | - The Times of India",
+                "url": "https://timesofindia.indiatimes.com/technology/tech-news/nvidia-ceo-jensen-huang-names-three-countries-that-are-leading-the-world-in-technology-and-manufacturing-and-tells-why-he-did-not-include-us-on-the-list/articleshow/135286716.cms",
+                "source": "timesofindia.indiatimes.com",
+                "summary": "and advanced technology has revolved around three specific countries: Germany, Japan and China.“For the last 50 years, because of the current Industrial Revolution, which is computing and digital technology, the United States has largely exported its heavy manufacturing, its building, and its craft to China. So now the world has three (leaders) again. It’s Germany, Japan and China,” Huang said. [...] Nvidia CEO Jensen Huang has identified three nations currently leading the globe in manufacturing and technology while also explaining why the US did not make his list, during a recent discussion with German Chancellor Friedrich Merz. Addressing China's industrial strengths, Huang pointed out that Beijing holds a unique competitive edge because its modern economic transformation directly coincided with the rise of the digital era. According to Huang, the global powers in production and advanced [...] Huang highlighted that China’s advantage stems from critical timing. Since its industrial surge unfolded alongside the rise of computing, its manufacturing base developed with digital infrastructure integrated from the start, leaving the country heavily computerised.“The advantage that China has is that they came into their industrial revolution, if you will, their economic transformation happened during precisely the time of the computer industry.They are quite computerized. China is probably",
+                "score": 0.4635353
+              },
+              {
+                "title": "NASA Awards Moon Base Transportation, Technology, Science Projects - NASA",
+                "url": "https://www.nasa.gov/news-release/nasa-awards-moon-base-transportation-technology-science-projects",
+                "source": "nasa.gov",
+                "summary": "### Technology\n\n Technology Transfer & Spinoffs\n Space Travel\n Living in Space\n Lunar Surface Technology\n Manufacturing and Materials\n Robotics\n Science Instruments\n Computing\n\n### Learning Resources\n\n For Students\n For Educators\n For Colleges and Universities\n For Professionals\n Science for Everyone\n Requests for Exhibits, Artifacts, Speakers & Flyovers\n STEM Engagement at NASA\n\n### About NASA [...] The PROMISE rover will carry a drill to extract regolith, or lunar dust, to characterize ice and other resources from approximately 3 feet (1 meter) below the surface, spectrometers for analyzing the chemical composition of surface material, temperature and radiation sensors, and visible-light cameras. It will demonstrate a next-generation, radiation-tolerant computing system, NASA’s High Performance Spaceflight Computing, and advanced autonomy sensors and algorithms. NASA is targeting late [...] Lunar architecture, infrastructure\n\nTo extend infrastructure capabilities on the lunar surface, NASA plans to purchase commercial components for a Mini-Communications and Solar Tower (miniCAST), including solar arrays, batteries, and wireless power-transfer hardware. The agency awarded Honeybee Robotics, a Blue Origin company, for energy storage capability, Redwire for power generation, and Yank Technologies, Inc., for wireless power transfer in support of miniCAST.",
+                "score": 0.45507753
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R07_search_type_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_search_type",
+        "difficulty": "medium",
+        "what_it_tests": "'phổ biến/top' → search_type=Top (không phải Latest)."
+      },
+      "input": "Cho mình các tweet phổ biến (top) nhất về OpenAI",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "OpenAI",
+              "search_type": "Top"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "OpenAI",
+            "search_type": "Top"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "OpenAI",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "Now in beta: Businesses in ChatGPT.",
+                "summary": "Now in beta: Businesses in ChatGPT.\n\nClaim your business, manage your information, and get insights on how people engage with you.\n\nEligible businesses can also build a Business Agent to answer customers’ questions and help them explore what you offer.\n\nhttps://t.co/N2GEZX0mFT https://t.co/lYj2Z48fhQ",
+                "url": "https://x.com/OpenAI/status/2120216592395174382",
+                "source": "@OpenAI",
+                "date": "Tue Nov 10 18:06:42 +0000 2026",
+                "metrics": {
+                  "favorites": 9853,
+                  "retweets": 694,
+                  "views": "1835004"
+                }
+              },
+              {
+                "title": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 do",
+                "summary": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 dollars a month\n\nAndrey Karpathy, co-founder of OpenAI, published a simple idea that got 25 million views: stop using AI to write code, use it to build a second brain\n\nYou point Claude Code to a folder, drop any source in there (an article, transcript, PDF) and Claude reads it, links it, and saves it into a living wiki of everything you know. It compounds like interest: the more you feed it, the smarter it gets\n\nHere is the gist:\n\nInstall Obsidian, create a vault, open it in Claude Code\n\nPaste the file with Karpathy's wiki idea and tell Claude to build it\n\nClaude creates three folders: raw for sources, wiki for its pages, CLAUDE\nwhich runs everything\n\nDrop any source into raw and say ingest this\n\nAsk questions across everything, forever\n\n5 minutes to set up, and you never start with an empty chat again\n\nThe full instructions can be found in the article below",
+                "url": "https://x.com/Bober_smart/status/2119070145284841481",
+                "source": "@Bober_smart",
+                "date": "Sat Nov 07 14:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 1195,
+                  "retweets": 129,
+                  "views": "96679"
+                }
+              },
+              {
+                "title": "AI 今天这波新闻,全是给搞技术的人看的",
+                "summary": "AI 今天这波新闻,全是给搞技术的人看的\n\n安全成了新标配\nOpenAI 上线 Control Room,能在 35 秒内叫停任何不安全的模型任务\n每个做智能体推理的研究任务,现在都要先过\"安全案例\"审批\n\n推理在疯狂提速降本\n对 vLLM 的独立测试显示:连续批处理(continuous batching)把吞吐拉高 2.91 倍,整体比原生 transformers 快 3.86 倍\nNetflix 的事实核查系统重做后,单条成本直降 52.4%,解释和人工标注的重合度升到约 82%\n\n本地化、私有化是大趋势\n一位律师用 8 张二手 Nvidia V100 自建私有 AI 服务器,跑 DeepSeek V4.1 Flash,最高 215 tokens/秒,把敏感法律文件全留在本地\nAMD 推 Instinct Coder 355,本地跑 GLM 5.3,敏感代码不出公司;还发了 Developer Assistant 和 Project Zenith 开发环境\n\n隐私翻车警示\nWeill Cornell 和华盛顿州机构被曝把患者隐私数据(PHI)误传进 AI 工具,包括直接用 ChatGPT 写病历\n提醒所有人:往第三方 AI 丢数据之前,先想清楚合规\n\n模型结构还在进化\n新方法 HOPE 给 MoE 大模型做\"专家剪枝\",不用额外训练,智能体编程任务最高提升 6.1%\nQwen3.5-122B 有 95% 的显存,其实都压在闲置的专家 MLP 上\n\n一句话:模型在变快、变便宜、变私有,但安全和合规正在变成硬门槛\n\n你会先把哪条用到自己的工作流里?\n\n#AI #人工智能 #大模型 #LLM #vLLM #推理优化 #OpenAI #AMD #GLM #DeepSeek #MoE #AI安全 #数据合规 #私有化部署 #AI智能体 #AIagent #生成式AI #开发者 #科技 #AI新闻 #picsart",
+                "url": "https://x.com/luellamech/status/2120221042925056215",
+                "source": "@luellamech",
+                "date": "Tue Nov 10 18:24:23 +0000 2026",
+                "metrics": {
+                  "favorites": 45,
+                  "retweets": 0,
+                  "views": "1030"
+                }
+              },
+              {
+                "title": "GPT Image 2.6 is LIVE on Higgsfield.",
+                "summary": "GPT Image 2.6 is LIVE on Higgsfield.\n\nUnlimited for 7 days for new users.\n\n&gt; Turn any prompt or image into a GIF\n&gt; Save references once and reuse them anytime\n&gt; Refine with markup and export as SVG\n\nAvailable now on Higgsfield. https://t.co/wl6wQ14QMC",
+                "url": "https://x.com/higgsfield/status/2118134123533623424",
+                "source": "@higgsfield",
+                "date": "Thu Nov 05 00:11:42 +0000 2026",
+                "metrics": {
+                  "favorites": 1257,
+                  "retweets": 305,
+                  "views": "240668"
+                }
+              },
+              {
+                "title": "Introducing GPT‑6 Cyber: a major advance in security research that pairs stronger capabilities with better model alignme",
+                "summary": "Introducing GPT‑6 Cyber: a major advance in security research that pairs stronger capabilities with better model alignment.\n\nThe model powered the Linux kernel research we announced yesterday, and security teams at companies like Mozilla, Palo Alto Networks, Calif, and Cisco—alongside our own at OpenAI—are already putting it to work.\n\nGPT-6 Cyber is available to select Daybreak Red customers and we are expanding access over time.\n\nhttps://t.co/Nzab3Z1Td6",
+                "url": "https://x.com/OpenAI/status/2118390190246879554",
+                "source": "@OpenAI",
+                "date": "Thu Nov 05 17:09:13 +0000 2026",
+                "metrics": {
+                  "favorites": 21457,
+                  "retweets": 2009,
+                  "views": "4150384"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R08_out_of_scope",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope",
+        "difficulty": "easy",
+        "what_it_tests": "Câu ngoài phạm vi research → KHÔNG gọi tool, từ chối/định hướng."
+      },
+      "input": "Giải giúp mình bài toán tích phân: nguyên hàm của x^2 là gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Đây là bài toán tích phân cơ bản. Nguyên hàm của \\( x^2 \\) là:\n\n\\[\n\\int x^2 \\, dx = \\frac{x^3}{3} + C\n\\]\n\nTrong đó \\( C \\) là hằng số integrating constant. Bạn có cần thêm thông tin gì không?",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R09_no_tool_capability",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "no_tool_meta",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi meta → trả lời thẳng, KHÔNG gọi tool."
+      },
+      "input": "Bạn là gì và làm được những gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi là một trợ lý AI được thiết kế để tìm kiếm và cung cấp thông tin từ các nguồn khác nhau, từ tin tức đến bài báo khoa học. Tôi cũng có thể đọc và trình bày nội dung từ các nguồn đó.",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R10_missing_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Latest",
+              "query": "",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "missing_info",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call social_search"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "search_type": "Latest",
+            "query": "",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "ValueError",
+            "message": "query must not be empty"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R11_missing_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "medium",
+        "what_it_tests": "Nói 'bài này' nhưng không có link → ask_user xin URL."
+      },
+      "input": "Tóm tắt bài viết này hộ mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi cần URL của bài viết bạn muốn tóm tắt. Vui lòng cung cấp URL đó.",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "missing_info",
+        "failures": [
+          "missing tool call clarify"
+        ]
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R12_confirm_before_send",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "confirm_before_write",
+        "difficulty": "medium",
+        "what_it_tests": "Hành động ghi (gửi) → xác nhận trước (ask_user yes_no), không tự gửi."
+      },
+      "input": "Đăng bản tin này lên Telegram giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [],
+        "actual_text": "Bạn muốn mình đăng bản tin này lên Telegram, đúng không? Nếu đúng, hãy gửi nội dung bản tin.",
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "missing tool call clarify"
+        ]
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R13_parallel_web_and_tweets",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "parallel_tool_calls",
+        "difficulty": "hard",
+        "what_it_tests": "Một request cần hai nguồn → gọi cả web_search và search_tweets; eval không phụ thuộc thứ tự tool call."
+      },
+      "input": "Tìm trên web tin AI hôm nay và tìm thêm tweet về AI.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Latest",
+              "query": "AI"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "topic: expected 'news', got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "ReadTimeout",
+            "message": "HTTPSConnectionPool(host='api.tavily.com', port=443): Read timed out. (read timeout=30)"
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "search_type": "Latest",
+            "query": "AI"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "AI",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "@bidin_hunter Wow. AI sloppiness is wild",
+                "summary": "@bidin_hunter Wow. AI sloppiness is wild",
+                "url": "https://x.com/turner_dav80233/status/2120297250073022699",
+                "source": "@turner_dav80233",
+                "date": "Tue Nov 10 23:27:12 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "AI NEM FODENDO",
+                "summary": "AI NEM FODENDO",
+                "url": "https://x.com/lfirexheart/status/2120297244318458298",
+                "source": "@lfirexheart",
+                "date": "Tue Nov 10 23:27:10 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "ai porra thalita a mais chata que já passou no cdb pqp  https://t.co/qhaSa2aLOU",
+                "summary": "ai porra thalita a mais chata que já passou no cdb pqp  https://t.co/qhaSa2aLOU",
+                "url": "https://x.com/raissaamirandaa/status/2120297243853131801",
+                "source": "@raissaamirandaa",
+                "date": "Tue Nov 10 23:27:10 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@Martina Oh boy you just broke the internet!!   Ignorant.   Try reading the actual emails …podesta emails.   Try reading",
+                "summary": "@Martina Oh boy you just broke the internet!!   Ignorant.   Try reading the actual emails …podesta emails.   Try reading Epstein emails.   Oh wait…that means doing research and accepting truth vs fake and AI propaganda",
+                "url": "https://x.com/harley0103/status/2120297243777683632",
+                "source": "@harley0103",
+                "date": "Tue Nov 10 23:27:10 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@snowpram &gt;Ai artist 🥀",
+                "summary": "@snowpram &gt;Ai artist 🥀",
+                "url": "https://x.com/DgSek1/status/2120297243022397527",
+                "source": "@DgSek1",
+                "date": "Tue Nov 10 23:27:10 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R14_out_of_scope_coding",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_coding",
+        "difficulty": "easy",
+        "what_it_tests": "Câu coding ngoài phạm vi research/news → KHÔNG gọi tool."
+      },
+      "input": "Viết giúp mình một hàm Python tính Fibonacci bằng recursion.",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn mình viết hàm tính Fibonacci bằng cách sử dụng recursion trong ngôn ngữ Python đúng không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": "unexpected_tool_call",
+        "failure_type": "out_of_scope",
+        "failures": [
+          "expected no tool call"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn mình viết hàm tính Fibonacci bằng cách sử dụng recursion trong ngôn ngữ Python đúng không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn mình viết hàm tính Fibonacci bằng cách sử dụng recursion trong ngôn ngữ Python đúng không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "M01_clarify_then_fill",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_fill",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: carry limit=5 từ lượt 1 + map tên Elon Musk thành handle elonmusk từ lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt 5 tweet mới nhất giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Của Elon Musk nhé"
+        },
+        {
+          "role": "user",
+          "content": "Giữ đúng 5 tweet, đừng đổi số lượng"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum",
+                "summary": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum\n\nVerizon, AT&amp;T and T-Mobile all told…",
+                "url": "https://x.com/elonmusk/status/2120278105051042195",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 22:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 937,
+                  "views": "413691"
+                }
+              },
+              {
+                "title": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on ",
+                "summary": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on a single charge.\n\nT…",
+                "url": "https://x.com/elonmusk/status/2120253907435655331",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:34:58 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 388,
+                  "views": "486305"
+                }
+              },
+              {
+                "title": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX ",
+                "summary": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX \n\n• Current cell towers are still mostly “dumb” radios. The…",
+                "url": "https://x.com/elonmusk/status/2120252018799563074",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:27:28 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 250,
+                  "views": "455964"
+                }
+              },
+              {
+                "title": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?",
+                "summary": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?\nNo tower has ever caught a ship coming back from orbit. Starship Flight 15 will try…",
+                "url": "https://x.com/elonmusk/status/2120249788431990910",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:18:36 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 257,
+                  "views": "469236"
+                }
+              },
+              {
+                "title": "RT @ADFIntl: 🚨The EU's Digital Services Act threatens freedom of speech GLOBALLY.",
+                "summary": "RT @ADFIntl: 🚨The EU's Digital Services Act threatens freedom of speech GLOBALLY.\n\nWhat they say: the DSA prevents the spread of \"illegal c…",
+                "url": "https://x.com/elonmusk/status/2120204749480104133",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 17:19:38 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 618,
+                  "views": "590159"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M02_carryover_timeframe",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_carryover",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: chỉ xử lý latest turn, carry timeframe=day và topic=news, query robotics."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Còn về robotics thì sao?"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ tìm robotics thôi, vẫn là tin hôm nay"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "max_results": 5,
+              "timeframe": "day",
+              "query": "robotics"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "topic: expected 'news', got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "max_results": 5,
+            "timeframe": "day",
+            "query": "robotics"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "robotics",
+            "topic": "general",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Gemini Robotics 2.5: Accelerating Physical Intelligence — Google DeepMind",
+                "url": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence",
+                "source": "deepmind.google",
+                "summary": "Dexterity: Our robots can perform significantly more tasks with greater performance and dexterity — from using everyday tools to handling delicate, flexible objects.\n Reliability: During a real-world proof-of-concept on Mercedes-Benz production lines, our models helped Apptronik’s Apollo 2 humanoid pick and pack automotive parts with a 96% success rate. This could enable robots to take on monotonous work, to enable technicians to focus on complex build tasks. [...] Robots struggle to adapt to new unpredictable environments, our Gemini Robotics models give Apollo the ability to think, reason over multiple steps, and take action adapting to changes. In this proof-of-concept, Apollo 2 autonomously performs automotive kitting: the repetitive, physically taxing task of sorting individual parts from bulk bins into organized trays in the exact order needed for each vehicle on the line. Offloading this monotonous prep work helps keep the assembly line moving, [...] With Gemini Robotics 2.5, we expanded the model capabilities in task breadth, performance, and complexity. We evaluated the model across 200 distinct tasks — such as serving food with tongs, tying a bow on a gift box, and pipetting a liquid. These tasks represent a step toward human-level dexterity by combining a number of skills, including advanced tool use, complex manipulation of deformables, and handling delicate objects with finesse.",
+                "score": 0.60708094
+              },
+              {
+                "title": "Google DeepMind on X: \"Gemini Robotics 2.5 is here. 🤖 Our latest physical AI is able to learn hundreds of everyday skills - from folding laundry and serving pastries to autonomously sorting car parts on the factory floor. Here’s a snapshot of its capabilities 🧵\" / X",
+                "url": "https://x.com/GoogleDeepMind/status/2120169787896525104",
+                "source": "x.com",
+                "summary": "36m\n\n  The result is a significant advancement in both task breadth and dexterity - approaching human-level finesse. 🔹 Tying a bow tests manipulating deformable objects 🔹 Pipetting liquids requires handling delicate items 🔹 Serving food with tongs needs advanced tool use\n\n  \n\n  00:00\n\n  1\n\n  @GoogleDeepMind\n\n  Google DeepMind@GoogleDeepMind\n\n  36m [...] 36m\n\n  In a proof of concept with @Apptronik and @MercedesBenz Gemini Robotic 2.5 helped the Apollo 2 robot pick and organize car parts for assembly with 96% accuracy.\n\n  \n\n  00:00\n\n  4\n\n  @GoogleDeepMind\n\n  Google DeepMind@GoogleDeepMind\n\n  36m\n\n  As robots move into more real-world spaces, they need greater safety measures. We’ve built in new ways for them to spot hazards, steer away from humans, and test against jailbreaks. FInd out more about Gemini Robotics 2.5 → goo.gle/4zBBUA6 [...] 36m\n\n  Gemini 4 Argon helped build Gemini Robotics 2.5, speeding up months of training. It creates virtual practice spaces from a single camera view, and watches replays of its own mistakes to fix its technique, driving stronger performance on the real robot.\n\n  \n\n  00:00\n\n  3\n\n  @GoogleDeepMind\n\n  Google DeepMind@GoogleDeepMind\n\n  36m",
+                "score": 0.6010083
+              },
+              {
+                "title": "Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation | NVIDIA Blog",
+                "url": "https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl",
+                "source": "blogs.nvidia.com",
+                "summary": "The shift from locomotion to manipulation is taking center stage at this week’s Conference on Robot Learning (CoRL) in Austin, Texas, alongside the rise of agentic robotics — a new paradigm that integrates frontier agents to create interpretable code for physical robotics systems.\n\nAt CoRL, NVIDIA is introducing new open robotics technologies, including world action models, simulation tools, benchmarks and agentic workflows. [...] A simulated tool-sorting task demonstrates how VABAR evaluates robot manipulation skills for industrial workflows.\n\n## Agents Turn Skills Into Robot Programs\n\nSuccessful task completion requires robots to coordinate multiple skills and adapt when something goes wrong. Building reliable programs for these multistep tasks remains a challenge.\n\nAgentic robotics helps solve that challenge. [...] “To me, agentic robotics is the most exciting technological development since the internet in 1995,” said Ken Goldberg, professor of robotics at UC Berkeley and a lead on the VABAR and GaP projects.\n\nAmbi Robotics is exploring GaP for industrial automation.\n\nAmbi Robotics, Bosch Research and Siemens are all exploring GaP for its agentic robotics workflows across diverse industrial scenarios.\n\nLearn more by joining NVIDIA at CoRL.\n\n Categories:\n Robotics",
+                "score": 0.59190017
+              },
+              {
+                "title": "Autonomous Mobile Robots | Innok Robotics",
+                "url": "https://www.innok-robotics.de/en",
+                "source": "innok-robotics.de",
+                "summary": "### INDUROS\n\nThe INDUROS (4 models) is a universal transport robot with a wide range of applications. It transports your goods indoors, outdoors or in combination. It replaces traditional journeys with a forklift truck, classical DTS or tugger train, transports pallets and couples and uncouples them automatically.   \nDepending on the power requirements, the INDUROS is available with up to 1300 kg of pulling force and different transport speeds. [...] Our software and robots are easy to operate and versatile: In industry, logistics, the green sector and research & development. Robust and reliable, with rapid amortisation. [...] Software\n Products \n  + INDUROS\n  + RAINOS\n  + HEROS\n  + INSPECTOS\n  + NAVIBOX\n Industries \n  + Cemetery gardeners and authorities\n  + Chemistry and energy supply\n  + Industry\n  + Intralogistics & material transport\n  + Manufacturing companies\n  + Mechanical engineering\n  + Plant transport (CC container)\n  + Plastics processing\n  + Tyre production & storage\n  + Universities, Research & Science\n  + Security and surveillance\n News & Use cases \n  + News & Blog\n  + Use cases\n  + Webinars",
+                "score": 0.5759458
+              },
+              {
+                "title": "Robotics News - Robot News, Robotics, Robots, Robotics Sciences",
+                "url": "https://techxplore.com/robotics-news",
+                "source": "techxplore.com",
+                "summary": "Humanoid robots, robotic systems with a body shape that resembles that of humans, could tackle various chores and everyday manual tasks. To successfully complete these tasks, however, the robots should be able to reliably ...\n\nOct 24, 2026\nfeature\n\n0\n\n58\n\nRobotics\n\n## Flexible robot arms learn to predict their next move [...] A robot arm that bends like an elephant's trunk can slip into tight spaces and handle fragile objects. Controlling it is harder because its smooth bending makes its next move hard to predict. Researchers have now developed ...\n\nOct 23, 2026\n\n0\n\n14\n\nRobotics\n\n## Lab-grown mouse muscles enable tiny robots to jump, swim, walk and grasp [...] Lab-grown skeletal muscle tissue can contract, but the movement is often so slight that it is barely visible. This poses a problem for biohybrid robots designed to move using living muscles. Researchers at ETH Zurich have ...\n\nOct 22, 2026\n\n0\n\n22\n\nRobotics\n\n## Wheeled, flying and six-legged robots stay on track with new learning method",
+                "score": 0.56457865
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M03_correction_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên thường, sửa Sam Altman→Andrej Karpathy, dùng handle karpathy và limit=3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, của Andrej Karpathy"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 tweet mới nhất nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "limit: expected 3, got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "karpathy"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "karpathy",
+            "items": [
+              {
+                "title": "Earlier this week Tristan published his top YouTube channels:",
+                "summary": "Earlier this week Tristan published his top YouTube channels:\nhttps://t.co/NZ3UCNo6cT\nWhich looked excellent so clearly I had to turn it into TristanTube:\nhttps://t.co/l0KyW1WdNH\n47K super nerdy videos +TV mode for laid back watching. (One-shotted with Claude Code in 3 minutes)",
+                "url": "https://x.com/karpathy/status/2119114537442189652",
+                "source": "@karpathy",
+                "date": "Sat Nov 07 17:07:31 +0000 2026",
+                "metrics": {
+                  "favorites": 9207,
+                  "retweets": 774,
+                  "views": "955026"
+                }
+              },
+              {
+                "title": "Weekend hack: HackerTube. I was annoyed with YouTube's recommendations so I had Claude filter down 43M comments over 20 ",
+                "summary": "Weekend hack: HackerTube. I was annoyed with YouTube's recommendations so I had Claude filter down 43M comments over 20 years of HN to 6,454 videos that keep being recommended. *Significantly* better viewing experience, ~2 hours with Opus 5.5:\nhttps://t.co/JIhXN7OSh1\n\n- Excellent recs without any logins (state is kept in local browser session)\n- Thumbnail is a representative frame from middle of the video instead of the super duper A/B test hyper-optimized user uploads\n- Underlying data from the comment analysis as one zip file, point your Claude at it and ask for your own version\n- HackerTube Longs ✊\n\nA bit more on the process:\nI use Claude Code (desktop app for Mac), Opus 5.5 on Medium effort as my default. I only talk to Claude and have it do everything, the only \"manual work\" I helped with in tandem was in the browser (reminiscent of MenuGen): 1) I had to create some kind of API key from Google Cloud UI to query YouTube for video metadata, 2) I booted up a VPS box for serving and 3) I bought the domain name. Once the box was up I gave Claude the IP and told it update, secure, harden, deploy and optimize the code, and it did the whole thing.\n\nMany awesome projects that would have normally taken weeks/months even can now be few-shotted for breakfast. What else are we not thinking of.",
+                "url": "https://x.com/karpathy/status/2116957135661945283",
+                "source": "@karpathy",
+                "date": "Sun Nov 01 18:14:46 +0000 2026",
+                "metrics": {
+                  "favorites": 52376,
+                  "retweets": 4839,
+                  "views": "5740993"
+                }
+              },
+              {
+                "title": "RT @Tristan0x: If you've ever wondered why smart TVs are so cheap, this is why.",
+                "summary": "RT @Tristan0x: If you've ever wondered why smart TVs are so cheap, this is why.\n\n@log4j rooted his Samsung and found an always-on hot mic,…",
+                "url": "https://x.com/karpathy/status/2114384346815820050",
+                "source": "@karpathy",
+                "date": "Sun Oct 25 15:51:26 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 3287,
+                  "views": "40227"
+                }
+              },
+              {
+                "title": "Dusting off this tweet from April because this gap in shared understanding of LLM capability is *widening*. It's now les",
+                "summary": "Dusting off this tweet from April because this gap in shared understanding of LLM capability is *widening*. It's now less \"two groups of people speaking past each other\" and more a sharp funnel.\n\n- Napkin math somewhere around 6B people (~75% of the population) have barely come in contact with LLMs at all.\n- Around 1-2B (~20%) are casual and infrequent users of free-tier ChatGPT-like products. This group sees derpy chatbots and treats them a bit like a better Google search, a writing aid, or etc. Maybe an agent tries to book you a flight. I have non-tech friends who (reasonably, imo) say they have not much use for it at all. Even many professionals outside of math&code are in this tier. For example, execs and many other functions spend a lot of their time talking to other people, so while they understand what is happening intellectually, it is still second-hand and a bit abstract.\n- Now we get to professional use of frontier-grade LLMs in math&code. Somewhere around 20M people (0.2%) see first-hand that large, complex projects that used to take them weeks/months can now be completed by agents with a prompt. Building apps, copying apps, translating apps, decompiling apps from binaries... This has all happened very quickly and recently - less than 1 year ago, I was writing code manually by hand, typing memorized computer code commands into a code editor character by character, occasionally pressing Tab to autocomplete a little chunk of code.\n- And finally we get to the ~5,000 people (~0.00006%) with access to frontier-grade systems internally. The external world has seen the preview. It looks like swarms of thousands of agents collaborating over weeks on software mega projects: minting zero days, running cyber attacks and defenses at machine speeds, discovering new science, advancing the frontier of mathematics. Things that would have taken top professionals in the industry years of work. Meanwhile, human review and comprehension are starting to fall behind. For example, people are still involved in the \"archeology\" of the OpenAI-HF incident from many months ago. Mathematicians may be poring over the 722 manuscripts on frontier mathematics for a while.\n\nThe funnel is driven by a combination of factors:\n1. The impact scales with ambition, problem size, and horizon. A question with a paragraph answer barely stresses the system. You need a reservoir of big, difficult problems that you really care about. This aspect drives the consumer / professional dimension of the funnel.\n2. The jaggedness of the system (which I have written about a lot separately). Capability peaks in domains that are digital, verifiable and economically valuable. This is because LLM capability emerges from reinforcement learning on verifiable rewards on a curated environment mixture driven by revenue potential. This aspect primarily drives the area (e.g. math&code) dimension of the funnel.\n3. Access. Free-tier, paid-tier, internal.\n\nSo this is the weirdness of the moment. The general public has mostly not interacted with these systems. When they have, it looks like a derpy chatbot. The majority of professionals still see only a modest uplift. And a small sliver of professionals are experiencing the vertigo of the curve going vertical. And it is all happening at the same time.",
+                "url": "https://x.com/karpathy/status/2109361546505966046",
+                "source": "@karpathy",
+                "date": "Sun Oct 11 19:12:37 +0000 2026",
+                "metrics": {
+                  "favorites": 44267,
+                  "retweets": 5926,
+                  "views": "6983406"
+                }
+              },
+              {
+                "title": "Cool eval. Simply ask an LLM “Land or Water?” and give it a latitude and longitude coordinate as text. Ask 16,200 times,",
+                "summary": "Cool eval. Simply ask an LLM “Land or Water?” and give it a latitude and longitude coordinate as text. Ask 16,200 times, plot as image. The models know. From compressing the internet.",
+                "url": "https://x.com/karpathy/status/2105909609487872075",
+                "source": "@karpathy",
+                "date": "Fri Oct 02 06:35:51 +0000 2026",
+                "metrics": {
+                  "favorites": 19533,
+                  "retweets": 1093,
+                  "views": "1608205"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M04_clarify_then_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_url",
+        "difficulty": "medium",
+        "what_it_tests": "3 turns: sau khi được cung cấp URL, latest turn xác nhận chỉ đọc link đó → read_url đúng url."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài này hộ mình"
+        },
+        {
+          "role": "user",
+          "content": "https://anthropic.com/news/claude"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ đọc đúng link đó thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://anthropic.com/news/claude"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://anthropic.com/news/claude",
+            "items": [
+              {
+                "title": "https://anthropic.com/news/claude",
+                "url": "https://anthropic.com/news/claude",
+                "source": "anthropic.com",
+                "summary": "[Skip to main content](https://www.anthropic.com/news/claude#main-content)\n\nA 404 poem byClaude Fable 5.2Claude Opus 5.5Claude Sonnet 5.5Claude Haiku 5.5\n\nA baker moved away,"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M05_correction_limit",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_arg_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên Elon Musk, carry handle elonmusk, sửa limit 10→3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 10 tweet mới nhất của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Cho mình 3 thôi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn của Elon Musk nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": 3
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum",
+                "summary": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum\n\nVerizon, AT&amp;T and T-Mobile all told…",
+                "url": "https://x.com/elonmusk/status/2120278105051042195",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 22:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 949,
+                  "views": "414644"
+                }
+              },
+              {
+                "title": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on ",
+                "summary": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on a single charge.\n\nT…",
+                "url": "https://x.com/elonmusk/status/2120253907435655331",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:34:58 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 388,
+                  "views": "486967"
+                }
+              },
+              {
+                "title": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX ",
+                "summary": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX \n\n• Current cell towers are still mostly “dumb” radios. The…",
+                "url": "https://x.com/elonmusk/status/2120252018799563074",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:27:28 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 250,
+                  "views": "456578"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M06_switch_tool",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: explicitly bỏ Twitter, chuyển sang web_search news, giữ chủ đề OpenAI."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mọi người nói gì về OpenAI trên Twitter?"
+        },
+        {
+          "role": "user",
+          "content": "Bỏ Twitter, chuyển sang tìm trên web tin tức đi"
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề OpenAI"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "OpenAI",
+              "topic": "news"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "timeframe": "month",
+              "query": "OpenAI",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "timeframe": "month",
+            "query": "OpenAI",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "OpenAI",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "OpenAI",
+                "url": "https://tavily.com/knowledge/company/p4PyTakV77G9",
+                "source": "tavily.com",
+                "summary": "# OpenAI\nID: p4PyTakV77G9\nWebsite: www.openai.com\nHeadquarters: San Francisco, CA, United States\nLinkedIn: www.linkedin.com/company/openai · 11,529,792 followers\nIndustry: Research Services\nIndustry codes: SIC 87, 873, NAICS 54, 541\nCompany type: Partnership\nSocial profiles: www.facebook.com/openai, www.twitter.com/openai, www.crunchbase.com/organization/openai, www.instagram.com/openai.gpt, www.instagram.com/openai, www.youtube.com/@openai, www.youtube.com/openai, github.com/openai [...] Description: OpenAI is a company that believes in research and development to lead to artificial general intelligence, a system that can solve human-level problems. [...] ## Headcount\n- Now: 10,551 · +3,406 yearly (47.7%) · +1,601 quarterly · +107 monthly\n  - Northern America: 6,354\n  - Northern Europe: 479\n  - Southern Asia: 188\n  - South Eastern Asia: 178\n  - Western Europe: 152\n  - Eastern Asia: 129\n  - Latin America: 96\n  - Australia New Zealand: 54\n  - Western Asia: 47\n  - Southern Europe: 46\n  - Eastern Europe: 28\n  - Sub Saharan Africa: 27\n  - Northern Africa: 7\n  - Central Asia: 2\n  - Polynesia: 0\n\n## Financials\n- Annual revenue: 20.00B USD",
+                "score": 0.7288448
+              },
+              {
+                "title": "Setting a new standard for responsible AI infrastructure | OpenAI",
+                "url": "https://openai.com/index/setting-new-standard-responsible-ai-infrastructure",
+                "source": "openai.com",
+                "summary": "Research\n   Research Index\n   Research Overview\n   Economic Research\n\nLatest Advancements\n   GPT-6.1 Sol\n   GPT-6 Astra\n   GPT-5.6\n   GPT-5.5\n\nSafety\n   Safety Approach\n   Deployment Safety(opens in a new window)\n   Security & Privacy\n   Trust & Transparency\n\nProducts\n   ChatGPT(opens in a new window)\n   ChatGPT Business(opens in a new window)\n   ChatGPT Enterprise(opens in a new window)\n   ChatGPT for Education(opens in a new window)\n   Codex\n   Dots(opens in a new window)\n   Release Notes [...] Today we’re publishing our National Community Compact⁠(opens in a new window) and a Compute Campus Policy Blueprint⁠(opens in a new window). The compact sets out what communities can expect from OpenAI at future campuses that we own and operate. The blueprint proposes policies to help ensure that compute campus development gives communities a meaningful voice, protects families from new costs, and broadly shares the economic gains of AI. [...] ## Author\n\nOpenAI\n\n## Keep reading\n\nView all\n\nImage 1: Introducing the Grid Protectors Program — Cover\n\nIntroducing the Grid Protectors Program Global Affairs Nov 2, 2026\n\nImage 2: OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization — Cover\n\nDan Driscoll joins OpenAI Company Nov 2, 2026\n\nImage 3: OpenAI and Poland’s NASK announce partnership — cover\n\nOpenAI and NASK partner on AI safety and security Global Affairs Oct 23, 2026",
+                "score": 0.6002469
+              },
+              {
+                "title": "Making it easier for websites to express AI training preferences | OpenAI",
+                "url": "https://openai.com/index/helping-websites-express-ai-training-preferences",
+                "source": "openai.com",
+                "summary": "Latest Advancements\n   GPT-6.1 Sol\n   GPT-6 Astra\n   GPT-5.6\n   GPT-5.5\n\nSafety\n   Safety Approach\n   Deployment Safety(opens in a new window)\n   Security & Privacy\n   Trust & Transparency\n\nProducts\n   ChatGPT(opens in a new window)\n   ChatGPT Business(opens in a new window)\n   ChatGPT Enterprise(opens in a new window)\n   ChatGPT for Education(opens in a new window)\n   Codex\n   Dots(opens in a new window)\n   Release Notes [...] This draws on the ongoing work⁠(opens in a new window) of the Internet Engineering Task Force’s (IETF) AI Preferences working group. We’re joining other participants in the working group in today’s announcement of this shared signal, and believe this strengthens our continued participation in the IETF standards discussions. OpenAI will continue to adapt its practices as those conversations and the landscape continue to evolve in view of appropriate controls and fairness. [...] API Platform\n   Overview\n   API Log In(opens in a new window)\n   Docs(opens in a new window)\n\nBusiness\n   Overview\n   Solutions\n   Resources\n   Plugins\n   Customer Stories\n   Partner Network\n   Contact Sales\n\nDevelopers\n   Plugins(opens in a new window)\n   Models(opens in a new window)\n   Docs(opens in a new window)\n   Resources(opens in a new window)\n   Developer Forum(opens in a new window)\n\nCompany\n   About Us\n   Our Charter\n   Careers\n   News",
+                "score": 0.5690146
+              },
+              {
+                "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+                "url": "https://openai.com/index/openai-to-acquire-pierre",
+                "source": "openai.com",
+                "summary": "Safety\n   Safety Approach\n   Deployment Safety(opens in a new window)\n   Security & Privacy\n   Trust & Transparency\n\nProducts\n   ChatGPT(opens in a new window)\n   ChatGPT Business(opens in a new window)\n   ChatGPT Enterprise(opens in a new window)\n   ChatGPT for Education(opens in a new window)\n   Codex\n   Dots(opens in a new window)\n   Release Notes\n\nAPI Platform\n   Overview\n   API Log In(opens in a new window)\n   Docs(opens in a new window) [...] Pierre’s open-source projects will remain open-source, and we’ll continue to contribute to them. Customers can continue using Code Storage after the acquisition closes while we work to bring its features and functionality into Codex.\n\n_The closing of the acquisition is subject to customary closing conditions, including receipt of regulatory approvals. Until closing, OpenAI and Pierre will remain separate and independent companies._\n\n   2026\n   Codex\n\n## Author\n\nOpenAI\n\n## Keep reading [...] Today we're announcing that OpenAI will acquire Pierre Computer Company, Inc⁠(opens in a new window). (“Pierre”), the company behind Code Storage⁠(opens in a new window) and a family of standout open-source developer tools. If you’ve browsed files or reviewed a change in the Codex app, you’ve already used Pierre’s Trees and Diffs libraries. We’re excited to work with the Pierre team to build on the Git workflows that developers already rely on and adapt them to how teams work with coding",
+                "score": 0.5679366
+              },
+              {
+                "title": "Community safety report and new protections for teens",
+                "url": "https://openai.com/index/community-safety-report-and-new-protections-for-teens",
+                "source": "openai.com",
+                "summary": "OpenAI’s Community Safety Report\n   Stronger policy boundaries for all users\n   Responding to warning signs\n   More protections for teens\n   Looking ahead\n\n   OpenAI’s Community Safety Report\n   Stronger policy boundaries for all users\n   Responding to warning signs\n   More protections for teens\n   Looking ahead [...] 2026\n\n## Author\n\nOpenAI\n\n## Keep reading\n\nView all\n\nImage 1: An updated Model Spec for more capable and beneficial AI — Cover\n\nAn updated Model Spec for more capable and beneficial AI Safety Oct 29, 2026\n\nImage 2: How we detect frontier model misalignment — Cover\n\nHow we detect frontier model misalignment Security Oct 29, 2026\n\nImage 3: Broad access through consistent standards — Cover\n\nBroad access through consistent standards Safety Oct 21, 2026 [...] Keeping communities safe⁠ continues to be a top priority for OpenAI. Our work includes bringing imminent threats of violence to the attention of law enforcement, and we made over 200 law enforcement referrals in Q3 2026.These referrals are making apositive⁠(opens in a new window)difference⁠(opens in a new window) in disrupting violent plots, and we continue to rely on mental health and behavioral experts to help us assess difficult cases.",
+                "score": 0.47613817
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
