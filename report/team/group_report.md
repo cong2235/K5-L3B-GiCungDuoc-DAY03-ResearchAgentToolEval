@@ -163,7 +163,7 @@ Từ `transcripts/*.transcript.json` (`chat.py`, model `openai/gpt-4o-mini`). Ha
 | 8 | Top 5 bài báo được trích dẫn nhiều nhất về AI agents trong 6 tháng qua | `top_papers(query="AI agents", months=6, limit=5, ...)` | `…185825658715.transcript.json` | ✅ |
 | 9 | Tóm tắt 5 tweet mới nhất → elon musk | `timeline(...)` → `format(...)` | `…185957360047.transcript.json` | ✅ hỏi lại rồi tạo digest |
 
-Lượt 5–6 chứng minh **boundary xác nhận trước khi gửi**; chưa có transcript gửi thật lên Telegram (xem B5).
+Lượt 5–6 chứng minh **boundary xác nhận trước khi gửi**. Luồng gửi thật lên Telegram (hỏi yes/no → xác nhận → `status: sent`) nằm ở `transcripts/v4_openrouter_20261111T062351019749.transcript.json` (xem B5).
 
 ### B5a. Required Evidence — Tool mới, unit test, UI
 
@@ -179,9 +179,10 @@ Tool unit tests: ví dụ lỗi mà unit test bắt được còn eval thì **kh
 
 | Bonus | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
-| Small Local Model | xem B7 | Chưa làm | — |
+| Small Local Model | B7; `runs/v4-*`, `runs/v5-local-*`, `runs/v6-local-*` (ollama), `artifacts/tools_local.yaml`, `artifacts/system_prompt_local.md` | 3 model ≤ 8B (qwen2.5:3b, llama3.2:3b, gemma4:e2b) chạy base eval, 2 vòng tối ưu, kiểm tra ngược trên cloud. Tốt nhất: gemma4:e2b 45% → 100%, qwen2.5:3b 45% → 85% | Bản local chỉ có 7 tool core (mất 9 tool nghiên cứu); prompt local làm cloud tụt 100% → 90% |
 | Hơn 3 tool mới (≥ 4) | 5 folder tool ở B5a; case G03, G04, G05, G10 trong `data/eval_group.json` | 5 tool mới, đủ `TOOL.md`, đăng ký, ≥ 3 test; 4 tool có eval case route tới | — |
-| `send` gửi thật lên Telegram sau xác nhận | transcript B4 turn 5–6 (mới tới bước xin xác nhận) | Chưa gửi thật: chưa cấu hình `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID`; boundary xác nhận đã có | `send` trả `needs_confirmation` khi chưa xác nhận (có test) |
+| `send` gửi thật lên Telegram sau xác nhận | `transcripts/v4_openrouter_20261111T062351019749.transcript.json` | Lượt 1: agent gọi `clarify(response_type="yes_no")` "Bạn muốn mình đăng bản tin này lên Telegram, đúng không?". Lượt 2: user "Có, đăng đi" → `send(confirmed=true)` → **`status: sent`** lên private channel của nhóm. Model `gpt-4o-mini`, artifact v4 | `send` trả `needs_confirmation` khi chưa xác nhận (có test). Rủi ro thấy được: ở một lượt bị ngắt (không dùng làm bằng chứng), agent gọi `send` với nội dung giữ chỗ `[Tin 1]` cùng lượt với `lookup` — guardrail chặn vì chưa có `confirmed=true` |
+| Telegram bot (UI phụ, ngoài rubric) | `starter_v0/bot.py`, `tests/test_bot.py` (7 test), `transcripts/telegram_v4-telegram_*.transcript.json` | Chat với agent ngay trong Telegram (@congatest2005bot): lịch sử riêng mỗi chat, `/start` `/reset`, transcript JSON cho mỗi chat, lỗi model/tool hiển thị thẳng | Bot công khai tốn quota; có allowlist tuỳ chọn `TELEGRAM_ALLOWED_CHAT_IDS`; chỉ một tiến trình được poll mỗi token |
 | Test challenge (0 skipped / regression test) | `pytest` output (216 passed, 0 skipped); `tests/test_tools_step4b_edge.py` | **0 skipped** và 73 test biên có regression cho bug thật | — |
 
 **Test challenge — bug tìm được trong tool có sẵn.** Khi gọi từng tool với input biên mà model hay gửi, nhóm phát hiện và sửa các bug sau; mỗi bug có test hồi quy trong `tests/test_tools_step4b_edge.py`. Chạy file test này trên bản tool gốc cho **55 fail / 18 pass**; trên bản đã sửa tất cả pass.
@@ -201,7 +202,42 @@ Quyết định hành vi (ghi trong docstring của file test): `limit` ≤ 0 �
 
 ### B7. Small Local Model Challenge (bonus)
 
-Chưa làm. Cần cài Ollama, chạy ≥ 2 model ≤ 8B và ≥ 2 vòng tối ưu; sẽ cập nhật nếu còn thời gian.
+**Setup.** Ollama trên máy `minhphuong` (RTX 5060 Ti 16 GB) trong tailnet của nhóm; script eval chạy trên laptop, gọi `OLLAMA_BASE_URL=http://100.116.167.90:11434/v1`. 3 model hỗ trợ tool calling, đều ≤ 8B: `qwen2.5:3b`, `llama3.2:3b`, `gemma4:e2b` (4.6B). Bản prompt/tools riêng cho local nằm ở file riêng để không phá v4 của cloud: `artifacts/tools_local.yaml`, `artifacts/system_prompt_local.md`. Mọi run có `provider_error_cases == 0`, `measured_cases == 20`, ghi trong `version_log.csv`.
+
+**Bảng cloud vs local (case accuracy trên 20 case base):**
+
+| Version | Thay đổi (một giả thuyết) | gpt-4o-mini (cloud) | gemma4:e2b | qwen2.5:3b | llama3.2:3b |
+|---|---|---:|---:|---:|---:|
+| v4 | prompt + tools v4 của cloud, không sửa | 100% | 45% | 45% | 20% |
+| v5-local | `tools_local.yaml`: chỉ 7 tool core, description giữ nguyên | 100% | **100%** | 45% | 25% |
+| v6-local | + `system_prompt_local.md`: bảng quyết định, quy ước args, 8 ví dụ few-shot | 90% | 95% | **85%** | **50%** |
+
+Run: `runs/v4-{gemma4e2b,qwen3b,llama3b}_B_base_ollama_*.json`, `runs/v5-local-*_B_base_*.json`, `runs/v6-local-*_B_base_*.json`. Cột cloud của v5/v6 là kiểm tra ngược (`v5-local-on-cloud`, `v6-local-on-cloud`).
+
+**Lỗi đặc thù của model nhỏ (baseline v4):**
+
+| Loại lỗi | Ví dụ thật | Model |
+|---|---|---|
+| Phản hồi rỗng (không tool, không text) | 10/11 case FAIL | gemma4:e2b |
+| Hỏi lại bằng text thay vì gọi `clarify` | R11, R12 | qwen2.5:3b |
+| Đoán thay vì hỏi | R10 gọi `timeline(screenname="twitter_account")` | qwen2.5:3b |
+| Số truyền dạng chuỗi | `limit="10"`, `max_results="10"` | llama3.2:3b |
+| Tự thêm từ vào `query` | `"AI news today"` thay vì `"AI"` | llama3.2:3b |
+| Gọi tool cho yêu cầu ngoài phạm vi | R08 gọi `lookup("tích phân")`, R14 gọi `format` | llama3.2:3b |
+| Có URL nhưng không gọi `fetch` | R04 gọi `lookup(query="GPT-5")` thay vì đọc URL | qwen2.5:3b |
+
+**Vòng 1 — v5-local (tools).** Giả thuyết: prompt v4 + 16 tool ≈ 4.9k token vượt context mặc định của Ollama, model nhỏ bị cắt đầu vào nên trả rỗng. Bỏ 9 tool không cần cho base suite (≈ 2.5k token). Kết quả: gemma4:e2b **45% → 100%**, xác nhận giả thuyết; qwen không đổi, llama +1 case — hai model này không trả rỗng, lỗi của chúng nằm ở hành vi và args.
+
+**Vòng 2 — v6-local (prompt).** Giả thuyết: model 3B không theo được prompt dài nhiều đoạn quy tắc (~420 từ); bảng quyết định 5 bước + quy ước args + 8 ví dụ few-shot (dùng tên và chủ đề **khác** bộ eval) sẽ sửa lỗi clarify và args. Kết quả: qwen **45% → 85%**, llama **25% → 50%**, gemma 100% → 95% (R01 đoán handle `samaltman` thay vì `sama`; cả prompt v4 lẫn prompt local đều không có ví dụ map tên → handle, ở v5 gemma đoán đúng).
+
+**Kiểm tra ngược.** `tools_local.yaml` trên cloud vẫn 100%. `system_prompt_local.md` trên cloud tụt còn 90%: R03 và M02 gọi thừa `social_search` vì rule "web news AND tweets → gọi cả hai" bị model lớn áp dụng quá rộng. Không có một bản prompt tốt nhất cho cả hai: bản dùng chung tốt nhất trên base suite là **prompt v4 + `tools_local.yaml`** (cloud 100%, gemma 100%), còn qwen/llama cần prompt ngắn có few-shot.
+
+**Kết luận có bằng chứng:**
+1. Với model nhỏ, **độ dài tool declaration là lỗi trước tiên cần loại**: gemma4:e2b từ 45% lên 100% chỉ nhờ bớt tool, không sửa chữ nào trong prompt.
+2. **Few-shot ngắn giúp model 3B gọi đúng `clarify` và đúng kiểu args** (qwen +40 điểm, llama gấp đôi), nhưng
+3. **prompt tối ưu cho model nhỏ có thể làm model lớn hỏng theo kiểu khác** (cloud gọi thừa tool), nên nên tách prompt theo model như nhóm đã làm.
+
+Giới hạn: mỗi version chạy 1 lần; bản local chỉ giữ 7 tool nên không phục vụ được các câu hỏi về paper / Hacker News / Wikipedia.
 
 ## 5. Khó khăn và cách xử lý
 
@@ -210,6 +246,9 @@ Chưa làm. Cần cài Ollama, chạy ≥ 2 model ≤ 8B và ≥ 2 vòng tối �
 - **Hash prompt không khớp file đã commit** cho các run v1–v3: người chạy sửa nhẹ prompt/tools rồi mới commit, và kiểu xuống dòng CRLF/LF làm hash khác nhau giữa các máy. Vì vậy mỗi dòng `version_log.csv` ghi `artifact_version` lấy trực tiếp từ run JSON; run v5 (`v5+pef90408b98e0+t6c8acaab4a58`) được chạy từ đúng bản đang có trong repo.
 - **Key RapidAPI chưa đăng ký gói** trên một máy: `timeline` trả `403 You are not subscribed to this API`, `social_search` trả `429`. Đây là vấn đề tài khoản, không phải lỗi logic; các transcript ở B4 chạy bằng key đã đăng ký nên `timeline` trả dữ liệu thật.
 - **Môi trường Python hỏng** (`pydantic_core`, `jiter`) khiến `openai` không import được; xử lý bằng cách cài lại gói.
+
+- **Mạng chập chờn khi làm bonus.** `ollama pull` lỗi DNS (`server misbehaving`) và một lượt gửi Telegram lỗi `APIConnectionError`; lượt Telegram bị ngắt giữa chừng nên không dùng làm bằng chứng. Xử lý: chạy model trên máy `minhphuong` qua Tailscale, chạy lại khi mạng ổn.
+- **Run local đầu tiên 20/20 `provider_error`** (`model 'qwen2.5:3b' not found`) vì `OLLAMA_BASE_URL` trỏ sang máy khác chưa có model; run này ở `runs/invalid/`. Run `qwen2.5:3b` chạy bằng CPU laptop (50%) ở `runs/extra/`, không dùng trong bảng B7 để mọi model local chạy cùng một máy.
 
 ## 6. Tổng hợp đóng góp
 
@@ -227,7 +266,7 @@ Chi tiết đóng góp của từng thành viên nằm trong [TEAM.md](../../TEA
 - **Fix nào thuộc `system_prompt.md`?** Hành vi và ranh giới giữa các quy tắc: phạm vi (từ chối ngoài phạm vi), hỏi lại thay vì đoán, xác nhận trước khi gửi (v1), và thứ tự ưu tiên khi hai quy tắc đụng nhau: xác nhận gửi thắng thiếu thông tin (v4, sửa R12).
 - **Fix nào thuộc `tools.yaml`?** Hợp đồng của từng tool: khi nào dùng / không dùng, quy ước tham số, và đặc biệt **tham số bắt buộc** (`response_type`, v3). v2 chỉ viết lại mô tả mà vẫn thiếu tham số, bài học là model hay bỏ qua tham số tùy chọn, nên cần khai báo `required`.
 - **Failure nào cần review thủ công thay vì chấm tự động?** (1) G02 và G03: agent gọi đúng tool với tham số hợp lý nhưng bị chấm FAIL do khác chữ ("mô hình AI" so với "AI models") hoặc bỏ tham số mặc định. (2) R12: `clarify(text)` hỏi nội dung cũng an toàn (chưa gửi gì) nhưng eval đòi `yes_no`. (3) Eval chỉ chấm lời gọi tool nên không phát hiện agent nói "đã gửi" mà không gọi `send`; cần đọc câu trả lời. (4) Độ dao động ±0.05 giữa hai lần chạy cùng artifact (B1).
-- **Nếu có thêm một vòng, nhóm sẽ thử giả thuyết nào?** (a) Làm cho eval bớt cứng: chỉ kiểm tra tham số thực sự quan trọng (bỏ `sort=relevance` ở G03, nới `query` ở G02) hoặc ghi chú trong description để agent luôn truyền tham số đó; (b) chạy mỗi version 3 lần và báo cáo trung bình; (c) thêm kiểm tra trên câu trả lời cho các case `send`; (d) hoàn thành bonus Telegram thật và Small Local Model.
+- **Nếu có thêm một vòng, nhóm sẽ thử giả thuyết nào?** (a) Làm cho eval bớt cứng: chỉ kiểm tra tham số thực sự quan trọng (bỏ `sort=relevance` ở G03, nới `query` ở G02) hoặc ghi chú trong description để agent luôn truyền tham số đó; (b) chạy mỗi version 3 lần và báo cáo trung bình; (c) thêm kiểm tra trên câu trả lời cho các case `send`; (d) với model local: thêm lại ví dụ map tên → handle vào prompt local (sửa R01 của gemma) và thu hẹp rule "gọi cả hai tool" để không làm hỏng cloud.
 
 ## 8. Tài liệu tham khảo
 

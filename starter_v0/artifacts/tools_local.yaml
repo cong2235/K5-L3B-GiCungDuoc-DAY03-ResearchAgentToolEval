@@ -1,0 +1,189 @@
+# v5-local (Small Local Model Challenge): same declarations as artifacts/tools.yaml (v4),
+# but only the 7 core tools. Hypothesis: the full 16-tool list (~4.9k tokens with the prompt)
+# overflows Ollama's default context, so small models return empty responses.
+tools:
+- name: clarify
+  description: 'Hỏi người dùng MỘT câu. Dùng khi (a) thiếu thông tin bắt buộc như handle hoặc URL -> response_type="text";
+    (b) người dùng yêu cầu gửi/đăng thứ gì đó -> response_type="yes_no" để xác nhận trước khi gửi, kể cả khi chưa
+    rõ nội dung. KHÔNG dùng khi người dùng đã đưa URL hoặc đã nêu đủ thông tin để gọi tool khác (đọc/tìm kiếm không
+    cần xác nhận).
+
+    '
+  parameters:
+    type: object
+    properties:
+      question:
+        type: string
+        default: ''
+        description: Một câu hỏi ngắn, cùng ngôn ngữ người dùng.
+      response_type:
+        type: string
+        enum:
+        - text
+        - yes_no
+        - choice
+        description: BẮT BUỘC điền. text = xin thông tin thiếu (handle, URL); yes_no = xác nhận trước khi gửi/đăng;
+          choice = chọn trong options.
+      options:
+        type: array
+        default: []
+        items:
+          type: string
+        description: Chỉ dùng khi response_type=choice.
+    required:
+    - question
+    - response_type
+- name: timeline
+  description: 'Lấy các bài đăng gần đây CỦA MỘT tài khoản cụ thể trên X/Twitter. DÙNG khi người dùng muốn tweet
+    của một người/tổ chức đã nêu tên. KHÔNG dùng khi tìm theo chủ đề (dùng social_search); KHÔNG dùng nếu chưa biết
+    tài khoản nào (hỏi lại bằng clarify).
+
+    '
+  parameters:
+    type: object
+    properties:
+      screenname:
+        type: string
+        default: ''
+        description: 'Handle X, KHÔNG có dấu @, chữ thường. Đổi tên người nổi tiếng thành handle: Sam Altman→sama,
+          Elon Musk→elonmusk, Andrej Karpathy→karpathy. Nếu không chắc handle thì hỏi lại.
+
+          '
+      limit:
+        type: integer
+        default: 5
+        description: Số tweet. Lấy đúng số người dùng nói ('10 tweet'→10, 'mới nhất' không nêu số→1).
+    required:
+    - screenname
+- name: social_search
+  description: 'Tìm tweet/bài đăng mạng xã hội THEO CHỦ ĐỀ hoặc từ khóa ("mọi người nói gì về X"). KHÔNG dùng để
+    lấy tweet của một tài khoản (dùng timeline); KHÔNG dùng cho tin tức báo chí (dùng lookup).
+
+    '
+  parameters:
+    type: object
+    properties:
+      query:
+        type: string
+        default: ''
+        description: Từ khóa chủ đề ngắn gọn, vd 'GPT-5', 'AI'.
+      search_type:
+        type: string
+        enum:
+        - Latest
+        - Top
+        default: Latest
+        description: Top khi người dùng nói 'phổ biến/top/hot nhất'; còn lại Latest.
+      limit:
+        type: integer
+        default: 5
+        description: Số tweet.
+    required:
+    - query
+- name: lookup
+  description: 'Tìm trên web (tin tức, thông tin). DÙNG cho tin thời sự, tin tức báo chí và tra cứu web. KHÔNG dùng
+    khi đã có URL cụ thể (dùng fetch); KHÔNG dùng cho tweet (dùng social_search/timeline).
+
+    '
+  parameters:
+    type: object
+    properties:
+      query:
+        type: string
+        default: ''
+        description: Chỉ chủ đề cốt lõi, ngắn (vd 'AI', 'robotics', 'OpenAI'). KHÔNG thêm chữ 'news', 'tin tức',
+          'hôm nay' vào query.
+      topic:
+        type: string
+        enum:
+        - general
+        - news
+        default: general
+        description: Đặt 'news' cho mọi yêu cầu tin tức/tin mới/nổi bật. 'general' chỉ cho tra cứu kiến thức.
+      timeframe:
+        type: string
+        enum:
+        - day
+        - week
+        - month
+        - year
+        default: week
+        description: '''hôm nay''→day, ''tuần này''→week, ''tháng này''→month, ''năm nay''→year.'
+      max_results:
+        type: integer
+        default: 5
+        description: Số kết quả.
+    required:
+    - query
+- name: fetch
+  description: 'Đọc nội dung của MỘT URL mà người dùng đã đưa. Đây là thao tác CHỈ ĐỌC, gọi ngay, KHÔNG cần xác
+    nhận. KHÔNG tự đoán/bịa URL (thiếu link thì dùng clarify response_type=text). KHÔNG dùng để tìm kiếm.
+
+    '
+  parameters:
+    type: object
+    properties:
+      url:
+        type: string
+        default: ''
+        description: URL đầy đủ, đúng nguyên văn người dùng đưa.
+    required:
+    - url
+- name: format
+  description: Trình bày dữ liệu đã có thành văn bản.
+  parameters:
+    type: object
+    properties:
+      items:
+        type: array
+        default: []
+        description: Danh sách item
+        items:
+          type: object
+          properties:
+            title:
+              type: string
+            url:
+              type: string
+            source:
+              type: string
+            summary:
+              type: string
+            section:
+              type: string
+      template:
+        type: string
+        enum:
+        - brief
+        - sections
+        - bullets
+        - thread
+        - daily_ai_vn
+        default: sections
+        description: Khuôn
+      headline:
+        type: string
+        default: ''
+        description: Tiêu đề
+    required:
+    - items
+    - template
+- name: send
+  description: 'Gửi/đăng văn bản lên Telegram. LÀ HÀNH ĐỘNG GHI, KHÔNG THU HỒI ĐƯỢC. Chỉ gọi sau khi đã hỏi clarify
+    response_type=yes_no và người dùng trả lời đồng ý ở lượt sau. KHÔNG dùng để trả lời câu hỏi hay yêu cầu ngoài
+    phạm vi.
+
+    '
+  parameters:
+    type: object
+    properties:
+      text:
+        type: string
+        default: ''
+        description: Nội dung chính xác sẽ được gửi.
+      confirmed:
+        type: boolean
+        default: false
+        description: true CHỈ khi người dùng đã đồng ý rõ ràng ở lượt trước.
+    required:
+    - text
